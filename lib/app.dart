@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pet_care_app/feature/authentication/views/onboarding/onboarding_screen.dart';
+import 'package:pet_care_app/utils/theme/theme.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -7,10 +9,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: LocalTheme.lightTheme,
+      home: OnboardingScreen(),
     );
   }
 }

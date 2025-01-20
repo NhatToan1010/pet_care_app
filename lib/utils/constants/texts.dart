@@ -36,9 +36,9 @@ class LocalTexts {
 
 
   // Onboarding
-  static const onboardingTitle1 = 'We have all what you looking for';
-  static const onboardingTitle2 = 'Easy to Use, Easy to Buy';
-  static const onboardingTitle3 = 'Deliver your products in time';
+  static const onboardingTitle1 = 'Dịch vụ dắt thú cưng đi dạo';
+  static const onboardingTitle2 = 'Dịch vụ khám và chăm sóc thú cưng';
+  static const onboardingTitle3 = 'Dịch vụ chăm sóc thú cưng tại nhà';
 
   static const onboardingSubtitle = 'Lorem ipsum dolor sit amet, '
                                     'consectetur adipiscing elit. '
