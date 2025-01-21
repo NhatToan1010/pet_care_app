@@ -35,7 +35,9 @@ class SortableProduct extends StatelessWidget {
         () => GridLayout(
             mainAxisExtent: AppSize.productVerticalAxisExtent,
             itemCount: 1,
-            itemBuilder: (_, index) {},
+            itemBuilder: (_, index) {
+              return null;
+            },
           ),
         )
       ],
