@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_care_app/utils/constants/colors.dart';
 
 class SectionHeading extends StatelessWidget {
   const SectionHeading({
@@ -36,7 +37,7 @@ class SectionHeading extends StatelessWidget {
             onPressed: onPressed,
             child: Text(
               buttonTitle,
-              style: Theme.of(context).textTheme.labelMedium,
+              style: Theme.of(context).textTheme.labelMedium?.apply(color: AppPallete.primary),
               textAlign: TextAlign.end,
             ),
           ),

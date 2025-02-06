@@ -13,7 +13,6 @@ class CustomRatingBarIndicator extends StatelessWidget {
   final double rating;
   final double itemSize;
 
-
   @override
   Widget build(BuildContext context) {
     return RatingBarIndicator(
@@ -22,9 +21,7 @@ class CustomRatingBarIndicator extends StatelessWidget {
       unratedColor: AppPallete.greyColor,
       itemBuilder: (_, __) => Icon(
         Iconsax.star1,
-        color: HelperFunctions.isDarkMode(context)
-            ? AppPallete.secondary
-            : AppPallete.primary,
+        color: Colors.amber,
       ),
     );
   }

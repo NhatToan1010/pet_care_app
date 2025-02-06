@@ -15,11 +15,10 @@ class TitleTextWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: textTheme.headlineLarge),
-        SizedBox(height: AppSize.spaceBtwItems),
+        Text(title, style: textTheme.titleMedium),
         Text(
           subtitle,
-          style: textTheme.labelMedium,
+          style: textTheme.labelSmall,
         ),
       ],
     );
