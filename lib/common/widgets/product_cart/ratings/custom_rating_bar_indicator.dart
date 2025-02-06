@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../utils/constants/colors.dart';
-import '../../../../utils/helpers/helper_functions.dart';
 
 class CustomRatingBarIndicator extends StatelessWidget {
   const CustomRatingBarIndicator({
@@ -13,7 +12,6 @@ class CustomRatingBarIndicator extends StatelessWidget {
   final double rating;
   final double itemSize;
 
-
   @override
   Widget build(BuildContext context) {
     return RatingBarIndicator(
@@ -22,9 +20,7 @@ class CustomRatingBarIndicator extends StatelessWidget {
       unratedColor: AppPallete.greyColor,
       itemBuilder: (_, __) => Icon(
         Iconsax.star1,
-        color: HelperFunctions.isDarkMode(context)
-            ? AppPallete.secondary
-            : AppPallete.primary,
+        color: Colors.amber,
       ),
     );
   }
