@@ -47,8 +47,9 @@ class LocalButtonTheme {
   static final lightOutlinedButtonTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       elevation: 0,
-      foregroundColor: AppPallete.blackColor,
-      side: const BorderSide(color: AppPallete.primary),
+      foregroundColor: AppPallete.primary,
+      backgroundColor: AppPallete.primary.withValues(alpha: 0.1),
+      side: BorderSide(color: AppPallete.primary.withValues(alpha: 0.2), width: 2),
       textStyle: const TextStyle(
         fontSize: AppSize.fontSizeMedium,
         color: AppPallete.blackColor,
