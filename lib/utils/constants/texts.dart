@@ -43,6 +43,10 @@ class LocalTexts {
   static const onboardingSubtitle = 'Lorem ipsum dolor sit amet, '
                                     'consectetur adipiscing elit. '
                                     'Cras et neque cursus arcu pellentesque euismod. '
+                                    'Mauris id volutpat justo.'
+                                    'Lorem ipsum dolor sit amet, '
+                                    'consectetur adipiscing elit. '
+                                    'Cras et neque cursus arcu pellentesque euismod. '
                                     'Mauris id volutpat justo.';
 
   static const String onBoardingSubTitle1 = "Welcome to a World of Limitless Choices - Your Perfect Product Awaits!";

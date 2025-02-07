@@ -21,7 +21,7 @@ class CustomSearchBar extends StatelessWidget {
       side: WidgetStatePropertyAll(
         BorderSide(color: AppPallete.blackColor, strokeAlign: 1),
       ),
-      leading: Text('Tìm Kiếm ...'),
+      hintText: 'Tìm Kiếm ...',
       trailing: [
         Icon(Icons.search),
       ],

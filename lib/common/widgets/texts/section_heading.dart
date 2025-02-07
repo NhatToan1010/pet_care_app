@@ -7,7 +7,7 @@ class SectionHeading extends StatelessWidget {
     this.textColor,
     this.showActionButton = true,
     required this.title,
-    this.buttonTitle = 'View all',
+    this.buttonTitle = 'Xem thêm',
     this.onPressed, this.maxLines = 1,
   });
 
@@ -37,7 +37,7 @@ class SectionHeading extends StatelessWidget {
             onPressed: onPressed,
             child: Text(
               buttonTitle,
-              style: Theme.of(context).textTheme.labelMedium?.apply(color: AppPallete.primary),
+              style: Theme.of(context).textTheme.bodyLarge?.apply(color: AppPallete.primary),
               textAlign: TextAlign.end,
             ),
           ),

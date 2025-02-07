@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:pet_care_app/common/widgets/custom_shapes/containers/rounded_container.dart';
 
-import '../../../../common/widgets/images/rounded_rect_image.dart';
-import '../../../../common/widgets/texts/title_text.dart';
-import '../../../../utils/constants/colors.dart';
-import '../../../../utils/constants/sizes.dart';
+import '../images/rounded_rect_image.dart';
+import '../texts/title_text.dart';
+import '../../../utils/constants/colors.dart';
+import '../../../utils/constants/sizes.dart';
 
-class EmployeeCard extends StatelessWidget {
-  const EmployeeCard({
-    super.key,
+class EmployeeCardVertical extends StatelessWidget {
+  const EmployeeCardVertical({
+    super.key, required this.onTap,
   });
+
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 8,
       shadowColor: AppPallete.greyColor.withValues(alpha: 0.5),
-      child: Container(
+      child: RoundedContainer(
         width: 175,
-        decoration: BoxDecoration(
-            color: AppPallete.lightGrey,
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+        radius: AppSize.borderRadiusMedium,
+        backgroundColor: AppPallete.whiteColor,
         padding: EdgeInsets.all(AppSize.small),
+        onTap: onTap,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

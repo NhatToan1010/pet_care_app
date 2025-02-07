@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:pet_care_app/common/widgets/icons/circular_icon.dart';
 import 'package:pet_care_app/common/widgets/images/rounded_rect_image.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
 import 'package:pet_care_app/common/widgets/texts/title_text.dart';
-import 'package:pet_care_app/feature/customer/home/widgets/employee_card.dart';
+import 'package:pet_care_app/common/widgets/employee/employee_card_vertical.dart';
+import 'package:pet_care_app/feature/customer/employee_info/employee_info_screen.dart';
 import 'package:pet_care_app/utils/constants/colors.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 
@@ -71,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                         maxLines: 2,
                         style: Theme.of(context)
                             .textTheme
-                            .bodyMedium
+                            .titleMedium
                             ?.apply(color: AppPallete.primary),
                       )
                     ],
@@ -96,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(width: AppSize.medium),
                 itemCount: 4,
                 itemBuilder: (context, index) {
-                  return EmployeeCard();
+                  return EmployeeCardVertical(onTap: () => Get.to(() => EmployeeInfoScreen()),);
                 },
               ),
             ),
