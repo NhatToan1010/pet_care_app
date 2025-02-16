@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pet_care_app/utils/constants/colors.dart';
 import 'package:readmore/readmore.dart';
 
 class CustomReadMoreText extends StatelessWidget {
   const CustomReadMoreText({
-    super.key, required this.content, required this.trimLines,
+    super.key,
+    required this.content,
+    required this.trimLines,
   });
 
   final String content;
@@ -14,12 +17,22 @@ class CustomReadMoreText extends StatelessWidget {
     return ReadMoreText(
       textAlign: TextAlign.start,
       content,
+      style: Theme.of(context).textTheme.bodyLarge,
+      colorClickableText: AppPallete.primary,
       trimLines: trimLines,
       trimMode: TrimMode.Line,
-      trimCollapsedText: ' Show more',
-      trimExpandedText: ' Less',
-      moreStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-      lessStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+      trimCollapsedText: ' Nhiều hơn',
+      trimExpandedText: ' Ít đi',
+      moreStyle: const TextStyle(
+        fontSize: 10,
+        fontWeight: FontWeight.w500,
+        color: AppPallete.primary,
+      ),
+      lessStyle: const TextStyle(
+        fontSize: 10,
+        fontWeight: FontWeight.w500,
+        color: AppPallete.primary,
+      ),
     );
   }
 }

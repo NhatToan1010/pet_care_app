@@ -15,7 +15,7 @@ class CircularIcon extends StatelessWidget {
     this.backgroundColor = AppPallete.transparentColor, this.size,
   });
 
-  final IconData icon;
+  final IconData? icon;
   final double? width, height;
   final VoidCallback? onPressed;
   final Color? iconColor, backgroundColor;
