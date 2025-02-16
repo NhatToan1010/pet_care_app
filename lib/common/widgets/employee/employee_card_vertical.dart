@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pet_care_app/common/widgets/custom_shapes/containers/rounded_container.dart';
 
 import '../images/rounded_rect_image.dart';
+import '../product_cart/ratings/rating_icon_text.dart';
 import '../texts/title_text.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
@@ -33,7 +34,7 @@ class EmployeeCardVertical extends StatelessWidget {
               'assets/images/employees/employee_1_(crop).png',
               width: 175,
               fit: BoxFit.cover,
-              borderRadius: 5.0,
+              radius: 5.0,
             ),
             SizedBox(height: AppSize.small),
 
@@ -47,15 +48,7 @@ class EmployeeCardVertical extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Icon(Icons.star_rounded,
-                        color: Colors.amber, size: 15),
-                    Text(' 4.5',
-                        style:
-                        Theme.of(context).textTheme.bodyMedium),
-                  ],
-                ),
+                RatingIconText(),
                 Row(
                   children: [
                     Icon(Icons.badge_rounded,
@@ -73,3 +66,4 @@ class EmployeeCardVertical extends StatelessWidget {
     );
   }
 }
+

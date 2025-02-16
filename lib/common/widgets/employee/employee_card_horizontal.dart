@@ -12,10 +12,13 @@ import '../texts/title_text.dart';
 
 class EmployeeCardHorizontal extends StatelessWidget {
   const EmployeeCardHorizontal({
-    super.key, required this.onTap,
+    super.key,
+    required this.onTap,
+    this.hideButton = false,
   });
 
   final VoidCallback onTap;
+  final bool hideButton;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ class EmployeeCardHorizontal extends StatelessWidget {
                   width: 100,
                   height: 100,
                   fit: BoxFit.cover,
-                  borderRadius: 10.0,
+                  radius: 10.0,
                 ),
                 SizedBox(width: AppSize.spaceBtwItems),
 
@@ -49,8 +52,7 @@ class EmployeeCardHorizontal extends StatelessWidget {
                     SizedBox(
                       width: DeviceUtils.getScreenWidth() * 0.62,
                       child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TitleTextWidget(
                             title: 'Dương Nhân Văn',
@@ -77,11 +79,12 @@ class EmployeeCardHorizontal extends StatelessWidget {
             SizedBox(height: AppSize.small),
 
             // --- Chat Now Button
-            SizedBox(
-              width: double.infinity,
-              child: OutlinedButton(
-                  onPressed: () {}, child: Text('Trò Chuyện Ngay')),
-            )
+            if (hideButton)
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                    onPressed: () {}, child: Text('Trò Chuyện Ngay')),
+              ),
           ],
         ),
       ),

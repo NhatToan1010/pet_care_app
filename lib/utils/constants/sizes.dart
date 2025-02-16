@@ -67,7 +67,7 @@ class AppSize {
   static const double loadingIndicatorSize = 36.0;
 
   // Grid view spacing
-  static const double gridViewSpacing = 16.0;
+  static const double gridViewSpacing = 8.0;
 
   // Grid view main axis extent
   static const double productVerticalAxisExtent = 300.0;
