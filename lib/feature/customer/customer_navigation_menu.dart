@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:pet_care_app/feature/customer/chat/chat_screen.dart';
-import 'package:pet_care_app/feature/customer/history/history_booking_screen.dart';
-import 'package:pet_care_app/feature/customer/home/home_screen.dart';
+import 'package:pet_care_app/feature/customer/view/chat/chat_screen.dart';
+import 'package:pet_care_app/feature/customer/view/history/history_booking_screen.dart';
+import 'package:pet_care_app/feature/customer/view/home/home_screen.dart';
 import 'package:pet_care_app/feature/personalization/setting/setting_screen.dart';
 import 'package:pet_care_app/utils/constants/colors.dart';
 

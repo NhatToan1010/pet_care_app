@@ -7,12 +7,12 @@ import 'package:pet_care_app/common/widgets/images/rounded_rect_image.dart';
 import 'package:pet_care_app/common/widgets/product_cart/ratings/rating_icon_text.dart';
 import 'package:pet_care_app/common/widgets/texts/custom_read_more_text.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
-import 'package:pet_care_app/feature/customer/service/widgets/dog_walking_service.dart';
+import 'package:pet_care_app/feature/customer/view/service/widgets/dog_walking_service.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 import 'package:pet_care_app/utils/constants/texts.dart';
 
-import '../../../common/widgets/icons/circular_icon.dart';
-import '../../../utils/constants/colors.dart';
+import '../../../../common/widgets/icons/circular_icon.dart';
+import '../../../../utils/constants/colors.dart';
 
 class ServiceDetailScreen extends StatelessWidget {
   const ServiceDetailScreen({super.key});

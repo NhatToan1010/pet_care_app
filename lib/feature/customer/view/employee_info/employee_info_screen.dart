@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pet_care_app/feature/customer/employee_info/widgets/employee_info_app_bar.dart';
-import 'package:pet_care_app/feature/customer/employee_info/widgets/employee_info_button_group.dart';
-import 'package:pet_care_app/feature/customer/employee_info/widgets/employee_info_detail.dart';
+import 'package:pet_care_app/feature/customer/view/employee_info/widgets/employee_info_app_bar.dart';
+import 'package:pet_care_app/feature/customer/view/employee_info/widgets/employee_info_button_group.dart';
+import 'package:pet_care_app/feature/customer/view/employee_info/widgets/employee_info_detail.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 
-import '../../../common/widgets/texts/title_text.dart';
+import '../../../../common/widgets/texts/title_text.dart';
+
 
 class EmployeeInfoScreen extends StatelessWidget {
   const EmployeeInfoScreen({super.key});

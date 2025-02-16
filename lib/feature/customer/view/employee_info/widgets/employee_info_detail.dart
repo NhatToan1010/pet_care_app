@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/widgets/texts/section_heading.dart';
-import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/constants/texts.dart';
+import '../../../../../common/widgets/texts/section_heading.dart';
+import '../../../../../utils/constants/sizes.dart';
+import '../../../../../utils/constants/texts.dart';
 
 class EIDetail extends StatelessWidget {
   const EIDetail({
