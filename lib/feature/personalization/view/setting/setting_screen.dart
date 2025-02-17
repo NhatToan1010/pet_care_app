@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
-import 'package:pet_care_app/feature/personalization/profile/profile_screen.dart';
-import 'package:pet_care_app/feature/personalization/setting/widgets/setting_menu_item.dart';
+import 'package:pet_care_app/feature/personalization/view/setting/widgets/setting_menu_item.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 
-import '../../../common/widgets/appbar/custom_appbar.dart';
+import '../../../../common/widgets/appbar/custom_appbar.dart';
+import '../profile/profile_screen.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:pet_care_app/common/widgets/appbar/custom_appbar.dart';
 import 'package:pet_care_app/common/widgets/custom_shapes/curved_edges/curved_edges.dart';
@@ -7,6 +9,7 @@ import 'package:pet_care_app/common/widgets/images/rounded_rect_image.dart';
 import 'package:pet_care_app/common/widgets/product_cart/ratings/rating_icon_text.dart';
 import 'package:pet_care_app/common/widgets/texts/custom_read_more_text.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
+import 'package:pet_care_app/feature/customer/view/order/purchase_screen.dart';
 import 'package:pet_care_app/feature/customer/view/service/widgets/dog_walking_service.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 import 'package:pet_care_app/utils/constants/texts.dart';
@@ -134,7 +137,7 @@ class ServiceDetailScreen extends StatelessWidget {
             horizontal: AppSize.defaultSpace, vertical: AppSize.small),
         child: SizedBox(
           width: double.infinity,
-          child: ElevatedButton(onPressed: () {}, child: Text('Đặt Lịch Ngay')),
+          child: ElevatedButton(onPressed: () => Get.to(() => PurchaseScreen()), child: Text('Đặt Lịch Ngay')),
         ),
       ),
     );

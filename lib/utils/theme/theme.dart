@@ -4,6 +4,7 @@ import 'package:pet_care_app/utils/theme/widget_themes/bottom_sheet_theme.dart';
 import 'package:pet_care_app/utils/theme/widget_themes/button_theme.dart';
 import 'package:pet_care_app/utils/theme/widget_themes/check_box_theme.dart';
 import 'package:pet_care_app/utils/theme/widget_themes/chip_theme.dart';
+import 'package:pet_care_app/utils/theme/widget_themes/radio.dart';
 import 'package:pet_care_app/utils/theme/widget_themes/switch_theme.dart';
 import 'package:pet_care_app/utils/theme/widget_themes/text_theme.dart';
 
@@ -28,7 +29,8 @@ class LocalTheme {
     inputDecorationTheme: LocalTextTheme.lightInputDecorationTheme,
     bottomSheetTheme: LocalBottomSheetTheme.lightBottomSheetTheme,
     floatingActionButtonTheme: LocalButtonTheme.lightFloatingActionButtonTheme,
-    switchTheme: LocalSwitchTheme.lightSwitchTheme
+    switchTheme: LocalSwitchTheme.lightSwitchTheme,
+    radioTheme: LocalRadioTheme.radioTheme,
   );
 
   static ThemeData darkTheme = ThemeData(
