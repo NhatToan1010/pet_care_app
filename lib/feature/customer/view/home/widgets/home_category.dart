@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/widgets/images/circle_image.dart';
-import '../../../../utils/constants/colors.dart';
-import '../../../../utils/constants/sizes.dart';
+import '../../../../../common/widgets/images/circle_image.dart';
+import '../../../../../utils/constants/colors.dart';
+import '../../../../../utils/constants/sizes.dart';
 
 class HomeCategory extends StatelessWidget {
   const HomeCategory({

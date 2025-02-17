@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_app/common/widgets/appbar/custom_appbar.dart';
-import 'package:pet_care_app/feature/customer/employee_info/employee_info_screen.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 import 'package:pet_care_app/utils/device/device_utility.dart';
 
-import '../../../common/widgets/employee/employee_card_horizontal.dart';
+import '../../../../common/widgets/employee/employee_card_horizontal.dart';
+import '../employee_info/employee_info_screen.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});

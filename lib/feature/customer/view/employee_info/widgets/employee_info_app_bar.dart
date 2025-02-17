@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../common/widgets/appbar/custom_appbar.dart';
-import '../../../../common/widgets/custom_shapes/curved_edges/curved_edges.dart';
-import '../../../../common/widgets/icons/circular_icon.dart';
-import '../../../../common/widgets/images/circle_image.dart';
-import '../../../../utils/constants/colors.dart';
-import '../../../../utils/constants/sizes.dart';
+import '../../../../../common/widgets/appbar/custom_appbar.dart';
+import '../../../../../common/widgets/custom_shapes/curved_edges/curved_edges.dart';
+import '../../../../../common/widgets/icons/circular_icon.dart';
+import '../../../../../common/widgets/images/circle_image.dart';
+import '../../../../../utils/constants/colors.dart';
+import '../../../../../utils/constants/sizes.dart';
 
 class EIAppBar extends StatelessWidget {
   const EIAppBar({

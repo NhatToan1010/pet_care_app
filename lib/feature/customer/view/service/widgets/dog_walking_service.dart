@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/validators/validations.dart';
+import '../../../../../utils/constants/sizes.dart';
+import '../../../../../utils/validators/validations.dart';
 
 class DogWalkingService extends StatelessWidget {
   const DogWalkingService({super.key});

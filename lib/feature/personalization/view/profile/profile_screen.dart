@@ -3,7 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:pet_care_app/common/widgets/appbar/custom_appbar.dart';
 import 'package:pet_care_app/common/widgets/custom_shapes/curved_edges/curved_edges.dart';
 import 'package:pet_care_app/common/widgets/images/circle_image.dart';
-import 'package:pet_care_app/feature/personalization/profile/widgets/profile_menu_item.dart';
+import 'package:pet_care_app/feature/personalization/view/profile/widgets/profile_menu_item.dart';
 import 'package:pet_care_app/utils/constants/colors.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 

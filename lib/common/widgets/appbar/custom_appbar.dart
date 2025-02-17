@@ -18,9 +18,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingColor,
     this.centerTitle = false,
     this.iconBackgroundColor = AppPallete.transparentColor,
+    this.bottom,
   });
 
   final Widget? title;
+  final PreferredSizeWidget? bottom;
   final bool showBackArrow;
   final bool centerTitle;
   final IconData? leadingIcon;
@@ -33,7 +35,6 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSize.medium),
       child: AppBar(
-        automaticallyImplyLeading: false,
         leading: showBackArrow
             ? IconButton(
                 onPressed: () => Get.back(),
@@ -42,18 +43,11 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
                     backgroundColor: iconBackgroundColor,
                     foregroundColor: leadingColor),
               )
-            : leadingIcon != null
-                ? IconButton(
-                    onPressed: leadingOnPressed,
-                    icon: Icon(leadingIcon),
-                    style: IconButton.styleFrom(
-                        backgroundColor: iconBackgroundColor,
-                        foregroundColor: leadingColor),
-                  )
-                : null,
+            : null,
         title: title,
         actions: actions,
         centerTitle: centerTitle,
+        bottom: bottom,
       ),
     );
   }

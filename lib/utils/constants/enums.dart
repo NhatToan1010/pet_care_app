@@ -2,6 +2,6 @@ enum TextSizes {small, medium, large}
 
 enum OrderStatus {pending, processing, shipped, delivered, canceled}
 
-enum PaymentMethods {paypal, googlePay, applePay, visa, masterCard, creditCard}
+enum PaymentMethods {paypal, googlePay, applePay, visa, masterCard, creditCard, payDirectly}
 
 enum ProductType {single, variable}

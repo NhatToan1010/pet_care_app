@@ -10,15 +10,15 @@ import 'package:pet_care_app/common/widgets/service/service_card_vertical.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
 import 'package:pet_care_app/common/widgets/texts/title_text.dart';
 import 'package:pet_care_app/common/widgets/employee/employee_card_vertical.dart';
-import 'package:pet_care_app/feature/customer/category/category_screen.dart';
-import 'package:pet_care_app/feature/customer/employee_info/employee_info_screen.dart';
-import 'package:pet_care_app/feature/customer/home/widgets/home_category.dart';
-import 'package:pet_care_app/feature/customer/service/service_detail_screen.dart';
+import 'package:pet_care_app/feature/customer/view/home/widgets/home_category.dart';
+
 import 'package:pet_care_app/utils/constants/colors.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 
-import '../../../common/widgets/images/circle_image.dart';
-import '../../../common/widgets/search_bar/search_bar.dart';
+import '../../../../common/widgets/search_bar/search_bar.dart';
+import '../category/category_screen.dart';
+import '../employee_info/employee_info_screen.dart';
+import '../service/service_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
