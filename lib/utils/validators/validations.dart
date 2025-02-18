@@ -1,14 +1,14 @@
 class Validator {
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return 'An email is required.';
+      return 'Email không được để trống';
     }
 
     // RegExp for email validation
     final emailRegExp = RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$');
 
     if (!emailRegExp.hasMatch(value)) {
-      return 'Invalid email address.';
+      return 'Địa chỉ email không hợp lệ.';
     }
 
     return null;
@@ -16,27 +16,27 @@ class Validator {
 
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return 'A password required.';
+      return 'Mật khẩu không được để trống.';
     }
 
     // Check minimum password length
     if (value.length < 6) {
-      return 'Password length must be at least 6 characters.';
+      return 'Mật khẩu phải dài hơn 6 ký tự.';
     }
 
     // Check for uppercase letter
     if (!value.contains(RegExp(r'[A-Z]'))) {
-      return 'Password must contain at least one uppercase letter.';
+      return 'Mật khẩu phải chứa ít nhất một chữ in hoa.';
     }
 
     // Check for numbers
     if (!value.contains(RegExp(r'[0-9]'))) {
-      return 'Password must contain at least one number.';
+      return 'Mật khẩu phải chứa ít nhất một số.';
     }
 
     // Check for special characters
     if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return 'Password must contain at least one special character.';
+      return 'Mật khẩu phải chứa ít nhất một ký tự đặc biệt.';
     }
 
     return null;
@@ -44,14 +44,14 @@ class Validator {
 
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Phone number is required.';
+      return 'Số điện thoại không được để trống.';
     }
 
     // Regular expression for phone number validation (assuming a 10-digit US phone number format)
     final phoneRegExp = RegExp(r'^\d{10}$');
 
     if (!phoneRegExp.hasMatch(value)) {
-      return 'Invalid phone number.';
+      return 'Số điện thoại không hợp lệ.';
     }
 
     return null;
@@ -59,7 +59,7 @@ class Validator {
 
   static String? validateEmptyText (String? fieldName, String? value) {
     if (value == null || value.isEmpty) {
-      return '$fieldName is required.';
+      return '$fieldName không được để trống.';
     }
 
     return null;

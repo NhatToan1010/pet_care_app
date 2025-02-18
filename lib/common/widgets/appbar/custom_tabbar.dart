@@ -17,7 +17,6 @@ class CustomTabBar extends StatelessWidget implements PreferredSizeWidget {
     final isDark = HelperFunctions.isDarkMode(context);
 
     return TabBar(
-      isScrollable: true,
       indicatorColor: AppPallete.primary,
       labelColor: isDark ? AppPallete.whiteColor : AppPallete.blackColor,
       unselectedLabelColor: AppPallete.darkGrey,

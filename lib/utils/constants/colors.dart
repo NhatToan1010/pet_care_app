@@ -4,17 +4,9 @@ class AppPallete {
   AppPallete._();
 
 //   App Colors
-//   static const Color primary = Color(0xFF74512D);
-//   static const Color secondary = Color(0xFFC9B39C);
-//   static const Color third = Color(0xFFF8F4E1);
-
-  static const Color primary = Color(0xFF0048B5);
+  static const Color primary = Color(0xFF0ABFAC);
   static const Color secondary = Color(0xFF72A1FF);
-  static const Color third = Color(0xFFADC9FF);
-
-  // static const Color primary = Color(0xFF903900);
-  // static const Color secondary = Color(0xFFFFA658);
-  // static const Color third = Color(0xFFF8F4E1);
+  static const Color third = Color(0xFFF6C860);
 
 //  Neutral Shades
   static const Color transparentColor = Colors.transparent;

@@ -15,27 +15,30 @@ class RoundedRectImage extends StatelessWidget {
     this.margin,
     this.onTap,
     this.fit = BoxFit.contain,
-    this.borderRadius = AppSize.borderRadiusLarge,
+    this.radius = AppSize.borderRadiusLarge,
     this.isNetworkImage = false,
     this.backgroundColor = AppPallete.transparentColor,
     this.imageColor,
     this.imgWidth,
-    this.imgHeight, 
-    this.halfRadius = false,
-    this.boxShadow, this.border,
+    this.imgHeight,
+    this.boxShadow,
+    this.border,
+    this.defaultRadius = true,
+    this.borderRadius,
   });
 
   final String imageUrl;
   final double? width, height, imgWidth, imgHeight;
-  final double borderRadius;
+  final double radius;
   final bool isNetworkImage;
-  final bool halfRadius;
+  final bool defaultRadius;
   final BoxFit? fit;
   final Color? backgroundColor, imageColor;
   final EdgeInsetsGeometry? padding, margin;
   final VoidCallback? onTap;
   final List<BoxShadow>? boxShadow;
   final BoxBorder? border;
+  final BorderRadius? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +52,13 @@ class RoundedRectImage extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor,
           border: border,
-          borderRadius: BorderRadius.circular(borderRadius),
+          borderRadius:
+              defaultRadius ? BorderRadius.circular(radius) : borderRadius,
           boxShadow: boxShadow,
         ),
         child: ClipRRect(
-          borderRadius: halfRadius ? BorderRadius.only(topRight: Radius.circular(borderRadius), topLeft: Radius.circular(borderRadius)) : BorderRadius.circular(borderRadius),
+          borderRadius:
+              defaultRadius ? BorderRadius.circular(radius) : borderRadius!,
           child: isNetworkImage
               ? CachedNetworkImage(
                   width: imgWidth,
@@ -62,7 +67,8 @@ class RoundedRectImage extends StatelessWidget {
                   fit: fit,
                   color: imageColor,
                   progressIndicatorBuilder: (context, url, downloadIndicator) =>
-                      const CustomShimmerEffect(width: double.infinity, height: 200),
+                      const CustomShimmerEffect(
+                          width: double.infinity, height: 200),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 )
               : Image(
