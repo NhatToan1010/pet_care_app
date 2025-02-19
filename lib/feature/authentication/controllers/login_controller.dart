@@ -6,7 +6,7 @@ class LoginController extends GetxController {
 
   final email = TextEditingController();
   final password = TextEditingController();
-  GlobalKey<FormState> loginKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> loginKey = GlobalKey<FormState>();
   Rx<bool> isHidedPassword = true.obs;
 
   void login() {
