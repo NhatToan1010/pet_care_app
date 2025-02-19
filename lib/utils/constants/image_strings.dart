@@ -34,4 +34,7 @@ class LocalImages {
   static const String avatarMen = "assets/images/personalization/men_avatar.jpg";
   static const String avatarBoy = "assets/images/personalization/boy_avatar.jpg";
   static const String avatarGirl = "assets/images/personalization/girl_avatar.jpg";
+
+  // --- Animation
+  static const String loadingAnim = "assets/images/onboarding/animation_loading.json";
 }
