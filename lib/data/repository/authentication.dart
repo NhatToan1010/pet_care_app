@@ -3,11 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pet_care_app/data/repository/user.dart';
 import 'package:pet_care_app/feature/authentication/views/login/login_screen.dart';
 import 'package:pet_care_app/feature/customer/customer_navigation_menu.dart';
 import 'package:pet_care_app/utils/storage/storage_utility.dart';
 
 import '../../feature/authentication/views/onboarding/onboarding_screen.dart';
+import '../../feature/employee/view/employee_home.dart';
+import '../../utils/constants/enums.dart';
 import '../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../utils/exceptions/format_exceptions.dart';
 import '../../utils/exceptions/platform_exceptions.dart';
@@ -33,7 +36,14 @@ class AuthenticationRepository extends GetxController {
 
     if (user != null) {
       await LocalStorage.init(user.uid);
-      Get.offAll(() => CustomerNavigationMenu());
+      final userData = await UserRepository.instance.getUser();
+      print('-----------------------------------------------------${userData.userType}');
+
+      if (userData.userType == UserType.customer.toString()) {
+        Get.offAll(() => CustomerNavigationMenu());
+      } else if (userData.userType == UserType.employee.toString()) {
+        Get.offAll(() => EmployeeHomeScreen());
+      }
     } else {
       deviceStorage.writeIfNull('IsFirstTime', true);
 
@@ -59,7 +69,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  Future<UserCredential> signInWithEmailAndPassword(String email, String password) {
+  Future<UserCredential> signInWithEmailAndPassword(String email, String password) async {
     try {
       return _auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
