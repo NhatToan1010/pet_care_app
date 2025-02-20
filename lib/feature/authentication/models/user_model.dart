@@ -38,15 +38,15 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel{' +
-        ' id: $id,' +
-        ' firstName: $firstName,' +
-        ' lastName: $lastName,' +
-        ' phoneNumber: $phoneNumber,' +
-        ' avatarURL: $avatarURL,' +
-        ' userType: $userType,' +
-        ' yearExperience: $yearExperience,' +
-        ' serviceDone: $serviceDone,' +
+    return 'UserModel{'
+        ' id: $id,'
+        ' firstName: $firstName,'
+        ' lastName: $lastName,'
+        ' phoneNumber: $phoneNumber,'
+        ' avatarURL: $avatarURL,'
+        ' userType: $userType,'
+        ' yearExperience: $yearExperience,'
+        ' serviceDone: $serviceDone,'
         '}';
   }
 
@@ -86,32 +86,6 @@ class UserModel {
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': this.id,
-      'firstName': this.firstName,
-      'lastName': this.lastName,
-      'phoneNumber': this.phoneNumber,
-      'avatarURL': this.avatarURL,
-      'userType': this.userType,
-      'yearExperience': this.yearExperience,
-      'serviceDone': this.serviceDone,
-    };
-  }
-
-  factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
-      id: map['id'] as String,
-      firstName: map['firstName'] as String,
-      lastName: map['lastName'] as String,
-      phoneNumber: map['phoneNumber'] as String,
-      avatarURL: map['avatarURL'] as String,
-      userType: map['userType'] as String,
-      yearExperience: map['yearExperience'] as String,
-      serviceDone: map['serviceDone'] as String,
-    );
-  }
-
   factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
     if (doc.data() != null) {
       final data = doc.data()!;
@@ -147,7 +121,8 @@ class UserModel {
     String firstName = nameParts[0].toLowerCase();
     String lastName = nameParts.length > 1 ? nameParts[1].toLowerCase() : '';
 
-    String camelCaseUsername = "$firstName$lastName"; // Combine of first name and last name
+    String camelCaseUsername =
+        "$firstName$lastName"; // Combine of first name and last name
     String usernameWithPrefix = "cwt_$camelCaseUsername";
 
     return usernameWithPrefix;

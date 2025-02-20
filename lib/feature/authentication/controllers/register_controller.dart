@@ -24,7 +24,7 @@ class RegisterController extends GetxController {
   final GlobalKey<FormState> registerKey = GlobalKey<FormState>();
 
   final _auth = AuthenticationRepository.instance;
-  final userRepo = Get.put(UserRepository());
+  final _userRepo = UserRepository.instance;
 
   Future<void> register() async {
     try {
@@ -56,7 +56,7 @@ class RegisterController extends GetxController {
         serviceDone: '',
       );
 
-      userRepo.createNewUser(user);
+      await _userRepo.createNewUser(user);
       print("User Creation Successful");
 
       FullScreenLoader.stopLoading();

@@ -12,11 +12,11 @@ import '../../utils/exceptions/platform_exceptions.dart';
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
 
-  final _db = FirebaseFirestore.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Future<void> createNewUser(UserModel user) async {
     try {
-      await _db.collection("Users").doc(user.id).set(user.toJSON());
+      _db.collection("Users").doc(user.id).set(user.toJSON());
     } on FirebaseAuthException catch (e) {
       throw LocalFirebaseAuthExceptions(e.code).message;
     } on FirebaseException catch (e) {
