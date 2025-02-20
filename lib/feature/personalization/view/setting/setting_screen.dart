@@ -6,6 +6,7 @@ import 'package:pet_care_app/feature/personalization/view/setting/widgets/settin
 import 'package:pet_care_app/utils/constants/sizes.dart';
 
 import '../../../../common/widgets/appbar/custom_appbar.dart';
+import '../../user_controller.dart';
 import '../profile/profile_screen.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -14,10 +15,10 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final userController = UserController.instance;
 
     return Scaffold(
       appBar: CustomAppbar(
-        showBackArrow: true,
         title: Text(
           'Cài Đặt',
           style: textTheme.titleMedium,
@@ -75,7 +76,9 @@ class SettingScreen extends StatelessWidget {
             // --- Logout Button
             SizedBox(
               width: double.infinity,
-              child: OutlinedButton(onPressed: () {}, child: Text('Đăng Xuất')),
+              child: OutlinedButton(
+                  onPressed: () => userController.logOut(),
+                  child: Text('Đăng Xuất')),
             )
           ],
         ),
