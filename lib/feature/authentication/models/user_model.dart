@@ -7,18 +7,18 @@ class UserModel {
   final String firstName;
   final String lastName;
   final String phoneNumber;
-  final String? avatarURL;
+  String? avatarURL;
   final String userType;
   final String? yearExperience;
   final String? serviceDone;
 
 //<editor-fold desc="Data Methods">
-  const UserModel({
+  UserModel({
     required this.id,
     required this.firstName,
     required this.lastName,
     required this.phoneNumber,
-    required this.avatarURL,
+    this.avatarURL = '',
     required this.userType,
     required this.yearExperience,
     required this.serviceDone,

@@ -11,6 +11,7 @@ import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
 import 'package:pet_care_app/common/widgets/texts/title_text.dart';
 import 'package:pet_care_app/common/widgets/employee/employee_card_vertical.dart';
 import 'package:pet_care_app/feature/customer/view/home/widgets/home_category.dart';
+import 'package:pet_care_app/feature/personalization/user_controller.dart';
 
 import 'package:pet_care_app/utils/constants/colors.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
@@ -25,6 +26,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userController = Get.put(UserController());
+    final user = userController.user.value;
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: EdgeInsets.all(AppSize.defaultSpace),
@@ -35,7 +39,7 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TitleTextWidget(
-                    title: 'Xin Chào, John',
+                    title: 'Xin Chào, ${user.firstName}',
                     subtitle: 'Hôm nay thú cưng của bạn thế nào?'),
                 CircularIcon(
                   icon: Iconsax.notification,
