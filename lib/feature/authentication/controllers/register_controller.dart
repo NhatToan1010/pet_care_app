@@ -57,15 +57,14 @@ class RegisterController extends GetxController {
       );
 
       await _userRepo.createNewUser(user);
-      print("User Creation Successful");
-
-      FullScreenLoader.stopLoading();
 
       if (user.id.isNotEmpty) {
         Get.offAll(() => CustomerNavigationMenu());
       } else {
         Get.offAll(() => LoginScreen());
       }
+
+      FullScreenLoader.stopLoading();
     } catch (e) {
       FullScreenLoader.stopLoading();
       throw e.toString();
