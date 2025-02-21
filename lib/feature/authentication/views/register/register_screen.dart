@@ -37,17 +37,36 @@ class RegisterScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     // --- First & Last name
-                    TextFormField(
-                      controller: controller.fullName,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Iconsax.profile_2user),
-                        label: Text(
-                          'Tên Khách Hàng',
-                          style: textTheme.bodyMedium,
+                    Wrap(
+                      alignment: WrapAlignment.spaceBetween,
+                      runSpacing: AppSize.spaceBtwInputField,
+                      direction: Axis.horizontal,
+                      children: [
+                        TextFormField(
+                          controller: controller.firstName,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Iconsax.profile_2user),
+                            label: Text(
+                              'Tên',
+                              style: textTheme.bodyMedium,
+                            ),
+                          ),
+                          validator: (value) =>
+                              Validator.validateEmptyText('Tên', value),
                         ),
-                      ),
-                      validator: (value) =>
-                          Validator.validateEmptyText('Tên Khách Hàng', value),
+                        TextFormField(
+                          controller: controller.lastName,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Iconsax.profile_2user),
+                            label: Text(
+                              'Họ và tên đệm',
+                              style: textTheme.bodyMedium,
+                            ),
+                          ),
+                          validator: (value) =>
+                              Validator.validateEmptyText('Họ và tên đệm', value),
+                        ),
+                      ],
                     ),
                     SizedBox(height: AppSize.spaceBtwInputField),
 
@@ -68,10 +87,11 @@ class RegisterScreen extends StatelessWidget {
                     // --- Phone Number
                     TextFormField(
                       controller: controller.phoneNo,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Iconsax.mobile),
                         label: Text(
-                          'Số Điện Thoại',
+                          'Số điện thoại',
                           style: textTheme.bodyMedium,
                         ),
                       ),
@@ -95,7 +115,7 @@ class RegisterScreen extends StatelessWidget {
                             ),
                           ),
                           label: Text(
-                            'Mật Khẩu',
+                            'Mật khẩu',
                             style: textTheme.bodyMedium,
                           ),
                         ),

@@ -1,24 +1,72 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:pet_care_app/data/repository/authentication.dart';
+import 'package:pet_care_app/data/repository/user.dart';
+import 'package:pet_care_app/feature/authentication/models/user_model.dart';
+import 'package:pet_care_app/feature/authentication/views/login/login_screen.dart';
+import 'package:pet_care_app/feature/customer/customer_navigation_menu.dart';
+import 'package:pet_care_app/utils/constants/enums.dart';
+import 'package:pet_care_app/utils/constants/image_strings.dart';
+import 'package:pet_care_app/utils/network/network_manager.dart';
+import 'package:pet_care_app/utils/popups/full_screen_loader.dart';
 
 class RegisterController extends GetxController {
   static RegisterController get instance => Get.find();
 
   final email = TextEditingController();
   final password = TextEditingController();
-  final fullName = TextEditingController();
+  final firstName = TextEditingController();
+  final lastName = TextEditingController();
   final phoneNo = TextEditingController();
 
   Rx<bool> isHidedPassword = true.obs;
 
-  GlobalKey<FormState> registerKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> registerKey = GlobalKey<FormState>();
 
-  void register() {
+  final _auth = AuthenticationRepository.instance;
+  final _userRepo = UserRepository.instance;
+
+  Future<void> register() async {
     try {
-      if (!registerKey.currentState!.validate()) {
+      FullScreenLoader.openLoadingDialog(
+          'Vui Lòng Đợi...', LocalImages.loadingAnim);
+
+      final isNetworkConnected = await NetworkManager.instance.isConnected();
+      if (!isNetworkConnected) {
+        FullScreenLoader.stopLoading();
         return;
       }
+
+      if (!registerKey.currentState!.validate()) {
+        FullScreenLoader.stopLoading();
+        return;
+      }
+
+      final userCredential = await _auth.registerWithEmailAndPassword(
+          email.text.toString().trim(), password.text.toString().trim());
+
+      final user = UserModel(
+        id: userCredential.user!.uid,
+        firstName: firstName.text.toString().trim(),
+        lastName: lastName.text.toString().trim(),
+        phoneNumber: phoneNo.text.toString().trim(),
+        avatarURL: '',
+        userType: UserType.customer.toString(),
+        yearExperience: '',
+        serviceDone: '',
+      );
+
+      await _userRepo.createNewUser(user);
+
+      if (user.id.isNotEmpty) {
+        Get.offAll(() => CustomerNavigationMenu());
+      } else {
+        Get.offAll(() => LoginScreen());
+      }
+
+      FullScreenLoader.stopLoading();
     } catch (e) {
+      FullScreenLoader.stopLoading();
       throw e.toString();
     }
   }

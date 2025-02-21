@@ -1,0 +1,17 @@
+flutter_native_splash:
+  color: "#FAFAFA"
+  color_dark: "#242424"
+  image: assets/images/icons/dog_walking.png
+  image_dark: assets/images/icons/dog_walking.png
+
+  android_12:
+    color: "#FAFAFA"
+    color_dark: "#242424"
+    image: assets/images/icons/dog_walking.png
+    image_dark: assets/images/icons/dog_walking.png
+
+  web:
+    color: "#FAFAFA"
+    color_dark: "#242424"
+    image: assets/images/icons/dog_walking.png
+    image_dark: assets/images/icons/dog_walking.png
