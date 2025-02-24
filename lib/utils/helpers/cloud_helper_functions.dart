@@ -16,10 +16,10 @@ class CloudHelperFunctions {
       return const Center(child: VerticalProductShimmer());
     }
     if (!snapshot.hasData || snapshot.data == null) {
-      return const Center(child: Text('No Data Found!'));
+      return Center(child: Text('Không Tìm Thấy Dữ Liệu!'));
     }
     if (snapshot.hasError) {
-      return const Center(child: Text('Something went wrong!'));
+      return Center(child: Text('Có Lỗi Xảy Ra!'));
     }
     return null;
   }
@@ -41,11 +41,11 @@ class CloudHelperFunctions {
     }
     if (!snapshot.hasData || snapshot.data == null) {
       if (nothingFound != null) return nothingFound;
-      return const Center(child: Text('No Data Found!'));
+      return const Center(child: Text('Không Tìm Thấy Dữ Liệu!'));
     }
     if (snapshot.hasError) {
       if (error != null) return error;
-      return const Center(child: Text('Something went wrong!'));
+      return const Center(child: Text('Có Lỗi Xảy Ra!'));
     }
     return null;
   }

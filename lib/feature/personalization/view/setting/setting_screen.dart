@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
+import 'package:pet_care_app/feature/personalization/view/setting/upload_data_screen.dart';
 import 'package:pet_care_app/feature/personalization/view/setting/widgets/setting_menu_item.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 
@@ -70,6 +71,13 @@ class SettingScreen extends StatelessWidget {
             SettingMenuItem(
               leadingIcon: Iconsax.lifebuoy,
               title: 'FAQ',
+            ),
+            SizedBox(height: AppSize.spaceBtwSections),
+
+            SettingMenuItem(
+              onPressed: () => Get.to(() => UploadDataScreen()),
+              leadingIcon: Iconsax.arrow_up,
+              title: 'Tải Lên',
             ),
             SizedBox(height: AppSize.spaceBtwSections),
 

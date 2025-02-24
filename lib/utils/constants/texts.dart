@@ -1,39 +1,27 @@
 class LocalTexts {
+  static const dogWalkingDesciption =
+      'Dịch vụ cung cấp người dắt chó chuyên nghiệp để đưa chó đi dạo, '
+      'tập thể dục và vui chơi. Dịch vụ này phổ biến đối với chủ sở hữu chó không có đủ thời gian'
+      ' hoặc sức khỏe để tự mình dắt chó đi dạo.';
 
-  // Utils
-  static const skip = 'Skip';
-  static const save = 'Save';
-  static const done = 'Done';
-  static const resend = 'Resend';
-  static const continueText = 'Continue';
-  static const search = 'Search Here';
-  static const and = 'and';
-  static const or = 'Or';
-  static const google = 'Google';
-  static const facebook = 'Facebook';
+  static const petSittingDescription =
+      'Dịch vụ giúp chăm sóc thú cưng của bạn khi bạn vắng nhà, '
+      'đi du lịch, công tác hoặc đơn giản là quá bận rộn. '
+      'Dịch vụ này mang đến sự an tâm cho chủ nuôi, '
+      'đảm bảo thú cưng được chăm sóc chu đáo, an toàn và hạnh phúc.';
 
-  static const userReview = 'This product is useful to me. I use it every month, every one give me a lot of positive comment. Highly recommend';
-  static const feedBack = 'Thank you for leaving a review on this product. We hope you have a best experience with your choice.';
+  static const petTaxiDescription =
+      'Dịch vụ vận chuyển chuyên biệt dành cho thú cưng, '
+      'giúp đưa đón thú cưng của bạn đến các địa điểm khác nhau một cách an toàn và thoải mái. '
+      'Dịch vụ này đặc biệt hữu ích khi chủ nuôi bận rộn, '
+      'không có phương tiện di chuyển hoặc thú cưng gặp khó khăn trong việc di chuyển.';
 
-  // Form texts
-  static const fistName = 'First Name';
-  static const lastName = 'Last Name';
-  static const userName = 'User Name';
-  static const email = 'E-Mail';
-  static const password = 'Password';
-  static const phoneNo = 'Phone Number';
-  static const iAgree = 'I agree to';
-  static const privacyPolicy = 'Privacy Policy';
-  static const termsOfUse = 'Terms of Use';
-  static const signInWith = ' Sign-In with';
-  static const signUpWith = ' Sign Up with';
-
-  // Bottom Navigation
-  static const home = 'Home';
-  static const store = 'Store';
-  static const wishlist = 'Wishlist';
-  static const profile = 'Profile';
-
+  static const dogDayCareDescription =
+      'Dịch vụ giúp đưa đón và chăm sóc chó của bạn tại trung tâm trong thời gian ban ngày, '
+      'khi bạn đi làm, đi học hoặc có việc bận. '
+      'Dịch vụ này mang đến nhiều lợi ích cho cả chủ nuôi và chó cưng, '
+      'giúp chó được vận động, vui chơi, '
+      'đồng thời giúp chủ nuôi yên tâm thực hiện các hoạt động của mình.';
 
   // Onboarding
   static const onboardingTitle1 = 'Dịch vụ dắt thú cưng đi dạo';
@@ -41,57 +29,11 @@ class LocalTexts {
   static const onboardingTitle3 = 'Dịch vụ chăm sóc thú cưng tại nhà';
 
   static const onboardingSubtitle = 'Lorem ipsum dolor sit amet, '
-                                    'consectetur adipiscing elit. '
-                                    'Cras et neque cursus arcu pellentesque euismod. '
-                                    'Mauris id volutpat justo.'
-                                    'Lorem ipsum dolor sit amet, '
-                                    'consectetur adipiscing elit. '
-                                    'Cras et neque cursus arcu pellentesque euismod. '
-                                    'Mauris id volutpat justo.';
-
-  static const String onBoardingSubTitle1 = "Welcome to a World of Limitless Choices - Your Perfect Product Awaits!";
-  static const String onBoardingSubTitle2 = "For Seamless Transactions, Choose Your Payment Path - Your Convenience, Our Priority!";
-  static const String onBoardingSubTitle3 = "From Our Doorstep to Yours - Swift, Secure, and Contactless Delivery!";
-
-  // Login Screen
-  static const loginTitle = 'Welcome';
-  static const loginSubtitle = "It's good to see you again";
-  static const login = "Sign-In";
-  static const rememberMe = "Remember Me";
-  static const forgotPassword = "Forgot Password?";
-
-  // Sign Up Screen
-  static const signUpTitle = 'Create an Account';
-  static const signUpSubtitle = 'One step to become our member';
-  static const createAccount = 'Create Account';
-
-  // E-Mail Verification Screen
-  static const emailVerificationTitle = 'Verify your email address';
-  static const emailVerificationSubtitle =  'Congratulation! Just one more step to become our member. '
-                                            'We have sent a verification to your email. '
-                                            'Verify your account to start shopping and discovering new product every day!';
-  static const emailVerificationSuccessTitle = 'Your account successfully created';
-  static const emailVerificationSuccessSubtitle = 'Great job! You are now our member. '
-                                                  'Welcome to Shopping Server. Enjoy the unlimited shopping.';
-
-  // Forget Password & Password Reset Screen
-  static const forgetPasswordTitle = 'Forget Password?';
-  static const forgetPasswordSubtitle = 'Don\'t worry! We will send a password reset link via your email';
-  static const passwordResetTitle = 'Password Reset Sent To';
-  static const passwordResetSubtitle =  'Your security is our priority. '
-                                        'An password reset link has been sent to your email, '
-                                        'click to the link to reset and protect your account.';
-
-  // Home Screen
-  static const headerTitle = 'Have a Good day';
-  static const headerSubtitle = 'Nguyen Tu Nhat Toan';
-
-  // === Home Screen - Categories
-  static const categories = 'Popular Categories';
-
-  // Change Name Screen
-  static const changeNameTitle = 'Please remember, use your real name to display it in several pages.';
-
-  // Re-authenticate Screen
-  static const reAuthScreenTitle = 'Before continue, you need to enter the email you have verified to delete this account from our system.';
+      'consectetur adipiscing elit. '
+      'Cras et neque cursus arcu pellentesque euismod. '
+      'Mauris id volutpat justo.'
+      'Lorem ipsum dolor sit amet, '
+      'consectetur adipiscing elit. '
+      'Cras et neque cursus arcu pellentesque euismod. '
+      'Mauris id volutpat justo.';
 }

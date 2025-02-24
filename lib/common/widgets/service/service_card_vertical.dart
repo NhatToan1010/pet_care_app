@@ -3,16 +3,20 @@ import 'package:iconsax/iconsax.dart';
 import 'package:pet_care_app/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:pet_care_app/common/widgets/icons/circular_icon.dart';
 import 'package:pet_care_app/common/widgets/product_cart/ratings/rating_icon_text.dart';
+import 'package:pet_care_app/feature/customer/model/services/service_model.dart';
 import 'package:pet_care_app/utils/constants/colors.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 
 import '../images/rounded_rect_image.dart';
+import '../texts/product_text/product_price_text.dart';
 import '../texts/title_text.dart';
 
 class ServiceCardVertical extends StatelessWidget {
-  const ServiceCardVertical({super.key, required this.onPressed});
+  const ServiceCardVertical(
+      {super.key, required this.onPressed, required this.service});
 
   final VoidCallback? onPressed;
+  final ServiceModel service;
 
   @override
   Widget build(BuildContext context) {
@@ -25,24 +29,20 @@ class ServiceCardVertical extends StatelessWidget {
         child: Stack(
           children: [
             RoundedRectImage(
-              imageUrl: 'assets/images/services/pet_sitting.jpg',
+              imageUrl: service.imageUrl,
               fit: BoxFit.cover,
               radius: 10,
               height: 250,
             ),
             Opacity(
-              opacity: 0.35,
+              opacity: 0.5,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
-                  gradient: LinearGradient(
-                    colors: [
-                      AppPallete.transparentColor,
-                      AppPallete.blackColor,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter
-                  ),
+                  gradient: LinearGradient(colors: [
+                    AppPallete.transparentColor,
+                    AppPallete.blackColor,
+                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
                 ),
               ),
             ),
@@ -69,8 +69,8 @@ class ServiceCardVertical extends StatelessWidget {
                 children: [
                   // -- Title
                   TitleTextWidget(
-                    title: 'Dắt Chó Đi Dạo',
-                    subtitle: 'Giúp thú cưng của bạn vui vẻ mỗi ngày',
+                    title: service.name,
+                    subtitle: service.description,
                     fontColor: AppPallete.textWhite,
                   ),
                   SizedBox(height: AppSize.extraSmall),
@@ -81,25 +81,21 @@ class ServiceCardVertical extends StatelessWidget {
                         iconSize: 16,
                         fontColor: AppPallete.textWhite,
                       ),
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '150.000đ',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.apply(color: AppPallete.textWhite),
-                            ),
-                            TextSpan(
-                              text: '/Buổi',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall
-                                  ?.apply(color: AppPallete.textWhite),
-                            )
-                          ],
-                        ),
+                      Row(
+                        children: [
+                          ProductPriceText(
+                            price: service.price.toString(),
+                            currencySign: 'đ',
+                            textColor: AppPallete.textWhite,
+                          ),
+                          Text(
+                            '/Thú',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.apply(color: AppPallete.textWhite),
+                          )
+                        ],
                       ),
                     ],
                   ),
