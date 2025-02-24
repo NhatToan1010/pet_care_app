@@ -35,6 +35,7 @@ class TitleTextWidget extends StatelessWidget {
           subtitle,
           style: textTheme.bodyMedium?.apply(color: fontColor),
           maxLines: subtitleMaxLines,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );

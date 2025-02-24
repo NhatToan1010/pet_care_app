@@ -8,7 +8,9 @@ import 'package:pet_care_app/common/widgets/employee/employee_card_horizontal.da
 import 'package:pet_care_app/common/widgets/images/rounded_rect_image.dart';
 import 'package:pet_care_app/common/widgets/product_cart/ratings/rating_icon_text.dart';
 import 'package:pet_care_app/common/widgets/texts/custom_read_more_text.dart';
+import 'package:pet_care_app/common/widgets/texts/product_text/product_price_text.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
+import 'package:pet_care_app/feature/customer/model/services/service_model.dart';
 import 'package:pet_care_app/feature/customer/view/order/purchase_screen.dart';
 import 'package:pet_care_app/feature/customer/view/service/widgets/dog_walking_service.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
@@ -18,7 +20,9 @@ import '../../../../common/widgets/icons/circular_icon.dart';
 import '../../../../utils/constants/colors.dart';
 
 class ServiceDetailScreen extends StatelessWidget {
-  const ServiceDetailScreen({super.key});
+  const ServiceDetailScreen({super.key, required this.service});
+
+  final ServiceModel service;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class ServiceDetailScreen extends StatelessWidget {
                   RoundedRectImage(
                     defaultRadius: false,
                     borderRadius: BorderRadius.all(Radius.zero),
-                    imageUrl: 'assets/images/services/dog_walking.jpg',
+                    imageUrl: service.imageUrl,
                     height: 300,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -69,7 +73,7 @@ class ServiceDetailScreen extends StatelessWidget {
                 children: [
                   // --- Title
                   SectionHeading(
-                    title: 'Dắt chó đi dạo',
+                    title: service.name,
                     showActionButton: false,
                     largeTitle: true,
                   ),
@@ -80,19 +84,17 @@ class ServiceDetailScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       RatingIconText(iconSize: 24),
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '50.000đ',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            TextSpan(
-                              text: '/Thú',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            )
-                          ],
-                        ),
+                      Row(
+                        children: [
+                          ProductPriceText(
+                            price: service.price.toString(),
+                            currencySign: 'đ',
+                          ),
+                          Text(
+                            '/Thú',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          )
+                        ],
                       ),
                     ],
                   ),
@@ -102,10 +104,12 @@ class ServiceDetailScreen extends StatelessWidget {
                   SizedBox(height: AppSize.small),
 
                   // --- Desciption
-                  SectionHeading(title: 'Mô tả dịch vụ', showActionButton: false),
+                  SectionHeading(
+                      title: 'Mô tả dịch vụ', showActionButton: false),
                   SizedBox(height: AppSize.spaceBtwItems),
-                  
-                  CustomReadMoreText(content: LocalTexts.onboardingSubtitle, trimLines: 3),
+
+                  CustomReadMoreText(
+                      content: service.description, trimLines: 3),
                   SizedBox(height: AppSize.spaceBtwSections),
 
                   // --- Service Info Selection
@@ -118,14 +122,17 @@ class ServiceDetailScreen extends StatelessWidget {
                   // --- Service Selection
                   DogWalkingService(),
                   SizedBox(height: AppSize.spaceBtwSections),
-                  
+
                   // --- Employee Selection
                   SectionHeading(
                     title: 'Nhân Viên Thực Hiện',
                     showActionButton: false,
                   ),
                   SizedBox(height: AppSize.spaceBtwItems),
-                  EmployeeCardHorizontal(onTap: () {}, hideButton: true,)
+                  EmployeeCardHorizontal(
+                    onTap: () {},
+                    hideButton: true,
+                  )
                 ],
               ),
             ),
@@ -137,7 +144,9 @@ class ServiceDetailScreen extends StatelessWidget {
             horizontal: AppSize.defaultSpace, vertical: AppSize.small),
         child: SizedBox(
           width: double.infinity,
-          child: ElevatedButton(onPressed: () => Get.to(() => PurchaseScreen()), child: Text('Đặt Lịch Ngay')),
+          child: ElevatedButton(
+              onPressed: () => Get.to(() => PurchaseScreen()),
+              child: Text('Đặt Lịch Ngay')),
         ),
       ),
     );

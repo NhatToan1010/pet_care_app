@@ -40,6 +40,7 @@ class RegisterScreen extends StatelessWidget {
                     Wrap(
                       alignment: WrapAlignment.spaceBetween,
                       runSpacing: AppSize.spaceBtwInputField,
+                      direction: Axis.horizontal,
                       children: [
                         TextFormField(
                           controller: controller.firstName,
@@ -86,6 +87,7 @@ class RegisterScreen extends StatelessWidget {
                     // --- Phone Number
                     TextFormField(
                       controller: controller.phoneNo,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Iconsax.mobile),
                         label: Text(

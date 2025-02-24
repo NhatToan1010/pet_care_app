@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pet_care_app/data/repository/authentication.dart';
@@ -12,11 +15,25 @@ class UserController extends GetxController {
   Rx<UserModel> user = UserModel.empty().obs;
   final _userRepo = UserRepository.instance;
 
+  final newFirstName = TextEditingController();
+  final newLastName = TextEditingController();
+  final newPhoneNumer = TextEditingController();
+
+
+  @override
+  void onReady() {
+    super.onReady();
+    fetchUserData();
+  }
 
   @override
   void onInit() {
     super.onInit();
     fetchUserData();
+
+    newFirstName.text = user.value.firstName;
+    newLastName.text = user.value.lastName;
+    newPhoneNumer.text = user.value.phoneNumber;
   }
 
   Future<void> fetchUserData() async {
@@ -62,6 +79,36 @@ class UserController extends GetxController {
         );
       } else {
       }
+    } catch (e) {
+      CustomLoader.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    }
+  }
+
+  Future<void> updateUserProfile() async {
+    try {
+      if (newFirstName.text != user.value.firstName || newLastName.text != user.value.lastName) {
+        Map<String, dynamic> updateName = {
+          'FirstName': newFirstName.text,
+          'LastName': newLastName.text,
+        };
+
+        await _userRepo.updateSpecificUserField(updateName);
+      }
+
+      if (newPhoneNumer.text != user.value.phoneNumber) {
+        Map<String, dynamic> updatePhone = {
+          'PhoneNumber': newPhoneNumer.text,
+        };
+
+        await _userRepo.updateSpecificUserField(updatePhone);
+      }
+
+      CustomLoader.successSnackBar(
+        title: 'Congratulation!',
+        message: 'Your profile is successfully updated!',
+      );
+
+      AuthenticationRepository.instance.screenRedirect();
     } catch (e) {
       CustomLoader.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }

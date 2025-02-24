@@ -52,7 +52,7 @@ class SearchbarContainer extends StatelessWidget {
 
               // ----- Search Text
               const SizedBox(width: AppSize.spaceBtwItems),
-              Text(LocalTexts.search, style: Theme.of(context).textTheme.bodySmall)
+              Text('Tìm kiếm', style: Theme.of(context).textTheme.bodySmall)
             ],
           ),
         ),

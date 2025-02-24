@@ -15,8 +15,10 @@ import 'package:pet_care_app/feature/personalization/user_controller.dart';
 
 import 'package:pet_care_app/utils/constants/colors.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
+import 'package:pet_care_app/utils/helpers/cloud_helper_functions.dart';
 
 import '../../../../common/widgets/search_bar/search_bar.dart';
+import '../../controller/service_controller.dart';
 import '../category/category_screen.dart';
 import '../employee_info/employee_info_screen.dart';
 import '../service/service_detail_screen.dart';
@@ -28,6 +30,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final userController = Get.put(UserController());
     final user = userController.user.value;
+    final serviceController = Get.put(ServiceController());
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -65,34 +68,50 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: AppSize.spaceBtwSections),
 
             // --- Employee Cards
-            SizedBox(
-              height: 220,
-              width: double.infinity,
-              child: ListView.separated(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                separatorBuilder: (context, index) =>
-                    SizedBox(width: AppSize.medium),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return EmployeeCardVertical(
-                    onTap: () => Get.to(() => EmployeeInfoScreen()),
-                  );
-                },
-              ),
-            ),
-            SizedBox(height: AppSize.spaceBtwSections),
+            // SizedBox(
+            //   height: 220,
+            //   width: double.infinity,
+            //   child: ListView.separated(
+            //     shrinkWrap: true,
+            //     scrollDirection: Axis.horizontal,
+            //     separatorBuilder: (context, index) =>
+            //         SizedBox(width: AppSize.medium),
+            //     itemCount: 4,
+            //     itemBuilder: (context, index) {
+            //       return EmployeeCardVertical(
+            //         onTap: () => Get.to(() => EmployeeInfoScreen()),
+            //       );
+            //     },
+            //   ),
+            // ),
+            // SizedBox(height: AppSize.spaceBtwSections),
 
             // --- Service List
             SectionHeading(title: 'Dịch Vụ Nổi Bật'),
             SizedBox(height: AppSize.spaceBtwItems),
 
             // --- Service Cards
-            GridLayout(
-              itemCount: 4,
-              itemBuilder: (context, index) => ServiceCardVertical(
-                onPressed: () => Get.to(() => ServiceDetailScreen()),
-              ),
+            FutureBuilder(
+              future: serviceController.fetchServices(),
+              builder: (context, snapshot) {
+                final respone = CloudHelperFunctions.checkSingleStateRecord(snapshot);
+
+                if (respone != null) return respone;
+
+                final data = snapshot.data!;
+
+                return GridLayout(
+                  itemCount: data.length,
+                  itemBuilder: (context, index) => ServiceCardVertical(
+                    service: data[index],
+                    onPressed: () => Get.to(
+                      () => ServiceDetailScreen(
+                        service: data[index],
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),

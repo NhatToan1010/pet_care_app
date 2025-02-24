@@ -27,7 +27,7 @@ class FormDivider extends StatelessWidget {
           ),
         ),
         Text(
-          '${LocalTexts.or}$method',
+          'Hoặc đăng ký vơi $method',
           style: Theme.of(context).textTheme.labelMedium,
         ),
         Flexible(
