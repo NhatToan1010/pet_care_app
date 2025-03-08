@@ -3,7 +3,6 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/constants/texts.dart';
 import '../../../../utils/device/device_utility.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 

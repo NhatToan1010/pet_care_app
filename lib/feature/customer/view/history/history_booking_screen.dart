@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:pet_care_app/common/widgets/appbar/custom_appbar.dart';
 import 'package:pet_care_app/common/widgets/appbar/custom_tabbar.dart';
-import 'package:pet_care_app/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:pet_care_app/feature/customer/view/history/widgets/order_infomation_card.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
-import 'package:pet_care_app/utils/constants/texts.dart';
 
-import '../../../../common/widgets/texts/product_text/product_price_text.dart';
-import '../../../../utils/constants/colors.dart';
 
 class HistoryBookingScreen extends StatelessWidget {
   const HistoryBookingScreen({super.key});

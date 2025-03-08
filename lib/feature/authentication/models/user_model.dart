@@ -107,7 +107,7 @@ class UserModel {
 
   // Helper Functions
   // ----- Full name
-  String get fullName => '$firstName $lastName';
+  String get fullName => '$lastName $firstName';
 
   // ----- Formatted Phone Number
   String get formattedPhoneNumber => Formatter.formatPhoneNumber(phoneNumber);

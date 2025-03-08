@@ -7,7 +7,7 @@ import 'package:pet_care_app/feature/personalization/view/setting/widgets/settin
 import 'package:pet_care_app/utils/constants/sizes.dart';
 
 import '../../../../common/widgets/appbar/custom_appbar.dart';
-import '../../user_controller.dart';
+import '../../controller/user_controller.dart';
 import '../profile/profile_screen.dart';
 
 class SettingScreen extends StatelessWidget {

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pet_care_app/common/widgets/appbar/custom_appbar.dart';
-import 'package:pet_care_app/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:pet_care_app/utils/constants/colors.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 import 'package:pet_care_app/utils/device/device_utility.dart';
 

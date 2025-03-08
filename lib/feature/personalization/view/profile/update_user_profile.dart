@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:pet_care_app/common/widgets/appbar/custom_appbar.dart';
-import 'package:pet_care_app/feature/personalization/user_controller.dart';
+import 'package:pet_care_app/feature/personalization/controller/user_controller.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 
 class UpdateUserProfileScreen extends StatelessWidget {

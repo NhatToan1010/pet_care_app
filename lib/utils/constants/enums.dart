@@ -1,6 +1,6 @@
 enum PetSizes {small, medium, large}
 
-enum OrderStatus {pending, processing, shipped, delivered, canceled}
+enum OrderStatus {pending, processing, successful, canceled}
 
 enum UserType {customer, employee}
 

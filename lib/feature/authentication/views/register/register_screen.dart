@@ -23,12 +23,13 @@ class RegisterScreen extends StatelessWidget {
         child: SizedBox(
           height: size.height,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               // --- Title
               TitleTextWidget(
                 title: 'Tạo Tài Khoản',
-                subtitle: LocalTexts.onboardingSubtitle,
+                subtitle: 'Đăng ký tài khoản để tiếp tục hoạt động của bạn',
               ),
 
               // --- Form Field

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:pet_care_app/common/widgets/icons/circular_icon.dart';
 import 'package:pet_care_app/utils/constants/colors.dart';
 
 import '../../../utils/constants/sizes.dart';

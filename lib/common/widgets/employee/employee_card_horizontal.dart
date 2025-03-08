@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../feature/authentication/models/user_model.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/device/device_utility.dart';
@@ -14,11 +15,12 @@ class EmployeeCardHorizontal extends StatelessWidget {
   const EmployeeCardHorizontal({
     super.key,
     required this.onTap,
-    this.hideButton = false,
+    this.hideButton = false, required this.employee,
   });
 
   final VoidCallback onTap;
   final bool hideButton;
+  final UserModel employee;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class EmployeeCardHorizontal extends StatelessWidget {
               children: [
                 // --- Employee Image
                 RoundedRectImage(
-                  imageUrl: 'assets/images/employees/employee_2.jpg',
+                  imageUrl: employee.avatarURL ?? '',
                   width: 100,
                   height: 100,
                   fit: BoxFit.cover,
@@ -55,7 +57,7 @@ class EmployeeCardHorizontal extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TitleTextWidget(
-                            title: 'Dương Nhân Văn',
+                            title: employee.fullName,
                             subtitle: 'Nhân Viên Xuất Xắc',
                           ),
                           CircularIcon(

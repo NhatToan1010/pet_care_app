@@ -25,12 +25,13 @@ class LoginScreen extends StatelessWidget {
         child: SizedBox(
           height: size.height,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               // --- Title
               TitleTextWidget(
                 title: 'Đăng Nhập',
-                subtitle: LocalTexts.onboardingSubtitle,
+                subtitle: 'Đăng nhập vào ứng dụng để tiếp tục hoạt động của bạn',
               ),
 
               // --- Form Field

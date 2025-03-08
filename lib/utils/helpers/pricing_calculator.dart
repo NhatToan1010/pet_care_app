@@ -1,12 +1,7 @@
 class PricingCalculator {
   // Calculate price based on tax and shipping
-  static double calculateTotalPrice(double productPrice, String location) {
-    double taxRate = getTaxRateForLocation(location);
-    double taxAmount = productPrice * taxRate;
-    double shippingCost = getShippingCost(location);
-    double totalPrice = productPrice + taxAmount + shippingCost;
-
-    return totalPrice;
+  static double calculateTotalPrice(double servicePrice) {
+    return servicePrice + calculateFee(servicePrice);
   }
 
   // Calculate shipping cost
@@ -32,6 +27,16 @@ class PricingCalculator {
     // Lookup the shipping cost for the given location using a shipping rate API.
     // Calculate the shipping cost based on various factors like distance, weight, etc.
     return 5.00;
+  }
+
+  static double fee = 15000.0;
+
+  static double calculateFee(double price) {
+    if (price - price * 0.9 <= fee) {
+      return price * 0.1;
+    } else {
+      return fee;
+    }
   }
 
   // static double calculateCartTotal(CartModel cart) {
