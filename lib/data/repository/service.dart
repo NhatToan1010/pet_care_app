@@ -1,14 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:pet_care_app/utils/services/local_firebase_storage_service.dart';
 
-import '../../feature/customer/model/services/dog_day_care.dart';
-import '../../feature/customer/model/services/dog_walking_model.dart';
-import '../../feature/customer/model/services/pet_sitting_model.dart';
-import '../../feature/customer/model/services/pet_taxi_model.dart';
 import '../../feature/customer/model/services/service_model.dart';
 import '../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../utils/exceptions/format_exceptions.dart';

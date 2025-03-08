@@ -1,6 +1,3 @@
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:pet_care_app/data/repository/service.dart';
 import 'package:pet_care_app/feature/customer/model/services/dog_day_care.dart';
 import 'package:pet_care_app/feature/customer/model/services/dog_walking_model.dart';
 import 'package:pet_care_app/feature/customer/model/services/service_model.dart';

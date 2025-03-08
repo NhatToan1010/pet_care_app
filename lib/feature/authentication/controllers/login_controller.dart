@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_app/data/repository/authentication.dart';
-import 'package:pet_care_app/feature/customer/customer_navigation_menu.dart';
-import 'package:pet_care_app/feature/employee/view/employee_home.dart';
-import 'package:pet_care_app/utils/constants/enums.dart';
 import 'package:pet_care_app/utils/popups/full_screen_loader.dart';
 import 'package:pet_care_app/utils/popups/loader.dart';
 

@@ -1,13 +1,13 @@
-import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:pet_care_app/data/repository/authentication.dart';
 import 'package:pet_care_app/data/repository/user.dart';
 import 'package:pet_care_app/feature/authentication/models/user_model.dart';
 import 'package:pet_care_app/feature/authentication/views/login/login_screen.dart';
 import 'package:pet_care_app/utils/popups/loader.dart';
+
+import '../../customer/controller/order_controller.dart';
 
 class UserController extends GetxController {
   static UserController get instance => Get.find();
@@ -15,9 +15,13 @@ class UserController extends GetxController {
   Rx<UserModel> user = UserModel.empty().obs;
   final _userRepo = UserRepository.instance;
 
+  final orderController = Get.put(OrderController());
+
   final newFirstName = TextEditingController();
   final newLastName = TextEditingController();
   final newPhoneNumer = TextEditingController();
+
+  final selectedEmployee = UserModel.empty().obs;
 
 
   @override
@@ -49,36 +53,46 @@ class UserController extends GetxController {
     }
   }
 
+  Future<List<UserModel>> getEmployee() async {
+    try {
+      final employees = await _userRepo.getEmployee();
+      return employees;
+    } catch (e) {
+      CustomLoader.errorSnackBar(title: 'Error', message: e.toString());
+      return [];
+    }
+  }
+
   // ----- Upload user's profile picture
   Future<void> uploadUserImage() async {
     try {
       // Open local device gallery to choose an image
-      final image = await ImagePicker().pickImage(
-        source: ImageSource.gallery,
-        imageQuality: 70,
-        maxWidth: 512,
-        maxHeight: 512,
-      );
-
-      if (image != null) {
-        // Upload image into Firebase Storage
-        final imageUrl = await _userRepo.uploadImage('Users/Images/Profile', image);
-
-        // Upload image to Database
-        Map<String, dynamic> profilePicture = {"ProfilePicture" : imageUrl};
-        await _userRepo.updateSpecificUserField(profilePicture);
-
-        // Set updated image to UI of local device
-        user.value.avatarURL = imageUrl;
-        user.refresh();
-
-        // Show snack bar
-        CustomLoader.successSnackBar(
-            title: 'Congratulation!',
-            message: 'Your avatar is successfully updated!'
-        );
-      } else {
-      }
+      // final image = await ImagePicker().pickImage(
+      //   source: ImageSource.gallery,
+      //   imageQuality: 70,
+      //   maxWidth: 512,
+      //   maxHeight: 512,
+      // );
+      //
+      // if (image != null) {
+      //   // Upload image into Firebase Storage
+      //   final imageUrl = await _userRepo.uploadImage('Users/Images/Profile', image);
+      //
+      //   // Upload image to Database
+      //   Map<String, dynamic> profilePicture = {"ProfilePicture" : imageUrl};
+      //   await _userRepo.updateSpecificUserField(profilePicture);
+      //
+      //   // Set updated image to UI of local device
+      //   user.value.avatarURL = imageUrl;
+      //   user.refresh();
+      //
+      //   // Show snack bar
+      //   CustomLoader.successSnackBar(
+      //       title: 'Congratulation!',
+      //       message: 'Your avatar is successfully updated!'
+      //   );
+      // } else {
+      // }
     } catch (e) {
       CustomLoader.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
@@ -120,6 +134,33 @@ class UserController extends GetxController {
       Get.offAll(() => LoginScreen());
     } catch (e) {
       CustomLoader.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    }
+  }
+
+  void changeSelectedEmployee(UserModel newEmployee) {
+    try{
+      if (newEmployee.id.isNotEmpty) {
+        selectedEmployee(newEmployee);
+        orderController.employee(newEmployee);
+        Get.back();
+      }
+    } catch (e) {
+      CustomLoader.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    }
+  }
+
+  void resetSelectedEmployee() {
+    selectedEmployee(UserModel.empty());
+  }
+
+  Future<UserModel> getSpecificUser(String userId) async {
+    try {
+      final user = await _userRepo.getSpecificUser(userId);
+
+      return user;
+    } catch (e) {
+      CustomLoader.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      return UserModel.empty();
     }
   }
 }

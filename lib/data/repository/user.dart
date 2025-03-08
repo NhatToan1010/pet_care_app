@@ -92,16 +92,13 @@ class UserRepository extends GetxController {
     }
   }
 
-  Future<String> uploadImage(String path, XFile image) async {
+  Future<List<UserModel>> getEmployee() async {
     try {
-      final ref = FirebaseStorage.instance.ref(path).child(image.name);
+      final snapshot = await _db.collection("Users").where('UserType', isEqualTo: 'UserType.employee').get();
+      final users = snapshot.docs.map((doc) => UserModel.fromSnapshot(doc)).toList();
 
-      await ref.putFile(File(image.path));
-
-      final url = ref.getDownloadURL();
-
-      return url;
-    }  on FirebaseAuthException catch (e) {
+      return users;
+    } on FirebaseAuthException catch (e) {
       throw LocalFirebaseAuthExceptions(e.code).message;
     } on FirebaseException catch (e) {
       throw LocalFirebaseAuthExceptions(e.code).message;
@@ -114,5 +111,37 @@ class UserRepository extends GetxController {
     }
   }
 
+  Future<String> uploadImage(String path, XFile image) async {
+    try {
+      final ref = FirebaseStorage.instance.ref(path).child(image.name);
 
+      await ref.putFile(File(image.path));
+
+      final url = ref.getDownloadURL();
+
+      return url;
+    } on FirebaseAuthException catch (e) {
+      throw LocalFirebaseAuthExceptions(e.code).message;
+    } on FirebaseException catch (e) {
+      throw LocalFirebaseAuthExceptions(e.code).message;
+    } on FormatException catch (_) {
+      throw const LocalFormatExceptions();
+    } on PlatformException catch (e) {
+      throw LocalPlatformExceptions(e.code).message;
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<UserModel> getSpecificUser(String userId) async {
+    try {
+      final snapshot = await _db.collection("Users").doc(userId).get();
+
+      return UserModel.fromSnapshot(snapshot);
+    } on FirebaseAuthException catch (e) {
+      throw LocalFirebaseAuthExceptions(e.code).message;
+    } on FirebaseException catch (e) {
+      throw LocalFirebaseAuthExceptions(e.code).message;
+    }
+  }
 }

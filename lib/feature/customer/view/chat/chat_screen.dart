@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_app/common/widgets/appbar/custom_appbar.dart';
+import 'package:pet_care_app/feature/personalization/controller/user_controller.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 import 'package:pet_care_app/utils/device/device_utility.dart';
+import 'package:pet_care_app/utils/helpers/cloud_helper_functions.dart';
 
 import '../../../../common/widgets/employee/employee_card_horizontal.dart';
 import '../employee_info/employee_info_screen.dart';
@@ -12,6 +14,8 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userController = UserController.instance;
+
     return Scaffold(
       appBar: CustomAppbar(title: Text('Trao đổi với chúng tôi')),
       body: Padding(
@@ -19,14 +23,29 @@ class ChatScreen extends StatelessWidget {
         child: SizedBox(
           height: DeviceUtils.getScreenHeight(),
           width: double.infinity,
-          child: ListView.separated(
-            shrinkWrap: true,
-            separatorBuilder: (contaxt, index) => SizedBox(height: AppSize.spaceBtwItems),
-            itemCount: 4,
-            itemBuilder: (contaxt, index) => EmployeeCardHorizontal(onTap: () => Get.to(() => EmployeeInfoScreen()),),
+          child: FutureBuilder(
+            future: userController.getEmployee(),
+            builder: (context, snapshot) {
+              final response =
+              CloudHelperFunctions.checkSingleStateRecord(snapshot);
+              if (response != null) return response;
+
+              final employees = snapshot.data!;
+
+              return ListView.separated(
+                shrinkWrap: true,
+                separatorBuilder: (context, index) => SizedBox(height: AppSize.spaceBtwItems),
+                itemCount: employees.length,
+                itemBuilder: (context, index) => EmployeeCardHorizontal(
+                    onTap: () => Get.to(() => EmployeeInfoScreen()),
+                    employee: employees[index],
+                    hideButton: true),
+              );
+            },
           ),
         ),
       ),
     );
   }
 }
+

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -9,9 +7,8 @@ import 'package:pet_care_app/common/widgets/layouts/grid_layout.dart';
 import 'package:pet_care_app/common/widgets/service/service_card_vertical.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
 import 'package:pet_care_app/common/widgets/texts/title_text.dart';
-import 'package:pet_care_app/common/widgets/employee/employee_card_vertical.dart';
 import 'package:pet_care_app/feature/customer/view/home/widgets/home_category.dart';
-import 'package:pet_care_app/feature/personalization/user_controller.dart';
+import 'package:pet_care_app/feature/personalization/controller/user_controller.dart';
 
 import 'package:pet_care_app/utils/constants/colors.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
@@ -20,7 +17,6 @@ import 'package:pet_care_app/utils/helpers/cloud_helper_functions.dart';
 import '../../../../common/widgets/search_bar/search_bar.dart';
 import '../../controller/service_controller.dart';
 import '../category/category_screen.dart';
-import '../employee_info/employee_info_screen.dart';
 import '../service/service_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -58,14 +54,19 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: AppSize.spaceBtwSections),
 
             // --- Banner
-            RoundedRectImage(imageUrl: 'assets/images/pet/pet_banner.jpg'),
+            RoundedRectImage(
+              imageUrl: 'assets/images/pet/pet_banner_2.jpg',
+              height: 200,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
             SizedBox(height: AppSize.spaceBtwSections),
 
             // --- Categories
-            HomeCategory(
-              onPressed: () => Get.to(() => CategoryScreen()),
-            ),
-            SizedBox(height: AppSize.spaceBtwSections),
+            // HomeCategory(
+            //   onPressed: () => Get.to(() => CategoryScreen()),
+            // ),
+            // SizedBox(height: AppSize.spaceBtwSections),
 
             // --- Employee Cards
             // SizedBox(
@@ -94,7 +95,8 @@ class HomeScreen extends StatelessWidget {
             FutureBuilder(
               future: serviceController.fetchServices(),
               builder: (context, snapshot) {
-                final respone = CloudHelperFunctions.checkSingleStateRecord(snapshot);
+                final respone =
+                    CloudHelperFunctions.checkSingleStateRecord(snapshot);
 
                 if (respone != null) return respone;
 

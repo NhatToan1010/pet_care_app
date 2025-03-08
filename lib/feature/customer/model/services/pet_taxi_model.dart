@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pet_care_app/feature/customer/model/services/service_model.dart';
 
-import '../../../../utils/constants/enums.dart';
 
 class PetTaxiModel extends ServiceModel {
   final String pickupLocation;

@@ -6,7 +6,7 @@ import 'package:pet_care_app/utils/constants/enums.dart';
 
 import 'dog_day_care.dart';
 
-abstract class ServiceModel {
+class ServiceModel {
   final String id;
   final String name;
   final String description;
@@ -23,38 +23,38 @@ abstract class ServiceModel {
     required this.petSizes,
   });
 
-  Map<String, dynamic> toJSON();
+  Map<String, dynamic> toJSON() {
+    return {
+      "Id": id,
+      "Name": name,
+      "Description": description,
+      "Price": price,
+      "ImageUrl": imageUrl,
+      "PetSizes": petSizes,
+    };
+  }
 
-  double calculateTotalPrice(PetSizes petSizes);
+  factory ServiceModel.empty() {
+    return ServiceModel(
+      id: "",
+      name: "",
+      description: "",
+      price: 0,
+      imageUrl: "",
+      petSizes: [],
+    );
+  }
 
-  // static ServiceModel fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
-  //   print('---------------------------Go to snapshot');
-  //   if (doc.data() != null) {
-  //     final data = doc.data()!;
-  //     final serviceType = data["Name"];
-  //
-  //     print('---------------------------Go to switch');
-  //     print('---------------------------$serviceType');
-  //     switch (serviceType) {
-  //       case "Dắt Chó Đi Dạo":
-  //         print('---------------------------1');
-  //         return DogWalkingModel.fromSnapshot(doc);
-  //       case "Chăm Sóc Thú Cưng Tại Nhà":
-  //         print('---------------------------2');
-  //         return PetSittingModel.fromSnapshot(doc);
-  //       case "Đưa Đón Thú Cưng":
-  //         print('---------------------------3');
-  //         return PetTaxiModel.fromSnapshot(doc);
-  //       case "Chăm Sóc Chó Tại Trung Tâm":
-  //         print('---------------------------4');
-  //         return DogDayCare.fromSnapshot(doc);
-  //       default:
-  //         return DogWalkingModel.empty();
-  //     }
-  //   } else {
-  //     return DogWalkingModel.empty();
-  //   }
-  // }
+  double calculateTotalPrice(PetSizes petSizes) {
+    switch (petSizes) {
+      case PetSizes.small:
+        return price * 0.8;
+      case PetSizes.medium:
+        return price * 1.2;
+      case PetSizes.large:
+        return price * 1.5;
+    }
+  }
 
   factory ServiceModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> doc) {

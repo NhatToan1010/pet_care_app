@@ -38,7 +38,7 @@ class DogWalkingModel extends ServiceModel {
     } else if (petSizes == PetSizes.large) {
       sizeMultiplier = 1.4;
     }
-    return price * sizeMultiplier * (durationMinutes / 30);
+    return price * sizeMultiplier * (durationMinutes / 60);
   }
 
   @override
