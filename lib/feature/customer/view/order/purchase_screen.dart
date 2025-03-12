@@ -11,7 +11,6 @@ import 'package:get/get.dart';
 import '../../../../utils/constants/enums.dart';
 import '../../../../utils/popups/shimmers/horizontal_product_shimmer.dart';
 import '../../../personalization/controller/user_controller.dart';
-import '../../controller/order_controller.dart';
 import '../../controller/purchase_controller.dart';
 
 class PurchaseScreen extends StatelessWidget {
