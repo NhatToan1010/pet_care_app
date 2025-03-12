@@ -11,8 +11,6 @@ class PetSittingService extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final petSittingService = service as PetSittingModel;
-    final serviceController = ServiceController.instance;
 
     return Form(
       child: Column(

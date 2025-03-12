@@ -11,8 +11,6 @@ class DogDayCareService extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dogDayCareService = service as DogDayCare;
-    final serviceController = ServiceController.instance;
 
     return Form(
       child: Column(

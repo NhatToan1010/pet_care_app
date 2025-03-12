@@ -15,8 +15,6 @@ class DogWalkingService extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final dogWalkingService = service as DogWalkingModel;
-    final serviceController = ServiceController.instance;
     final orderController = OrderController.instance;
 
     return Form(

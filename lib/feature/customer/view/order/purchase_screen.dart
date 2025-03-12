@@ -23,7 +23,6 @@ class PurchaseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     PaymentMethods paymentMethods = PaymentMethods.payDirectly;
     final userController = UserController.instance;
-    final orderController = OrderController.instance;
     final purchaseController = Get.put(PurchaseController());
     final totalAmount = PricingCalculator.calculateTotalPrice(order.totalPrice);
 
