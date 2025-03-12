@@ -4,7 +4,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:pet_care_app/common/widgets/texts/title_text.dart';
 import 'package:pet_care_app/feature/authentication/controllers/login_controller.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
-import 'package:pet_care_app/utils/constants/texts.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/validators/validations.dart';

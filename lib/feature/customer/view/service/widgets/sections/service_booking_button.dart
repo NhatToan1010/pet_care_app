@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pet_care_app/feature/customer/model/services/service_model.dart';
 
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../controller/order_controller.dart';
-import '../../../order/purchase_screen.dart';
 
 class ServiceBookingButton extends StatelessWidget {
   const ServiceBookingButton({

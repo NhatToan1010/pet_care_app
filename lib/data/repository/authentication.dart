@@ -10,7 +10,6 @@ import 'package:pet_care_app/feature/employee/view/employee_navigation_menu.dart
 import 'package:pet_care_app/utils/storage/storage_utility.dart';
 
 import '../../feature/authentication/views/onboarding/onboarding_screen.dart';
-import '../../feature/employee/view/home/employee_home.dart';
 import '../../utils/constants/enums.dart';
 import '../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../utils/exceptions/format_exceptions.dart';

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
-import 'package:pet_care_app/feature/personalization/model/message_model.dart';
 import 'package:pet_care_app/feature/personalization/model/user_model.dart';
 import 'package:pet_care_app/feature/personalization/view/message/widgets/single_message_bubble.dart';
 import 'package:pet_care_app/utils/constants/colors.dart';
@@ -9,7 +7,6 @@ import 'package:get/get.dart';
 
 import '../../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../../common/widgets/images/circle_image.dart';
-import '../../../../data/repository/authentication.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../controller/message_controller.dart';
 

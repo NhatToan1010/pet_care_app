@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:pet_care_app/utils/constants/colors.dart';
 
-import '../../../utils/constants/sizes.dart';
 import '../../../utils/device/device_utility.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {

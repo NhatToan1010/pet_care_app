@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_care_app/feature/customer/model/services/service_model.dart';
 
-import '../../../../../common/widgets/texts/section_heading.dart';
-import '../../../../../utils/constants/sizes.dart';
 import '../../../controller/service_controller.dart';
 import '../../../model/services/dog_day_care.dart';
 

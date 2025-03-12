@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../../../data/repository/authentication.dart';
 import '../../../../../utils/constants/colors.dart';

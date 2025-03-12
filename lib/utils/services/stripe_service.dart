@@ -1,8 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../secrets/stripe/stripe_api_key.dart';
 
