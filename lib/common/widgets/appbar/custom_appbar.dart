@@ -17,7 +17,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingColor,
     this.centerTitle = false,
     this.iconBackgroundColor = AppPallete.transparentColor,
-    this.bottom,
+    this.bottom,this.backgroundColor,
   });
 
   final Widget? title;
@@ -27,27 +27,25 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final IconData? leadingIcon;
   final List<Widget>? actions;
   final VoidCallback? leadingOnPressed;
-  final Color? leadingColor, iconBackgroundColor;
+  final Color? leadingColor, iconBackgroundColor, backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSize.medium),
-      child: AppBar(
-        leading: showBackArrow
-            ? IconButton(
-                onPressed: () => Get.back(),
-                icon: Icon(Iconsax.arrow_circle_left),
-                style: IconButton.styleFrom(
-                    backgroundColor: iconBackgroundColor,
-                    foregroundColor: leadingColor),
-              )
-            : null,
-        title: title,
-        actions: actions,
-        centerTitle: centerTitle,
-        bottom: bottom,
-      ),
+    return AppBar(
+      backgroundColor: backgroundColor ?? AppPallete.transparentColor,
+      leading: showBackArrow
+          ? IconButton(
+              onPressed: () => Get.back(),
+              icon: Icon(Iconsax.arrow_circle_left),
+              style: IconButton.styleFrom(
+                  backgroundColor: iconBackgroundColor,
+                  foregroundColor: leadingColor),
+            )
+          : null,
+      title: title,
+      actions: actions,
+      centerTitle: centerTitle,
+      bottom: bottom,
     );
   }
 

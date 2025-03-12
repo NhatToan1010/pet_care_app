@@ -9,6 +9,7 @@ import 'package:pet_care_app/utils/helpers/pricing_calculator.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/constants/enums.dart';
+import '../../../../utils/popups/shimmers/horizontal_product_shimmer.dart';
 import '../../../personalization/controller/user_controller.dart';
 import '../../controller/order_controller.dart';
 import '../../controller/purchase_controller.dart';
@@ -40,7 +41,7 @@ class PurchaseScreen extends StatelessWidget {
               future: userController.getSpecificUser(order.customerId),
               builder: (context, snapshot) {
                 final response =
-                    CloudHelperFunctions.checkSingleStateRecord(snapshot);
+                    CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot, shimmerEffect: HorizontalProductShimmerEffect());
 
                 if (response != null) return response;
 

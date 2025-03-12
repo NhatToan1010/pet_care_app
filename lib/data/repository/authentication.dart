@@ -6,10 +6,11 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pet_care_app/data/repository/user.dart';
 import 'package:pet_care_app/feature/authentication/views/login/login_screen.dart';
 import 'package:pet_care_app/feature/customer/customer_navigation_menu.dart';
+import 'package:pet_care_app/feature/employee/view/employee_navigation_menu.dart';
 import 'package:pet_care_app/utils/storage/storage_utility.dart';
 
 import '../../feature/authentication/views/onboarding/onboarding_screen.dart';
-import '../../feature/employee/view/employee_home.dart';
+import '../../feature/employee/view/home/employee_home.dart';
 import '../../utils/constants/enums.dart';
 import '../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../utils/exceptions/format_exceptions.dart';
@@ -42,7 +43,7 @@ class AuthenticationRepository extends GetxController {
       if (userData.userType == UserType.customer.toString()) {
         Get.offAll(() => CustomerNavigationMenu());
       } else if (userData.userType == UserType.employee.toString()) {
-        Get.offAll(() => EmployeeHomeScreen());
+        Get.offAll(() => EmployeeNavigationMenu());
       }
     } else {
       deviceStorage.writeIfNull('IsFirstTime', true);

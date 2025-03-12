@@ -19,8 +19,8 @@ import '../../controller/service_controller.dart';
 import '../category/category_screen.dart';
 import '../service/service_detail_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class CustomerHomeScreen extends StatelessWidget {
+  const CustomerHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +96,7 @@ class HomeScreen extends StatelessWidget {
               future: serviceController.fetchServices(),
               builder: (context, snapshot) {
                 final respone =
-                    CloudHelperFunctions.checkSingleStateRecord(snapshot);
+                    CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot);
 
                 if (respone != null) return respone;
 

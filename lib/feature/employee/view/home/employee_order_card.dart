@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../../utils/constants/colors.dart';
-import '../../../utils/constants/sizes.dart';
+import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../../../utils/constants/colors.dart';
+import '../../../../utils/constants/sizes.dart';
 
 class EmployeeOrderCard extends StatelessWidget {
   const EmployeeOrderCard({

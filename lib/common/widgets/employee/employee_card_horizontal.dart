@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-import '../../../feature/authentication/models/user_model.dart';
+import '../../../feature/personalization/model/user_model.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/device/device_utility.dart';
@@ -15,10 +15,12 @@ class EmployeeCardHorizontal extends StatelessWidget {
   const EmployeeCardHorizontal({
     super.key,
     required this.onTap,
-    this.hideButton = false, required this.employee,
+    this.hideButton = false,
+    required this.employee,
+    this.onChatButtonTap,
   });
 
-  final VoidCallback onTap;
+  final VoidCallback? onTap, onChatButtonTap;
   final bool hideButton;
   final UserModel employee;
 
@@ -85,7 +87,9 @@ class EmployeeCardHorizontal extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton(
-                    onPressed: () {}, child: Text('Trò Chuyện Ngay')),
+                  onPressed: onChatButtonTap,
+                  child: Text('Trò Chuyện Ngay'),
+                ),
               ),
           ],
         ),
