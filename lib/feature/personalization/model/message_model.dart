@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MessageModel {
-  String id;
+  String? id;
   String senderId;
   String receiverId;
   String message;
@@ -10,7 +10,7 @@ class MessageModel {
   bool isRead;
 
   MessageModel({
-    required this.id,
+    this.id,
     required this.senderId,
     required this.receiverId,
     required this.message,
@@ -39,23 +39,37 @@ class MessageModel {
       message: '',
       timestamp: DateTime.now(),
       isRead: false,
+      image: '',
     );
   }
 
   factory MessageModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
+    print("------------------------------------------------fromSnapshot called for doc ID: ${doc.id}");
     if (doc.data() != null) {
+
       final data = doc.data()!;
+      print("-------------------------------------------------MessageModel created with ID: ${doc.id}");
+
+      // Check if 'Timestamp' is of type Timestamp and handle potential nulls
+      final timestampData = data['Timestamp'];
+      DateTime? timestamp;
+
+      if (timestampData is Timestamp) {
+        timestamp = timestampData.toDate();
+      }
+      timestamp ??= DateTime.now();
 
       return MessageModel(
         id: doc.id,
-        senderId: data['SenderId'],
-        receiverId: data['ReceiverId'],
-        message: data['Message'],
-        timestamp: (data['Timestamp'] as Timestamp).toDate(),
-        isRead: data['IsRead'],
-        image: data['Image'],
+        senderId: data['SenderId'] ?? '',
+        receiverId: data['ReceiverId'] ?? '',
+        message: data['Message'] ?? '',
+        timestamp: timestamp,
+        isRead: data['IsRead'] ?? '',
+        image: data['Image'] ?? '',
       );
     } else {
+      print("------------------------------------------------------fromSnapshot: Document data is null for doc ID: ${doc.id}");
       return empty();
     }
   }

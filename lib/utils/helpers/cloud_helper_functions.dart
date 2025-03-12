@@ -10,9 +10,11 @@ class CloudHelperFunctions {
   // If snapshot state get error, return an error announcement
   // Otherwise, return null
 
-  static Widget? checkSingleStateRecord<T>(AsyncSnapshot<T> snapshot) {
+  static Widget? checkSingleStateRecord<T>(
+      {required AsyncSnapshot<T> snapshot, Widget? shimmerEffect}) {
     // --- Check states of FutureBuilder snapshot
     if (snapshot.connectionState == ConnectionState.waiting) {
+      if (shimmerEffect != null) return shimmerEffect;
       return const Center(child: VerticalProductShimmer());
     }
     if (!snapshot.hasData || snapshot.data == null) {

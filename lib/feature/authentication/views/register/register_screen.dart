@@ -5,7 +5,6 @@ import 'package:pet_care_app/utils/constants/sizes.dart';
 import 'package:get/get.dart';
 
 import '../../../../common/widgets/texts/title_text.dart';
-import '../../../../utils/constants/texts.dart';
 import '../../../../utils/validators/validations.dart';
 
 class RegisterScreen extends StatelessWidget {

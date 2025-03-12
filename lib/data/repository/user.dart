@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pet_care_app/data/repository/authentication.dart';
-import 'package:pet_care_app/feature/authentication/models/user_model.dart';
+import 'package:pet_care_app/feature/personalization/model/user_model.dart';
 
 import '../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../utils/exceptions/format_exceptions.dart';

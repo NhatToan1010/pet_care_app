@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_app/data/repository/authentication.dart';
 import 'package:pet_care_app/data/repository/user.dart';
-import 'package:pet_care_app/feature/authentication/models/user_model.dart';
+import 'package:pet_care_app/feature/personalization/model/user_model.dart';
 import 'package:pet_care_app/feature/customer/model/services/service_model.dart';
 import 'package:pet_care_app/utils/constants/image_strings.dart';
 import 'package:pet_care_app/utils/popups/full_screen_loader.dart';

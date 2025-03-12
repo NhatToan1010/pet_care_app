@@ -25,8 +25,9 @@ class MessageRepository extends GetxController {
       final snapshot = await _db
           .collection('Conversations')
           .where('Participants', arrayContains: userId)
-          .orderBy('LastMessageTimeStamp', descending: true)
           .get();
+
+      print('------------------------------------Get ${snapshot.docs}');
 
       return snapshot.docs
           .map((item) => ConversationModel.fromSnapshot(item))
@@ -39,8 +40,7 @@ class MessageRepository extends GetxController {
   Future<void> sendMessage(String conversationId, MessageModel message) async {
     try {
       // Find conversation and message reference
-      final conversationRef =
-          _db.collection('Conversations').doc(conversationId);
+      final conversationRef = _db.collection('Conversations').doc(conversationId);
       final messageRef = conversationRef.collection('Messages').doc();
 
       // Set message id
@@ -75,9 +75,13 @@ class MessageRepository extends GetxController {
           .orderBy('Timestamp', descending: true)
           .get();
 
-      return snapshot.docs
-          .map((item) => MessageModel.fromSnapshot(item))
-          .toList();
+      if (snapshot.docs.isNotEmpty) {
+        // If there are no documents, return an empty list
+        return snapshot.docs
+            .map((item) => MessageModel.fromSnapshot(item))
+            .toList();
+      }
+      return [];
     } catch (e) {
       throw e.toString();
     }

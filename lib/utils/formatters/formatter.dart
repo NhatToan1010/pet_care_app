@@ -5,7 +5,7 @@ class Formatter {
   // Customize the date format
   static String formatDate(DateTime? date) {
     date ??= DateTime.now();
-    return DateFormat('dd-MMM-yyyy').format(date);
+    return DateFormat('hh:mm dd-MM-yyyy').format(date);
   }
 
   // Customize the time format

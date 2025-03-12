@@ -22,7 +22,7 @@ class ListEmployee extends StatelessWidget {
         future: userController.getEmployee(),
         builder: (context, snapshot) {
           final response =
-              CloudHelperFunctions.checkSingleStateRecord(snapshot);
+              CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot);
           if (response != null) return response;
 
           final employees = snapshot.data!;

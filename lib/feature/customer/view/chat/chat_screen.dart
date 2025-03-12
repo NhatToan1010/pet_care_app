@@ -7,14 +7,18 @@ import 'package:pet_care_app/utils/device/device_utility.dart';
 import 'package:pet_care_app/utils/helpers/cloud_helper_functions.dart';
 
 import '../../../../common/widgets/employee/employee_card_horizontal.dart';
+import '../../../../utils/popups/shimmers/horizontal_product_shimmer.dart';
+import '../../../personalization/controller/message_controller.dart';
+import '../../../personalization/view/message/message_screen.dart';
 import '../employee_info/employee_info_screen.dart';
 
-class ChatScreen extends StatelessWidget {
-  const ChatScreen({super.key});
+class CustomerChatScreen extends StatelessWidget {
+  const CustomerChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final userController = UserController.instance;
+    final messageController = Get.put(MessageController());
 
     return Scaffold(
       appBar: CustomAppbar(title: Text('Trao đổi với chúng tôi')),
@@ -26,20 +30,29 @@ class ChatScreen extends StatelessWidget {
           child: FutureBuilder(
             future: userController.getEmployee(),
             builder: (context, snapshot) {
-              final response =
-              CloudHelperFunctions.checkSingleStateRecord(snapshot);
+              final response = CloudHelperFunctions.checkSingleStateRecord(
+                snapshot: snapshot,
+                shimmerEffect: HorizontalProductShimmerEffect(),
+              );
               if (response != null) return response;
 
               final employees = snapshot.data!;
 
+              // =---= Return list employee
               return ListView.separated(
                 shrinkWrap: true,
                 separatorBuilder: (context, index) => SizedBox(height: AppSize.spaceBtwItems),
                 itemCount: employees.length,
                 itemBuilder: (context, index) => EmployeeCardHorizontal(
-                    onTap: () => Get.to(() => EmployeeInfoScreen()),
-                    employee: employees[index],
-                    hideButton: true),
+                  onChatButtonTap: () {
+                    messageController.createConversation(employees[index].id);
+                    messageController.getMessages(employees[index].id);
+                    Get.to(() => MessageScreen(contactUser: employees[index]));
+                  },
+                  onTap: () => Get.to(() => EmployeeInfoScreen()),
+                  employee: employees[index],
+                  hideButton: true,
+                ),
               );
             },
           ),
@@ -48,4 +61,3 @@ class ChatScreen extends StatelessWidget {
     );
   }
 }
-

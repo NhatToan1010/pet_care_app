@@ -57,8 +57,8 @@ class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
   List<Widget> screens = [
-    HomeScreen(),
-    ChatScreen(),
+    CustomerHomeScreen(),
+    CustomerChatScreen(),
     HistoryBookingScreen(),
     SettingScreen(),
   ];

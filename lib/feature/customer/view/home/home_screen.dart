@@ -7,7 +7,6 @@ import 'package:pet_care_app/common/widgets/layouts/grid_layout.dart';
 import 'package:pet_care_app/common/widgets/service/service_card_vertical.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
 import 'package:pet_care_app/common/widgets/texts/title_text.dart';
-import 'package:pet_care_app/feature/customer/view/home/widgets/home_category.dart';
 import 'package:pet_care_app/feature/personalization/controller/user_controller.dart';
 
 import 'package:pet_care_app/utils/constants/colors.dart';
@@ -16,11 +15,10 @@ import 'package:pet_care_app/utils/helpers/cloud_helper_functions.dart';
 
 import '../../../../common/widgets/search_bar/search_bar.dart';
 import '../../controller/service_controller.dart';
-import '../category/category_screen.dart';
 import '../service/service_detail_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class CustomerHomeScreen extends StatelessWidget {
+  const CustomerHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +94,7 @@ class HomeScreen extends StatelessWidget {
               future: serviceController.fetchServices(),
               builder: (context, snapshot) {
                 final respone =
-                    CloudHelperFunctions.checkSingleStateRecord(snapshot);
+                    CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot);
 
                 if (respone != null) return respone;
 
