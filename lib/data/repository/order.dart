@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:pet_care_app/data/repository/authentication.dart';
 import 'package:pet_care_app/feature/customer/model/order_model.dart';
 
+import '../../utils/constants/enums.dart';
+
 class OrderRepository extends GetxController {
   static OrderRepository get instance => Get.find();
 
@@ -32,6 +34,14 @@ class OrderRepository extends GetxController {
   Future<void> saveOrder(OrderModel order) async {
     try {
       await _db.collection('Orders').doc().set(order.toJSON());
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<void> updateOrderStatus(OrderModel order, OrderStatus newStatus) async {
+    try {
+      await _db.collection('Orders').doc(order.id).update({'OrderStatus': newStatus.name});
     } catch (e) {
       throw e.toString();
     }

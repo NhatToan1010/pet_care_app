@@ -11,13 +11,13 @@ class CustomDialog {
       title: title,
       middleText: message,
       cancel: OutlinedButton(
-          onPressed: () => Navigator.of(Get.overlayContext!).pop(),
-          child: const Text('Cancel'),
+        onPressed: () => Navigator.of(Get.overlayContext!).pop(),
+        child: const Text('Hủy'),
       ),
       confirm: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(backgroundColor: AppPallete.primary),
-        child: const Text('Continue'),
+        child: const Text('Tiếp Tục'),
       ),
     );
   }
@@ -25,16 +25,16 @@ class CustomDialog {
   static deleteAccountWarningDialog({required onConfirmPressed}) {
     Get.defaultDialog(
       contentPadding: const EdgeInsets.all(AppSize.medium),
-      title: 'Delete Account',
-      middleText: 'Are you sure you want to delete this account from our app?',
+      title: 'Xóa Tài Khoản',
+      middleText: 'Bạn có thật sự muốn xóa tài khoản này?',
       cancel: OutlinedButton(
-          onPressed: () => Navigator.of(Get.overlayContext!).pop(),
-          child: const Text('Cancel'),
+        onPressed: () => Navigator.of(Get.overlayContext!).pop(),
+        child: const Text('Hủy'),
       ),
       confirm: ElevatedButton(
         onPressed: onConfirmPressed,
         style: ElevatedButton.styleFrom(backgroundColor: AppPallete.errorColor),
-        child: const Text('Continue'),
+        child: const Text('Tiếp Tục'),
       ),
     );
   }
