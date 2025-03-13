@@ -60,12 +60,12 @@ class OrderModel {
       'DateStart': dateStart,
       'TimeStart': timeStart,
       'OrderStatus': status.name,
-      'PetSize' : petSize,
-      'SeviceName' : serviceName,
-      'WalkLocation' : walkLocation,
-      'PickUpLocation' : pickUpLocation,
-      'DropOffLocation' : dropOffLocation,
-      'TotalPrice' : totalPrice,
+      'PetSize': petSize,
+      'SeviceName': serviceName,
+      'WalkLocation': walkLocation,
+      'PickUpLocation': pickUpLocation,
+      'DropOffLocation': dropOffLocation,
+      'TotalPrice': totalPrice,
     };
   }
 
@@ -100,7 +100,7 @@ class OrderModel {
         dateStart: data['DateStart'],
         timeStart: data['TimeStart'],
         status: OrderStatus.values.firstWhere(
-          (status) => status.name == data['status'],
+          (status) => status.name == data['OrderStatus'],
           orElse: () => OrderStatus.pending,
         ),
         petSize: data['PetSize'],
@@ -114,4 +114,11 @@ class OrderModel {
       return OrderModel.empty();
     }
   }
+
+  String orderStatusText(OrderModel order) =>
+      order.status == OrderStatus.pending
+          ? 'Đang chờ xác nhận'
+          : order.status == OrderStatus.successful
+              ? 'Đã chấp nhận'
+              : 'Đã hủy';
 }

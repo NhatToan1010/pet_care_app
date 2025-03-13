@@ -1,20 +1,16 @@
+import '../../feature/customer/model/services/dog_day_care.dart';
+import '../../feature/customer/model/services/dog_walking_model.dart';
+import '../../feature/customer/model/services/pet_sitting_model.dart';
+import '../../feature/customer/model/services/pet_taxi_model.dart';
+import '../../feature/customer/model/services/service_model.dart';
+import '../constants/enums.dart';
+
 class PricingCalculator {
+  static double fee = 15000.0;
+
   // Calculate price based on tax and shipping
   static double calculateTotalPrice(double servicePrice) {
     return servicePrice + calculateFee(servicePrice);
-  }
-
-  // Calculate shipping cost
-  static String calculateShippingCost(String location) {
-    double shippingCost = getShippingCost(location);
-    return shippingCost.toStringAsFixed(2);
-  }
-
-  // Calculate tax
-  static String calculateTax(double productPrice, String location) {
-    double taxRate = getTaxRateForLocation(location);
-    double taxAmount = productPrice * taxRate;
-    return taxAmount.toStringAsFixed(2);
   }
 
   static double getTaxRateForLocation(String location) {
@@ -22,14 +18,6 @@ class PricingCalculator {
     // Return the appropriate tax rate.
     return 0.10;
   }
-
-  static double getShippingCost(String location) {
-    // Lookup the shipping cost for the given location using a shipping rate API.
-    // Calculate the shipping cost based on various factors like distance, weight, etc.
-    return 5.00;
-  }
-
-  static double fee = 15000.0;
 
   static double calculateFee(double price) {
     if (price - price * 0.9 <= fee) {
@@ -39,7 +27,60 @@ class PricingCalculator {
     }
   }
 
-  // static double calculateCartTotal(CartModel cart) {
-  //   return cart.items.map((e) => e.price).fold(0, (previousPrice, currentPrice) => previousPrice + (currentPrice ?? 0));
-  // }
+  static double dogWalkingPrice(ServiceModel service, String petSizes) {
+    final dogWalking = service as DogWalkingModel;
+    double sizeMultiplier = 1.0;
+    if (petSizes == PetSizes.medium.toString()) {
+      sizeMultiplier = 1.2;
+    } else if (petSizes == PetSizes.large.toString()) {
+      sizeMultiplier = 1.4;
+    }
+    return dogWalking.price * sizeMultiplier * (dogWalking.durationMinutes / 60);
+  }
+
+  static double petTaxiPrice(ServiceModel service, String petSizes) {
+    final petTaxi = service as PetTaxiModel;
+    return petTaxi.price * (petTaxi.distanceKm * petTaxi.pricePerKm);
+  }
+
+  static double petSittingPrice(ServiceModel service, String petSizes) {
+    final petSitting = service as PetSittingModel;
+
+    double sizeMultiplier = 1.0;
+    if (petSizes == PetSizes.medium.toString()) {
+      sizeMultiplier = 1.2;
+    } else if (petSizes == PetSizes.large.toString()) {
+      sizeMultiplier = 1.4;
+    }
+
+    return petSitting.price * sizeMultiplier * petSitting.durationHours;
+  }
+
+  static double dogDayCarePrice(ServiceModel service, String petSizes) {
+    final dogDayCare = service as DogDayCare;
+
+    double sizeMultiplier = 1.0;
+    if (petSizes == PetSizes.medium.toString()) {
+      sizeMultiplier = 1.2;
+    } else if (petSizes == PetSizes.large.toString()) {
+      sizeMultiplier = 1.4;
+    }
+
+    return dogDayCare.price * sizeMultiplier;
+  }
+
+  static double calculateServicePrice(ServiceModel service, String selectedSize) {
+    switch (service.name) {
+      case "Dắt Chó Đi Dạo":
+        return dogWalkingPrice(service, selectedSize);
+      case "Chăm Sóc Thú Cưng Tại Nhà":
+        return petSittingPrice(service, selectedSize);
+      case "Đưa Đón Thú Cưng":
+        return petTaxiPrice(service, selectedSize);
+      case "Chăm Sóc Chó Tại Trung Tâm":
+        return dogDayCarePrice(service, selectedSize);
+      default:
+        return 0.0;
+    }
+  }
 }

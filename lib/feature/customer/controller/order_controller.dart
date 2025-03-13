@@ -1,21 +1,20 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_app/data/repository/authentication.dart';
 import 'package:pet_care_app/data/repository/user.dart';
 import 'package:pet_care_app/feature/personalization/model/user_model.dart';
 import 'package:pet_care_app/feature/customer/model/services/service_model.dart';
+import 'package:pet_care_app/utils/constants/colors.dart';
 import 'package:pet_care_app/utils/constants/image_strings.dart';
+import 'package:pet_care_app/utils/helpers/pricing_calculator.dart';
 import 'package:pet_care_app/utils/popups/full_screen_loader.dart';
 
 import '../../../data/repository/order.dart';
 import '../../../utils/constants/enums.dart';
+import '../../../utils/constants/sizes.dart';
 import '../../../utils/formatters/formatter.dart';
 import '../../../utils/popups/loader.dart';
 import '../model/order_model.dart';
-import '../model/services/dog_day_care.dart';
-import '../model/services/dog_walking_model.dart';
-import '../model/services/pet_sitting_model.dart';
-import '../model/services/pet_taxi_model.dart';
 import '../view/order/purchase_screen.dart';
 
 class OrderController extends GetxController {
@@ -32,15 +31,14 @@ class OrderController extends GetxController {
   final Rx<OrderModel> currentOrder = OrderModel.empty().obs;
   final Rx<ServiceModel> service = ServiceModel.empty().obs;
   final Rx<UserModel> employee = UserModel.empty().obs;
+  final Rx<OrderStatus> currentStatus = OrderStatus.pending.obs;
 
   final GlobalKey<FormState> serviceFormKey = GlobalKey<FormState>();
 
   final _orderRepo = Get.put(OrderRepository());
 
-  @override
-  void onInit() {
-    fetchOrder();
-    super.onInit();
+  void onPetSizeSelected(String petSize) {
+    selectedSize.value = petSize;
   }
 
   Future<List<OrderModel>> fetchOrder() async {
@@ -51,7 +49,7 @@ class OrderController extends GetxController {
     }
 
     if (user.userType == UserType.employee.toString()) {
-      return fetchEmployeeOrder();
+      return fetchOrderByEmployeeId();
     }
 
     return [];
@@ -65,12 +63,12 @@ class OrderController extends GetxController {
 
       return orders;
     } catch (e) {
-      CustomLoader.errorSnackBar(title: 'Error', message: e.toString());
+      CustomLoader.errorSnackBar(title: 'Lỗi', message: e.toString());
       return [];
     }
   }
 
-  Future<List<OrderModel>> fetchEmployeeOrder() async {
+  Future<List<OrderModel>> fetchOrderByEmployeeId() async {
     try {
       final orders = await _orderRepo.getOrderByUserId("EmployeeId");
 
@@ -78,28 +76,14 @@ class OrderController extends GetxController {
 
       return orders;
     } catch (e) {
-      CustomLoader.errorSnackBar(title: 'Error', message: e.toString());
+      CustomLoader.errorSnackBar(title: 'Lỗi', message: e.toString());
       return [];
     }
   }
 
   Future<void> saveOrderInfomation() async {
     try {
-      if (service.value.name == 'Dắt Chó Đi Dạo' || service.value.name == 'Đưa Đón Thú Cưng') {
-        if (!serviceFormKey.currentState!.validate()) {
-          return;
-        }
-      }
-
-      if (dateStart.value.isEmpty || timeStart.value.isEmpty) {
-        CustomLoader.errorSnackBar(title: 'Error', message: 'Vui lòng chọn ngày và giờ');
-        return;
-      }
-
-      if (employee.value.id.isEmpty) {
-        CustomLoader.errorSnackBar(title: 'Error', message: 'Vui lòng chọn nhân viên');
-        return;
-      }
+      _checkServiceForm();
 
       final userId = AuthenticationRepository.instance.authUser!.uid;
 
@@ -111,7 +95,7 @@ class OrderController extends GetxController {
         timeStart: timeStart.value,
         status: OrderStatus.pending,
         serviceName: service.value.name,
-        totalPrice: calculateTotalPrice(service.value, selectedSize.value),
+        totalPrice: PricingCalculator.calculateServicePrice(service.value, selectedSize.value),
         petSize: selectedSize.value,
         walkLocation: walkLocation.text.isEmpty ? null : walkLocation.text,
         dropOffLocation: dropOffLocation.text.isEmpty ? null : dropOffLocation.text,
@@ -122,7 +106,7 @@ class OrderController extends GetxController {
 
       Get.to(() => PurchaseScreen(order: order));
     } catch (e) {
-      CustomLoader.errorSnackBar(title: 'Error', message: e.toString());
+      CustomLoader.errorSnackBar(title: 'Lỗi', message: e.toString());
     }
   }
 
@@ -135,68 +119,108 @@ class OrderController extends GetxController {
       FullScreenLoader.stopLoading();
     } catch (e) {
       FullScreenLoader.stopLoading();
-      CustomLoader.errorSnackBar(title: 'Error', message: e.toString());
+      CustomLoader.errorSnackBar(title: 'Lỗi', message: e.toString());
     }
   }
 
-  void onPetSizeSelected(String petSize) {
-    selectedSize.value = petSize;
-  }
+  void updateOrderStatus(OrderModel order, OrderStatus newStatus) async {
+    try {
+      await _orderRepo.updateOrderStatus(order, newStatus);
+      await fetchOrder();
 
-  double dogWalkingPrice(ServiceModel service, String petSizes) {
-    final dogWalking = service as DogWalkingModel;
-    double sizeMultiplier = 1.0;
-    if (petSizes == PetSizes.medium.toString()) {
-      sizeMultiplier = 1.2;
-    } else if (petSizes == PetSizes.large.toString()) {
-      sizeMultiplier = 1.4;
+      currentOrder.value.status = newStatus;
+      Navigator.pop(Get.context!);
+    } catch (e) {
+      CustomLoader.errorSnackBar(title: 'Lỗi', message: e.toString());
     }
-    return dogWalking.price * sizeMultiplier * (dogWalking.durationMinutes / 60);
   }
 
-  double petTaxiPrice(ServiceModel service, String petSizes) {
-    final petTaxi = service as PetTaxiModel;
-    return petTaxi.price * (petTaxi.distanceKm * petTaxi.pricePerKm);
-  }
+  void _checkServiceForm() {
+    if (service.value.name == 'Dắt Chó Đi Dạo' || service.value.name == 'Đưa Đón Thú Cưng' && !serviceFormKey.currentState!.validate()) return;
 
-  double petSittingPrice(ServiceModel service, String petSizes) {
-    final petSitting = service as PetSittingModel;
-
-    double sizeMultiplier = 1.0;
-    if (petSizes == PetSizes.medium.toString()) {
-      sizeMultiplier = 1.2;
-    } else if (petSizes == PetSizes.large.toString()) {
-      sizeMultiplier = 1.4;
+    if (dateStart.value.isEmpty || timeStart.value.isEmpty) {
+      CustomLoader.errorSnackBar(title: 'Lỗi', message: 'Vui lòng chọn ngày và giờ');
+      return;
     }
 
-    return petSitting.price * sizeMultiplier * petSitting.durationHours;
+    if (employee.value.id.isEmpty) {
+      CustomLoader.errorSnackBar(title: 'Lỗi', message: 'Vui lòng chọn nhân viên');
+      return;
+    }
   }
 
-  double dogDayCarePrice(ServiceModel service, String petSizes) {
-    final dogDayCare = service as DogDayCare;
+  void orderStatusSelectionDialog({required OrderModel order}) {
+    Get.dialog(
+      AlertDialog(
+        alignment: Alignment.center,
+        backgroundColor: AppPallete.whiteColor,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(AppSize.medium),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // =---= Dialog Title
+                Text(
+                  'Chọn Trạng Thái Đơn Hàng',
+                  style: Theme.of(Get.overlayContext!).textTheme.titleMedium,
+                ),
+                SizedBox(height: AppSize.spaceBtwItems),
 
-    double sizeMultiplier = 1.0;
-    if (petSizes == PetSizes.medium.toString()) {
-      sizeMultiplier = 1.2;
-    } else if (petSizes == PetSizes.large.toString()) {
-      sizeMultiplier = 1.4;
-    }
+                // =---= Pending Status
+                Obx(
+                  () => RadioListTile<OrderStatus>(
+                    value: OrderStatus.pending,
+                    groupValue: currentStatus.value,
+                    onChanged: (selectedStatus) => currentStatus.value = selectedStatus!,
+                    title: Text('Chờ xác nhận'),
+                  ),
+                ),
+                SizedBox(height: AppSize.spaceBtwItems),
 
-    return dogDayCare.price * sizeMultiplier;
-  }
+                // =---= Successful Status
+                Obx(
+                  () => RadioListTile<OrderStatus>(
+                    value: OrderStatus.successful,
+                    groupValue: currentStatus.value,
+                    onChanged: (selectedStatus) => currentStatus.value = selectedStatus!,
+                    title: Text('Đã xác nhận'),
+                  ),
+                ),
+                SizedBox(height: AppSize.spaceBtwItems),
 
-  double calculateTotalPrice(ServiceModel service, String selectedSize) {
-    switch (service.name) {
-      case "Dắt Chó Đi Dạo":
-        return dogWalkingPrice(service, selectedSize);
-      case "Chăm Sóc Thú Cưng Tại Nhà":
-        return petSittingPrice(service, selectedSize);
-      case "Đưa Đón Thú Cưng":
-        return petTaxiPrice(service, selectedSize);
-      case "Chăm Sóc Chó Tại Trung Tâm":
-        return dogDayCarePrice(service, selectedSize);
-      default:
-        return 0.0;
-    }
+                // =---= Canceled Status
+                Obx(
+                  () => RadioListTile<OrderStatus>(
+                    value: OrderStatus.canceled,
+                    groupValue: currentStatus.value,
+                    onChanged: (selectedStatus) => currentStatus.value = selectedStatus!,
+                    title: Text('Hủy đơn hàng'),
+                  ),
+                ),
+                SizedBox(height: AppSize.spaceBtwItems),
+
+                // =---= Action Buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () => Navigator.of(Get.overlayContext!).pop(),
+                      child: Text('Hủy'),
+                    ),
+                    SizedBox(width: AppSize.small),
+                    TextButton(
+                      onPressed: () =>
+                          updateOrderStatus(order, currentStatus.value),
+                      child: Text('Xác nhận'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
