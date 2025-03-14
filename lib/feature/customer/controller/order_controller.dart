@@ -27,60 +27,67 @@ class OrderController extends GetxController {
   final RxString selectedSize = PetSizes.small.toString().obs;
   final RxString dateStart = ''.obs;
   final RxString timeStart = ''.obs;
+
   final RxList<OrderModel> listOrder = <OrderModel>[].obs;
+  final RxList<OrderModel> pendingOrderList = <OrderModel>[].obs;
+  final RxList<OrderModel> successfulOrderList = <OrderModel>[].obs;
+  final RxList<OrderModel> canceledOrderList = <OrderModel>[].obs;
+
   final Rx<OrderModel> currentOrder = OrderModel.empty().obs;
   final Rx<ServiceModel> service = ServiceModel.empty().obs;
   final Rx<UserModel> employee = UserModel.empty().obs;
+  
   final Rx<OrderStatus> currentStatus = OrderStatus.pending.obs;
 
   final GlobalKey<FormState> serviceFormKey = GlobalKey<FormState>();
 
   final _orderRepo = Get.put(OrderRepository());
 
+  // ============================ Methods ============================
   void onPetSizeSelected(String petSize) {
     selectedSize.value = petSize;
   }
 
-  Future<List<OrderModel>> fetchOrder() async {
-    final user = await UserRepository.instance.getUser();
-
-    if (user.userType == UserType.customer.toString()) {
-      return fetchCustomerOrder();
-    }
-
-    if (user.userType == UserType.employee.toString()) {
-      return fetchOrderByEmployeeId();
-    }
-
-    return [];
+  @override
+  void onInit() {
+    super.onInit();
+    fetchOrder();
   }
 
-  Future<List<OrderModel>> fetchCustomerOrder() async {
+  // ------------------------- Get Order Data By UserType
+  Future<void> fetchOrder() async {
+    final user = await UserRepository.instance.getUser();
+
+    if (user.userType == UserType.customer.toString()) fetchCustomerOrder();
+
+    if (user.userType == UserType.employee.toString()) fetchOrderByEmployeeId();
+  }
+
+  Future<void> fetchCustomerOrder() async {
     try {
       final orders = await _orderRepo.getOrderByUserId("CustomerId");
 
       listOrder.assignAll(orders);
 
-      return orders;
+      pendingOrderList.assignAll(orders.where((order) => order.status == OrderStatus.pending));
+      successfulOrderList.assignAll(listOrder.where((order) => order.status == OrderStatus.successful));
+      canceledOrderList.assignAll(listOrder.where((order) => order.status == OrderStatus.canceled));
     } catch (e) {
       CustomLoader.errorSnackBar(title: 'Lỗi', message: e.toString());
-      return [];
     }
   }
 
-  Future<List<OrderModel>> fetchOrderByEmployeeId() async {
+  Future<void> fetchOrderByEmployeeId() async {
     try {
       final orders = await _orderRepo.getOrderByUserId("EmployeeId");
 
       listOrder.assignAll(orders);
-
-      return orders;
     } catch (e) {
       CustomLoader.errorSnackBar(title: 'Lỗi', message: e.toString());
-      return [];
     }
   }
 
+  // ------------------------- Save Order Information & Order Data To Database
   Future<void> saveOrderInfomation() async {
     try {
       _checkServiceForm();
@@ -123,6 +130,7 @@ class OrderController extends GetxController {
     }
   }
 
+  // ------------------------- Update Order Status
   void updateOrderStatus(OrderModel order, OrderStatus newStatus) async {
     try {
       await _orderRepo.updateOrderStatus(order, newStatus);
@@ -135,6 +143,7 @@ class OrderController extends GetxController {
     }
   }
 
+  // ------------------------- Ultil Methods
   void _checkServiceForm() {
     if (service.value.name == 'Dắt Chó Đi Dạo' || service.value.name == 'Đưa Đón Thú Cưng' && !serviceFormKey.currentState!.validate()) return;
 

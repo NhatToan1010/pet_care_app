@@ -20,32 +20,26 @@ class EmployeeHomeScreen extends StatelessWidget {
       appBar: CustomAppbar(title: Text('Đơn hàng có thể nhận')),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(AppSize.small),
-        child: FutureBuilder(
-          future: orderController.fetchOrder(),
-          builder: (context, snapshot) {
-            final response = CloudHelperFunctions.checkSingleStateRecord(
-                snapshot: snapshot,
-                shimmerEffect: Center(child: HorizontalProductShimmerEffect()));
-            if (response != null) return response;
+        child: Obx(
+            () {
+              final listOrder = orderController.listOrder;
 
-            final listOrder = snapshot.data!;
-
-            return SizedBox(
-              height: DeviceUtils.getScreenHeight(),
-              child: ListView.separated(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) => SizedBox(height: AppSize.medium),
-                itemCount: listOrder.length,
-                itemBuilder: (context, index) {
-                  return EmployeeOrderCard(
-                    order: listOrder[index],
-                    onTap: () => orderController.orderStatusSelectionDialog(order: listOrder[index]),
-                  );
-                },
-              ),
-            );
-          },
+              return SizedBox(
+                height: DeviceUtils.getScreenHeight(),
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  separatorBuilder: (context, index) => SizedBox(height: AppSize.medium),
+                  itemCount: listOrder.length,
+                  itemBuilder: (context, index) {
+                    return EmployeeOrderCard(
+                      order: listOrder[index],
+                      onTap: () => orderController.orderStatusSelectionDialog(order: listOrder[index]),
+                    );
+                  },
+                ),
+              );
+            },
         ),
       ),
     );

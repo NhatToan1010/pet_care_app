@@ -24,9 +24,6 @@ class ServiceDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final serviceController = ServiceController.instance;
-    final userController = UserController.instance;
-    final orderController = Get.put(OrderController());
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
