@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:pet_care_app/common/widgets/custom_shapes/curved_edges/curved_edges.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
-import 'package:pet_care_app/feature/customer/controller/order_controller.dart';
 import 'package:pet_care_app/feature/customer/controller/service_controller.dart';
 import 'package:pet_care_app/feature/customer/model/services/service_model.dart';
 import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_booking_button.dart';
@@ -14,7 +12,6 @@ import 'package:pet_care_app/feature/customer/view/service/widgets/sections/serv
 import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_rating_and_price.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 
-import '../../../personalization/controller/user_controller.dart';
 
 class ServiceDetailScreen extends StatelessWidget {
   const ServiceDetailScreen({super.key, required this.service});
@@ -24,9 +21,6 @@ class ServiceDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final serviceController = ServiceController.instance;
-    final userController = UserController.instance;
-    final orderController = Get.put(OrderController());
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

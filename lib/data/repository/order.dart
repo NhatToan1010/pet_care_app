@@ -11,7 +11,7 @@ class OrderRepository extends GetxController {
   final _db = FirebaseFirestore.instance;
   final _auth = AuthenticationRepository.instance;
 
-  Future<List<OrderModel>> getOrderByUserId(String userType) async {
+  Future<List<OrderModel>> getOrderByUserId(String userTypeId) async {
     try {
       final user = _auth.authUser;
 
@@ -21,7 +21,7 @@ class OrderRepository extends GetxController {
 
       final userId = _auth.authUser!.uid;
 
-      final snapshot = await _db.collection('Orders').where(userType, isEqualTo: userId).get();
+      final snapshot = await _db.collection('Orders').where(userTypeId, isEqualTo: userId).get();
 
       final listOrder = snapshot.docs.map((item) => OrderModel.fromSnapshot(item)).toList();
 
