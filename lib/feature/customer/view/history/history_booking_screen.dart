@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pet_care_app/common/widgets/appbar/custom_tabbar.dart';
 import 'package:pet_care_app/feature/customer/view/history/widgets/order_infomation_card.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
-import 'package:get/get.dart';
 
 import '../../controller/order_controller.dart';
 

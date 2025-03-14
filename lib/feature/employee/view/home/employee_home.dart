@@ -3,8 +3,6 @@ import 'package:pet_care_app/common/widgets/appbar/custom_appbar.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 import 'package:pet_care_app/utils/device/device_utility.dart';
 import 'package:get/get.dart';
-import 'package:pet_care_app/utils/helpers/cloud_helper_functions.dart';
-import 'package:pet_care_app/utils/popups/shimmers/horizontal_product_shimmer.dart';
 
 import '../../../customer/controller/order_controller.dart';
 import 'employee_order_card.dart';

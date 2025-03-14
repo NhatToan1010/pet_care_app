@@ -7,7 +7,6 @@ import 'package:pet_care_app/utils/helpers/cloud_helper_functions.dart';
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
-import '../../../../../utils/constants/texts.dart';
 
 class OrderInfomationCard extends StatelessWidget {
   const OrderInfomationCard({
