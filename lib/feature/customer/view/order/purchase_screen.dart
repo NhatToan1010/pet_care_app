@@ -67,31 +67,6 @@ class PurchaseScreen extends StatelessWidget {
             ),
             SizedBox(height: AppSize.spaceBtwItems),
 
-            // --- Payment Method
-            InfomationCard(
-              title: 'Chọn hình thức thanh toán',
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    title: Text('Thanh Toán Trực Tiếp'),
-                    leading: Radio(
-                        value: PaymentMethods.payDirectly,
-                        groupValue: paymentMethods,
-                        onChanged: (value) {}),
-                  ),
-                  ListTile(
-                    title: Text('Visa'),
-                    leading: Radio(
-                        value: PaymentMethods.visa,
-                        groupValue: paymentMethods,
-                        onChanged: (value) {}),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: AppSize.spaceBtwItems),
-
             // --- Service Infomation
             InfomationCard(
               title: 'Thông tin dịch vụ',
@@ -100,6 +75,11 @@ class PurchaseScreen extends StatelessWidget {
                 children: [
                   Text(
                     order.serviceName,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  SizedBox(height: AppSize.small),
+                  Text(
+                    order.walkLocation ?? 'Không có thông tin',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   SizedBox(height: AppSize.small),

@@ -42,7 +42,6 @@ class ServiceEmployeeSelection extends StatelessWidget {
                   child: ListEmployee(),
                 ),
               ),
-              hideButton: true,
               employee: userController.selectedEmployee.value,
             );
           },

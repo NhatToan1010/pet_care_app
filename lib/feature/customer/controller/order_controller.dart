@@ -20,11 +20,11 @@ import '../view/order/purchase_screen.dart';
 class OrderController extends GetxController {
   static OrderController get instance => Get.find();
 
-  final walkLocation = TextEditingController();
   final pickUpLocation = TextEditingController();
   final dropOffLocation = TextEditingController();
 
   final RxString selectedSize = PetSizes.small.toString().obs;
+  final RxString selectedWalkLocation = ''.obs;
   final RxString dateStart = ''.obs;
   final RxString timeStart = ''.obs;
 
@@ -90,7 +90,22 @@ class OrderController extends GetxController {
   // ------------------------- Save Order Information & Order Data To Database
   Future<void> saveOrderInfomation() async {
     try {
-      _checkServiceForm();
+      if (service.value.name == 'Đưa Đón Thú Cưng' && !serviceFormKey.currentState!.validate()) return;
+
+      if (service.value.name == 'Dắt Chó Đi Dạo' && selectedWalkLocation.value.isEmpty) {
+        CustomLoader.errorSnackBar(title: 'Lỗi', message: 'Vui lòng chọn vị trí đi dạo');
+        return;
+      }
+
+      if (dateStart.value.isEmpty || timeStart.value.isEmpty) {
+        CustomLoader.errorSnackBar(title: 'Lỗi', message: 'Vui lòng chọn ngày và giờ');
+        return;
+      }
+
+      if (employee.value.id.isEmpty) {
+        CustomLoader.errorSnackBar(title: 'Lỗi', message: 'Vui lòng chọn nhân viên');
+        return;
+      }
 
       final userId = AuthenticationRepository.instance.authUser!.uid;
 
@@ -104,7 +119,7 @@ class OrderController extends GetxController {
         serviceName: service.value.name,
         totalPrice: PricingCalculator.calculateServicePrice(service.value, selectedSize.value),
         petSize: selectedSize.value,
-        walkLocation: walkLocation.text.isEmpty ? null : walkLocation.text,
+        walkLocation: selectedWalkLocation.value.isEmpty ? null : selectedWalkLocation.value,
         dropOffLocation: dropOffLocation.text.isEmpty ? null : dropOffLocation.text,
         pickUpLocation: pickUpLocation.text.isEmpty ? null : pickUpLocation.text,
       );
@@ -124,6 +139,8 @@ class OrderController extends GetxController {
       await _orderRepo.saveOrder(currentOrder.value);
 
       FullScreenLoader.stopLoading();
+
+      _resetAttribute();
     } catch (e) {
       FullScreenLoader.stopLoading();
       CustomLoader.errorSnackBar(title: 'Lỗi', message: e.toString());
@@ -144,18 +161,19 @@ class OrderController extends GetxController {
   }
 
   // ------------------------- Ultil Methods
-  void _checkServiceForm() {
-    if (service.value.name == 'Dắt Chó Đi Dạo' || service.value.name == 'Đưa Đón Thú Cưng' && !serviceFormKey.currentState!.validate()) return;
+  void _resetAttribute() {
+    selectedSize.value = PetSizes.small.toString();
 
-    if (dateStart.value.isEmpty || timeStart.value.isEmpty) {
-      CustomLoader.errorSnackBar(title: 'Lỗi', message: 'Vui lòng chọn ngày và giờ');
-      return;
-    }
+    selectedWalkLocation.value = '';
+    dateStart.value = '';
+    timeStart.value = '';
 
-    if (employee.value.id.isEmpty) {
-      CustomLoader.errorSnackBar(title: 'Lỗi', message: 'Vui lòng chọn nhân viên');
-      return;
-    }
+    employee.value = UserModel.empty();
+    service.value = ServiceModel.empty();
+    currentOrder.value = OrderModel.empty();
+
+    pickUpLocation.clear();
+    dropOffLocation.clear();
   }
 
   void orderStatusSelectionDialog({required OrderModel order}) {

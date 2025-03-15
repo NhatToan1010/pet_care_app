@@ -14,7 +14,7 @@ class DummyData {
       name: 'Dắt Chó Đi Dạo',
       description: LocalTexts.dogWalkingDesciption,
       price: 50000.0,
-      walkingLocation: '',
+      walkingLocation: ['Công viên Lưu Hữu Phước', 'Công viên Hùng Vương', 'Công viên Tao Đàn'],
       durationMinutes: 120,
       imageUrl: 'assets/images/services/dog_walking.jpg',
       petSizes: [
