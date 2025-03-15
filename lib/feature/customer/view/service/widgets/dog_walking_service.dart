@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:pet_care_app/utils/constants/colors.dart';
 
-import '../../../../../utils/validators/validations.dart';
 import '../../../controller/order_controller.dart';
-import '../../../controller/service_controller.dart';
 import '../../../model/services/dog_walking_model.dart';
 import '../../../model/services/service_model.dart';
 
