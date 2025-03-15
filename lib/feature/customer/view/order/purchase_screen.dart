@@ -8,7 +8,6 @@ import 'package:pet_care_app/utils/helpers/cloud_helper_functions.dart';
 import 'package:pet_care_app/utils/helpers/pricing_calculator.dart';
 import 'package:get/get.dart';
 
-import '../../../../utils/constants/enums.dart';
 import '../../../../utils/popups/shimmers/horizontal_product_shimmer.dart';
 import '../../../personalization/controller/user_controller.dart';
 import '../../controller/purchase_controller.dart';
