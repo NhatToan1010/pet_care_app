@@ -20,7 +20,6 @@ class PurchaseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PaymentMethods paymentMethods = PaymentMethods.payDirectly;
     final userController = UserController.instance;
     final purchaseController = Get.put(PurchaseController());
     final totalAmount = PricingCalculator.calculateTotalPrice(order.totalPrice);
