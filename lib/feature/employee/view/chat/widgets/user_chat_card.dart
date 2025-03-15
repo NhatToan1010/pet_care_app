@@ -47,7 +47,7 @@ class UserChatCard extends StatelessWidget {
         ],
       ),
       trailing: Text(
-          Formatter.formatDate(conversation.lastMessageTimeStamp),
+          Formatter.formatDateAndTime(conversation.lastMessageTimeStamp),
           style: Theme.of(context).textTheme.bodyMedium,
       ),
       onTap: () {

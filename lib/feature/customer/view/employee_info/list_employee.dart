@@ -34,7 +34,6 @@ class ListEmployee extends StatelessWidget {
             itemBuilder: (context, index) => EmployeeCardHorizontal(
               onTap: () => userController.changeSelectedEmployee(employees[index]),
               employee: employees[index],
-              hideButton: true,
             ),
           );
         },

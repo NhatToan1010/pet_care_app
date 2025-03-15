@@ -14,6 +14,8 @@ class ServiceController extends GetxController {
 
   final RxList<ServiceModel> services = <ServiceModel>[].obs;
 
+  final RxString selectedWalkLocation = 'Công viên Lưu Hữu Phước'.obs;
+
   final serviceRepo = Get.put(ServiceRepository());
 
   @override
