@@ -25,7 +25,7 @@ class ServicePetSizeSelection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionHeading(title: 'Kích Thước Thú Cưng', showActionButton: false),
+        SectionHeading(title: 'Kích thước thú cưng', showActionButton: false),
         SizedBox(height: AppSize.spaceBtwItems),
         Obx(
           () => Wrap(

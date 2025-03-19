@@ -32,11 +32,12 @@ class OrderController extends GetxController {
   final RxList<OrderModel> pendingOrderList = <OrderModel>[].obs;
   final RxList<OrderModel> successfulOrderList = <OrderModel>[].obs;
   final RxList<OrderModel> canceledOrderList = <OrderModel>[].obs;
+  final RxList<String> listActivity = <String>[].obs;
 
   final Rx<OrderModel> currentOrder = OrderModel.empty().obs;
   final Rx<ServiceModel> service = ServiceModel.empty().obs;
   final Rx<UserModel> employee = UserModel.empty().obs;
-  
+
   final Rx<OrderStatus> currentStatus = OrderStatus.pending.obs;
 
   final GlobalKey<FormState> serviceFormKey = GlobalKey<FormState>();
@@ -47,6 +48,9 @@ class OrderController extends GetxController {
   void onPetSizeSelected(String petSize) {
     selectedSize.value = petSize;
   }
+
+  void onActivitySelected(String activity, bool isChecked) =>
+      isChecked ? listActivity.add(activity) : listActivity.remove(activity);
 
   @override
   void onInit() {
@@ -90,10 +94,19 @@ class OrderController extends GetxController {
   // ------------------------- Save Order Information & Order Data To Database
   Future<void> saveOrderInfomation() async {
     try {
-      if (service.value.name == 'Đưa Đón Thú Cưng' && !serviceFormKey.currentState!.validate()) return;
+      if (service.value.name == 'Đưa Đón Thú Cưng' && !serviceFormKey.currentState!.validate()) {
+        return;
+      }
 
       if (service.value.name == 'Dắt Chó Đi Dạo' && selectedWalkLocation.value.isEmpty) {
         CustomLoader.errorSnackBar(title: 'Lỗi', message: 'Vui lòng chọn vị trí đi dạo');
+        return;
+      }
+
+      if ((service.value.name == 'Chăm Sóc Thú Cưng Tại Nhà' ||
+              service.value.name == 'Chăm Sóc Chó Tại Trung Tâm') &&
+          listActivity.isEmpty) {
+        CustomLoader.errorSnackBar(title: 'Lỗi', message: 'Vui lòng chọn hoạt động');
         return;
       }
 
@@ -109,6 +122,8 @@ class OrderController extends GetxController {
 
       final userId = AuthenticationRepository.instance.authUser!.uid;
 
+      final servicePrice = _calculateServicePrice();
+
       final order = OrderModel(
         customerId: userId,
         employeeId: employee.value.id,
@@ -117,11 +132,12 @@ class OrderController extends GetxController {
         timeStart: timeStart.value,
         status: OrderStatus.pending,
         serviceName: service.value.name,
-        totalPrice: PricingCalculator.calculateServicePrice(service.value, selectedSize.value),
+        totalPrice: servicePrice,
         petSize: selectedSize.value,
         walkLocation: selectedWalkLocation.value.isEmpty ? null : selectedWalkLocation.value,
         dropOffLocation: dropOffLocation.text.isEmpty ? null : dropOffLocation.text,
         pickUpLocation: pickUpLocation.text.isEmpty ? null : pickUpLocation.text,
+        listActivity: listActivity.isEmpty ? null : listActivity,
       );
 
       currentOrder(order);
@@ -161,6 +177,26 @@ class OrderController extends GetxController {
   }
 
   // ------------------------- Ultil Methods
+  double _calculateServicePrice() {
+    if (service.value.name == 'Chăm Sóc Thú Cưng Tại Nhà') {
+      return PricingCalculator.petSittingPrice(
+        service.value,
+        selectedSize.value,
+        listActivity.length,
+      );
+    }
+
+    if (service.value.name == 'Chăm Sóc Chó Tại Trung Tâm') {
+      return PricingCalculator.dogDayCarePrice(
+        service.value,
+        selectedSize.value,
+        listActivity.length,
+      );
+    }
+
+    return PricingCalculator.calculateServicePrice(service.value, selectedSize.value);
+  }
+
   void _resetAttribute() {
     selectedSize.value = PetSizes.small.toString();
 
@@ -172,6 +208,7 @@ class OrderController extends GetxController {
     service.value = ServiceModel.empty();
     currentOrder.value = OrderModel.empty();
 
+    listActivity.clear();
     pickUpLocation.clear();
     dropOffLocation.clear();
   }
@@ -181,70 +218,82 @@ class OrderController extends GetxController {
       AlertDialog(
         alignment: Alignment.center,
         backgroundColor: AppPallete.whiteColor,
+        content: Padding(
+          padding: const EdgeInsets.all(AppSize.medium),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // =---= Dialog Title
+              Text(
+                'Chọn Trạng Thái Đơn Hàng',
+                style: Theme.of(Get.overlayContext!).textTheme.titleMedium,
+              ),
+              SizedBox(height: AppSize.spaceBtwItems),
+
+              // =---= Pending Status
+              Obx(
+                () => RadioListTile<OrderStatus>(
+                  value: OrderStatus.pending,
+                  groupValue: currentStatus.value,
+                  onChanged: (selectedStatus) =>
+                      currentStatus.value = selectedStatus!,
+                  title: Text('Chờ xác nhận'),
+                ),
+              ),
+              SizedBox(height: AppSize.spaceBtwItems),
+
+              // =---= Successful Status
+              Obx(
+                () => RadioListTile<OrderStatus>(
+                  value: OrderStatus.successful,
+                  groupValue: currentStatus.value,
+                  onChanged: (selectedStatus) =>
+                      currentStatus.value = selectedStatus!,
+                  title: Text('Đã xác nhận'),
+                ),
+              ),
+              SizedBox(height: AppSize.spaceBtwItems),
+
+              // =---= Canceled Status
+              Obx(
+                () => RadioListTile<OrderStatus>(
+                  value: OrderStatus.canceled,
+                  groupValue: currentStatus.value,
+                  onChanged: (selectedStatus) =>
+                      currentStatus.value = selectedStatus!,
+                  title: Text('Hủy đơn hàng'),
+                ),
+              ),
+              SizedBox(height: AppSize.spaceBtwItems),
+
+              // =---= Action Buttons
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     TextButton(
+              //       onPressed: () => Navigator.of(Get.overlayContext!).pop(),
+              //       child: Text('Hủy'),
+              //     ),
+              //     SizedBox(width: AppSize.small),
+              //     TextButton(
+              //       onPressed: () =>
+              //           updateOrderStatus(order, currentStatus.value),
+              //       child: Text('Xác nhận'),
+              //     ),
+              //   ],
+              // ),
+            ],
+          ),
+        ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(AppSize.medium),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // =---= Dialog Title
-                Text(
-                  'Chọn Trạng Thái Đơn Hàng',
-                  style: Theme.of(Get.overlayContext!).textTheme.titleMedium,
-                ),
-                SizedBox(height: AppSize.spaceBtwItems),
-
-                // =---= Pending Status
-                Obx(
-                  () => RadioListTile<OrderStatus>(
-                    value: OrderStatus.pending,
-                    groupValue: currentStatus.value,
-                    onChanged: (selectedStatus) => currentStatus.value = selectedStatus!,
-                    title: Text('Chờ xác nhận'),
-                  ),
-                ),
-                SizedBox(height: AppSize.spaceBtwItems),
-
-                // =---= Successful Status
-                Obx(
-                  () => RadioListTile<OrderStatus>(
-                    value: OrderStatus.successful,
-                    groupValue: currentStatus.value,
-                    onChanged: (selectedStatus) => currentStatus.value = selectedStatus!,
-                    title: Text('Đã xác nhận'),
-                  ),
-                ),
-                SizedBox(height: AppSize.spaceBtwItems),
-
-                // =---= Canceled Status
-                Obx(
-                  () => RadioListTile<OrderStatus>(
-                    value: OrderStatus.canceled,
-                    groupValue: currentStatus.value,
-                    onChanged: (selectedStatus) => currentStatus.value = selectedStatus!,
-                    title: Text('Hủy đơn hàng'),
-                  ),
-                ),
-                SizedBox(height: AppSize.spaceBtwItems),
-
-                // =---= Action Buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () => Navigator.of(Get.overlayContext!).pop(),
-                      child: Text('Hủy'),
-                    ),
-                    SizedBox(width: AppSize.small),
-                    TextButton(
-                      onPressed: () =>
-                          updateOrderStatus(order, currentStatus.value),
-                      child: Text('Xác nhận'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          TextButton(
+            onPressed: () => Navigator.of(Get.overlayContext!).pop(),
+            child: Text('Hủy'),
+          ),
+          SizedBox(width: AppSize.small),
+          TextButton(
+            onPressed: () => updateOrderStatus(order, currentStatus.value),
+            child: Text('Xác nhận'),
           ),
         ],
       ),

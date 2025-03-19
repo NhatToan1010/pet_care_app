@@ -19,7 +19,7 @@ class ServiceEmployeeSelection extends StatelessWidget {
 
     return Column(
       children: [
-        SectionHeading(title: 'Nhân Viên Thực Hiện', showActionButton: false),
+        SectionHeading(title: 'Nhân viên thực hiện', showActionButton: false),
         SizedBox(height: AppSize.spaceBtwItems),
         Obx(
           () {

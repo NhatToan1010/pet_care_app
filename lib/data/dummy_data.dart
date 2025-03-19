@@ -35,6 +35,7 @@ class DummyData {
         PetSizes.medium.toString(),
         PetSizes.large.toString()
       ],
+      activities: ['Chải Lông', 'Tắm', 'Dọn Giường', 'Cho Ăn'],
     ),
     PetTaxiModel(
       id: 'SV003',
@@ -64,6 +65,7 @@ class DummyData {
         PetSizes.medium.toString(),
         PetSizes.large.toString()
       ],
+      activities: ['Tỉa Lông', 'Tắm', 'Vệ Sinh Móng', 'Vệ Sinh Tai'],
     ),
   ];
 }

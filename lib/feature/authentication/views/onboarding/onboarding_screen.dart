@@ -27,17 +27,17 @@ class OnboardingScreen extends StatelessWidget {
                 children: [
                   OnboadingPage(
                     title: LocalTexts.onboardingTitle1,
-                    subtitle: LocalTexts.onboardingSubtitle,
+                    subtitle: LocalTexts.dogWalkingDesciption,
                     imageUrl: 'assets/images/onboarding/onboading_1.png',
                   ),
                   OnboadingPage(
                     title: LocalTexts.onboardingTitle2,
-                    subtitle: LocalTexts.onboardingSubtitle,
+                    subtitle: LocalTexts.petSittingDescription,
                     imageUrl: 'assets/images/onboarding/onboading_2.png',
                   ),
                   OnboadingPage(
                     title: LocalTexts.onboardingTitle3,
-                    subtitle: LocalTexts.onboardingSubtitle,
+                    subtitle: LocalTexts.petTaxiDescription,
                     imageUrl: 'assets/images/onboarding/onboading_3.png',
                   ),
                 ],
