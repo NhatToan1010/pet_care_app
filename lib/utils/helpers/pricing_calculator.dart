@@ -43,7 +43,7 @@ class PricingCalculator {
     return petTaxi.price * (petTaxi.distanceKm * petTaxi.pricePerKm);
   }
 
-  static double petSittingPrice(ServiceModel service, String petSizes) {
+  static double petSittingPrice(ServiceModel service, String petSizes, int numberOfActivity) {
     final petSitting = service as PetSittingModel;
 
     double sizeMultiplier = 1.0;
@@ -53,10 +53,10 @@ class PricingCalculator {
       sizeMultiplier = 1.4;
     }
 
-    return petSitting.price * sizeMultiplier * petSitting.durationHours;
+    return (petSitting.price * numberOfActivity) * sizeMultiplier * petSitting.durationHours;
   }
 
-  static double dogDayCarePrice(ServiceModel service, String petSizes) {
+  static double dogDayCarePrice(ServiceModel service, String petSizes, int numberOfActivity) {
     final dogDayCare = service as DogDayCare;
 
     double sizeMultiplier = 1.0;
@@ -66,19 +66,15 @@ class PricingCalculator {
       sizeMultiplier = 1.4;
     }
 
-    return dogDayCare.price * sizeMultiplier;
+    return (dogDayCare.price * numberOfActivity) * sizeMultiplier;
   }
 
   static double calculateServicePrice(ServiceModel service, String selectedSize) {
     switch (service.name) {
       case "Dắt Chó Đi Dạo":
         return dogWalkingPrice(service, selectedSize);
-      case "Chăm Sóc Thú Cưng Tại Nhà":
-        return petSittingPrice(service, selectedSize);
       case "Đưa Đón Thú Cưng":
         return petTaxiPrice(service, selectedSize);
-      case "Chăm Sóc Chó Tại Trung Tâm":
-        return dogDayCarePrice(service, selectedSize);
       default:
         return 0.0;
     }

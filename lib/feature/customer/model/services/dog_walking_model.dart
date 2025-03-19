@@ -60,7 +60,6 @@ class DogWalkingModel extends ServiceModel {
       final data = doc.data()!;
 
       List<String> petSizes = [];
-
       List<String> walkLocation = [];
 
       if (data["PetSizes"] != null) {

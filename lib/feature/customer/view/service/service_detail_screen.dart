@@ -48,19 +48,21 @@ class ServiceDetailScreen extends StatelessWidget {
 
                   // --- Desciption
                   ServiceDescription(service: service),
-                  SizedBox(height: AppSize.spaceBtwSections),
+                  SizedBox(height: AppSize.small),
+                  Divider(),
+                  SizedBox(height: AppSize.small),
+
+                  // --- Service Selection
+                  serviceController.routeService(service),
+                  SizedBox(height: AppSize.spaceBtwItems),
 
                   // --- Date Time Selection
                   ServiceDateTimeSelection(),
                   SizedBox(height: AppSize.spaceBtwSections),
 
-                  // --- Service Selection
-                  serviceController.routeService(service),
-                  SizedBox(height: AppSize.spaceBtwSections),
-
                   // --- Pet Size
                   ServicePetSizeSelection(service: service),
-                  SizedBox(height: AppSize.spaceBtwItems),
+                  SizedBox(height: AppSize.spaceBtwSections),
 
                   // --- Employee Selection
                   ServiceEmployeeSelection(),

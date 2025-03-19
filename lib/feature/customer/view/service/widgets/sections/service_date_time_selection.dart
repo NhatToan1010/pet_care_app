@@ -16,7 +16,7 @@ class ServiceDateTimeSelection extends StatelessWidget {
 
     return Column(
       children: [
-        SectionHeading(title: 'Lựa Chọn Cho Dịch Vụ', showActionButton: false),
+        SectionHeading(title: 'Lựa chọn ngày và giờ', showActionButton: false),
         SizedBox(height: AppSize.spaceBtwItems),
         Row(
           children: [

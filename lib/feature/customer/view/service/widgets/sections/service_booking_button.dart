@@ -22,7 +22,6 @@ class ServiceBookingButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () {
             orderController.service.value = service;
-
             orderController.saveOrderInfomation();
           },
           child: Text('Đặt Lịch Ngay'),

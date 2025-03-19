@@ -18,6 +18,7 @@ class OrderModel {
   String? walkLocation;
   String? pickUpLocation;
   String? dropOffLocation;
+  List<String>? listActivity;
   OrderStatus status;
   double totalPrice;
 
@@ -35,6 +36,7 @@ class OrderModel {
     this.walkLocation,
     this.pickUpLocation,
     this.dropOffLocation,
+    this.listActivity,
   });
 
   static OrderModel empty() {
@@ -66,6 +68,7 @@ class OrderModel {
       'PickUpLocation': pickUpLocation,
       'DropOffLocation': dropOffLocation,
       'TotalPrice': totalPrice,
+      'ListActivity': listActivity,
     };
   }
 
@@ -92,6 +95,12 @@ class OrderModel {
     if (doc.data() != null) {
       final data = doc.data()!;
 
+      List<String>? listActivity;
+      if (data["ListActivity"] != null) {
+        final dynamicList = data["ListActivity"] as List<dynamic>;
+        listActivity = dynamicList.map((item) => item.toString()).toList();
+      }
+
       return OrderModel(
         id: doc.id,
         customerId: data['CustomerId'],
@@ -109,6 +118,7 @@ class OrderModel {
         dropOffLocation: data['DropOffLocation'],
         totalPrice: data['TotalPrice'],
         serviceName: data['SeviceName'],
+        listActivity: listActivity,
       );
     } else {
       return OrderModel.empty();

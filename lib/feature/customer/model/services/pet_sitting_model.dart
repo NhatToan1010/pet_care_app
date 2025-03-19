@@ -4,6 +4,7 @@ import 'package:pet_care_app/utils/constants/enums.dart';
 
 class PetSittingModel extends ServiceModel {
   final int durationHours;
+  final List<String> activities;
 
   PetSittingModel({
     required super.id,
@@ -13,6 +14,7 @@ class PetSittingModel extends ServiceModel {
     required super.imageUrl,
     required super.petSizes,
     required this.durationHours,
+    required this.activities,
   });
 
   static PetSittingModel empty() {
@@ -24,6 +26,7 @@ class PetSittingModel extends ServiceModel {
       durationHours: 0,
       imageUrl: '',
       petSizes: [],
+      activities: [],
     );
   }
 
@@ -49,6 +52,7 @@ class PetSittingModel extends ServiceModel {
       "DurationHours": durationHours,
       "PetSizes": super.petSizes,
       "ImageUrl": imageUrl,
+      "Activities": activities,
     };
   }
 
@@ -58,9 +62,16 @@ class PetSittingModel extends ServiceModel {
       final data = doc.data()!;
 
       List<String> petSizes = [];
+      List<String> activities = [];
+
       if (data["PetSizes"] != null) {
         final dynamicList = data["PetSizes"] as List<dynamic>;
         petSizes = dynamicList.map((item) => item.toString()).toList();
+      }
+
+      if (data["Activities"] != null) {
+        final dynamicList = data["Activities"] as List<dynamic>;
+        activities = dynamicList.map((item) => item.toString()).toList();
       }
 
       return PetSittingModel(
@@ -71,6 +82,7 @@ class PetSittingModel extends ServiceModel {
         petSizes: petSizes,
         durationHours: data["DurationHours"] ?? 0,
         imageUrl: data["ImageUrl"] ?? '',
+        activities: activities,
       );
     } else {
       return empty();
