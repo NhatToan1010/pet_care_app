@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pet_care_app/common/widgets/custom_shapes/curved_edges/curved_edges.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
 import 'package:pet_care_app/feature/customer/controller/service_controller.dart';
 import 'package:pet_care_app/feature/customer/model/services/service_model.dart';
+import 'package:pet_care_app/feature/customer/view/service/service_review_screen.dart';
 import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_booking_button.dart';
 import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_date_time_selection.dart';
 import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_description.dart';
@@ -27,16 +29,22 @@ class ServiceDetailScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // --- Service Image Display
-            ClipPath(clipper: CustomCurvedEdges(), child: ServiceImageDisplay(service: service)),
+            ClipPath(
+                clipper: CustomCurvedEdges(),
+                child: ServiceImageDisplay(service: service)),
 
             // --- Service Info Detail
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppSize.defaultSpace, vertical: AppSize.small),
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppSize.defaultSpace, vertical: AppSize.small),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // --- Title
-                  SectionHeading(title: service.name, showActionButton: false, largeTitle: true),
+                  SectionHeading(
+                      title: service.name,
+                      showActionButton: false,
+                      largeTitle: true),
                   SizedBox(height: AppSize.spaceBtwItems),
 
                   // --- Rating and Price
@@ -66,6 +74,16 @@ class ServiceDetailScreen extends StatelessWidget {
 
                   // --- Employee Selection
                   ServiceEmployeeSelection(),
+                  SizedBox(height: AppSize.small),
+                  Divider(),
+                  SizedBox(height: AppSize.small),
+
+                  // --- Review
+                  SectionHeading(
+                    title: 'Lượt Đánh Giá (${service.ratingCount})',
+                    showActionButton: true,
+                    onPressed: () => Get.to(() => ServiceReviewScreen(service: service)),
+                  ),
                 ],
               ),
             ),

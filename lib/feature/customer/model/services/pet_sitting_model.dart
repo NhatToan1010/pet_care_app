@@ -15,6 +15,8 @@ class PetSittingModel extends ServiceModel {
     required super.petSizes,
     required this.durationHours,
     required this.activities,
+    super.averageRating,
+    super.ratingCount,
   });
 
   static PetSittingModel empty() {
@@ -53,6 +55,8 @@ class PetSittingModel extends ServiceModel {
       "PetSizes": super.petSizes,
       "ImageUrl": imageUrl,
       "Activities": activities,
+      "AverageRating": averageRating,
+      "RatingCount": ratingCount,
     };
   }
 
@@ -83,6 +87,8 @@ class PetSittingModel extends ServiceModel {
         durationHours: data["DurationHours"] ?? 0,
         imageUrl: data["ImageUrl"] ?? '',
         activities: activities,
+        averageRating: data["AverageRating"] ?? 0.0,
+        ratingCount: data["RatingCount"] ?? 0,
       );
     } else {
       return empty();

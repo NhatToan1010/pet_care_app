@@ -15,6 +15,8 @@ class DogWalkingModel extends ServiceModel {
     required this.durationMinutes,
     required super.imageUrl,
     required super.petSizes,
+    super.averageRating,
+    super.ratingCount,
   });
 
   static DogWalkingModel empty() {
@@ -51,6 +53,8 @@ class DogWalkingModel extends ServiceModel {
       "WalkingLocation": walkingLocation,
       "PetSizes": super.petSizes,
       "ImageUrl": imageUrl,
+      "AverageRating": averageRating,
+      "RatingCount": ratingCount,
     };
   }
 
@@ -81,6 +85,8 @@ class DogWalkingModel extends ServiceModel {
         durationMinutes: data["DurationMinutes"] ?? 0,
         imageUrl: data["ImageUrl"] ?? '',
         petSizes: petSizes,
+        averageRating: data["AverageRating"] ?? 0.0,
+        ratingCount: data["RatingCount"] ?? 0,
       );
     } else {
       return empty();

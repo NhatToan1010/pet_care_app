@@ -43,16 +43,21 @@ class CustomerChatScreen extends StatelessWidget {
                 shrinkWrap: true,
                 separatorBuilder: (context, index) => SizedBox(height: AppSize.spaceBtwItems),
                 itemCount: employees.length,
-                itemBuilder: (context, index) => EmployeeCardHorizontal(
-                  onChatButtonTap: () {
-                    messageController.createConversation(employees[index].id);
-                    messageController.getMessages(employees[index].id);
-                    Get.to(() => MessageScreen(contactUser: employees[index]));
-                  },
-                  onTap: () => Get.to(() => EmployeeInfoScreen()),
-                  employee: employees[index],
-                  hideButton: true,
-                ),
+                itemBuilder: (context, index) {
+                  final employee = employees[index];
+
+                  EmployeeCardHorizontal(
+                    onChatButtonTap: () {
+                      messageController.createConversation(employee.id);
+                      messageController.getMessages(employee.id);
+                      Get.to(() => MessageScreen(contactUser: employee));
+                    },
+                    onTap: () => Get.to(() => EmployeeInfoScreen()),
+                    employee: employee,
+                    hideButton: true,
+                  );
+                  return null;
+                },
               );
             },
           ),

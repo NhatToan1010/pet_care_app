@@ -93,8 +93,7 @@ class CustomerHomeScreen extends StatelessWidget {
             FutureBuilder(
               future: serviceController.fetchServices(),
               builder: (context, snapshot) {
-                final respone =
-                    CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot);
+                final respone = CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot);
 
                 if (respone != null) return respone;
 

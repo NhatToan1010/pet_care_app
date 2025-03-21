@@ -41,6 +41,14 @@ class ServiceRepository extends GetxController {
     }
   }
 
+  Future<void> updateServiceField(String serviceId, Map<String, dynamic> dataField) async {
+    try {
+      await _db.collection("Services").doc(serviceId).update(dataField);
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
   Future<void> upLoadService(List<ServiceModel> services) async {
     try {
       // final storage = Get.put(LocalFirebaseStorageService());

@@ -13,6 +13,8 @@ class ServiceModel {
   String imageUrl;
   List<String> petSizes;
   final double price;
+  double? averageRating;
+  int? ratingCount;
 
   ServiceModel({
     required this.id,
@@ -21,6 +23,8 @@ class ServiceModel {
     required this.price,
     required this.imageUrl,
     required this.petSizes,
+    this.averageRating,
+    this.ratingCount,
   });
 
   Map<String, dynamic> toJSON() {
@@ -31,6 +35,8 @@ class ServiceModel {
       "Price": price,
       "ImageUrl": imageUrl,
       "PetSizes": petSizes,
+      "AverageRating": averageRating,
+      "RatingCount": ratingCount,
     };
   }
 

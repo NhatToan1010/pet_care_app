@@ -265,23 +265,6 @@ class OrderController extends GetxController {
                 ),
               ),
               SizedBox(height: AppSize.spaceBtwItems),
-
-              // =---= Action Buttons
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: [
-              //     TextButton(
-              //       onPressed: () => Navigator.of(Get.overlayContext!).pop(),
-              //       child: Text('Hủy'),
-              //     ),
-              //     SizedBox(width: AppSize.small),
-              //     TextButton(
-              //       onPressed: () =>
-              //           updateOrderStatus(order, currentStatus.value),
-              //       child: Text('Xác nhận'),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
         ),

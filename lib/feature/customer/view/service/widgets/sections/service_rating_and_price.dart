@@ -19,7 +19,7 @@ class ServiceRatingAndPrice extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            RatingIconText(iconSize: 24),
+            RatingIconText(ratingScore: service.averageRating, iconSize: 24),
             Row(
               children: [
                 ProductPriceText(

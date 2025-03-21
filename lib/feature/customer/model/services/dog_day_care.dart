@@ -13,6 +13,8 @@ class DogDayCare extends ServiceModel {
     required super.imageUrl,
     required super.petSizes,
     required this.activities,
+    super.averageRating,
+    super.ratingCount,
   });
 
   static DogDayCare empty() {
@@ -49,6 +51,8 @@ class DogDayCare extends ServiceModel {
       "ImageUrl": imageUrl,
       "PetSizes": super.petSizes,
       "Activities": activities,
+      "AverageRating": averageRating,
+      "RatingCount": ratingCount,
     };
   }
 
@@ -77,6 +81,8 @@ class DogDayCare extends ServiceModel {
         imageUrl: data["ImageUrl"] ?? '',
         petSizes: petSizes,
         activities: activities,
+        averageRating: data["AverageRating"] ?? 0.0,
+        ratingCount: data["RatingCount"] ?? 0,
       );
     } else {
       return empty();
