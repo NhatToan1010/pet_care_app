@@ -19,6 +19,8 @@ class PetTaxiModel extends ServiceModel {
     required this.dropoffLocation,
     required this.distanceKm,
     required this.pricePerKm,
+    super.averageRating,
+    super.ratingCount,
   });
 
   static PetTaxiModel empty() {
@@ -54,6 +56,8 @@ class PetTaxiModel extends ServiceModel {
       "PricePerKm": pricePerKm,
       "ImageUrl": imageUrl,
       "PetSizes": super.petSizes,
+      "AverageRating": averageRating,
+      "RatingCount": ratingCount,
     };
   }
 
@@ -79,6 +83,8 @@ class PetTaxiModel extends ServiceModel {
         pricePerKm: data["PricePerKm"] ?? 0,
         imageUrl: data["ImageUrl"] ?? '',
         petSizes: petSizes,
+        averageRating: data["AverageRating"] ?? 0.0,
+        ratingCount: data["RatingCount"] ?? 0,
       );
     } else {
       return empty();

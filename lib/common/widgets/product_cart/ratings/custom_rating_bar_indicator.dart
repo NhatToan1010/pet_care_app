@@ -30,7 +30,7 @@ class CustomRatingBarIndicator extends StatelessWidget {
         SizedBox(width: AppSize.small),
         Text(
           rating.toString(),
-          style: Theme.of(context).textTheme.labelMedium,
+          style: Theme.of(context).textTheme.bodyLarge,
         )
       ],
     );

@@ -78,6 +78,7 @@ class ServiceCardVertical extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       RatingIconText(
+                        ratingScore: service.averageRating,
                         iconSize: 16,
                         fontColor: AppPallete.textWhite,
                       ),

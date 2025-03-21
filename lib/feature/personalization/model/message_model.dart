@@ -44,11 +44,8 @@ class MessageModel {
   }
 
   factory MessageModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
-    print("------------------------------------------------fromSnapshot called for doc ID: ${doc.id}");
     if (doc.data() != null) {
-
       final data = doc.data()!;
-      print("-------------------------------------------------MessageModel created with ID: ${doc.id}");
 
       // Check if 'Timestamp' is of type Timestamp and handle potential nulls
       final timestampData = data['Timestamp'];
@@ -69,7 +66,6 @@ class MessageModel {
         image: data['Image'] ?? '',
       );
     } else {
-      print("------------------------------------------------------fromSnapshot: Document data is null for doc ID: ${doc.id}");
       return empty();
     }
   }
