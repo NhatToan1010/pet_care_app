@@ -26,6 +26,7 @@ Future<void> main() async {
       .then((FirebaseApp value) => Get.put(AuthenticationRepository()));
 
   Stripe.publishableKey = stripePublishableKey;
+  await Stripe.instance.applySettings();
 
   runApp(const MyApp());
 }

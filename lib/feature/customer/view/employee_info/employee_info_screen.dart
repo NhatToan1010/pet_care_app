@@ -5,10 +5,12 @@ import 'package:pet_care_app/feature/customer/view/employee_info/widgets/employe
 import 'package:pet_care_app/utils/constants/sizes.dart';
 
 import '../../../../common/widgets/texts/title_text.dart';
+import '../../../personalization/model/user_model.dart';
 
 
 class EmployeeInfoScreen extends StatelessWidget {
-  const EmployeeInfoScreen({super.key});
+  const EmployeeInfoScreen({super.key, required this.employee});
+  final UserModel employee;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class EmployeeInfoScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            EIAppBar(),
+            EIAppBar(employee: employee),
 
             // --- Detail Section
             Padding(
@@ -27,17 +29,17 @@ class EmployeeInfoScreen extends StatelessWidget {
                   TitleTextWidget(
                     largeTitle: true,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    title: 'Nguyễn Trân',
+                    title: employee.fullName,
                     subtitle: 'Nhân Viên Của Năm',
                   ),
                   SizedBox(height: AppSize.spaceBtwItems),
 
                   // --- Buttons
-                  EIButtonGroup(),
+                  EIButtonGroup(employee: employee),
                   SizedBox(height: AppSize.spaceBtwSections),
 
                   // --- Infomation Detail
-                  EIDetail(),
+                  EIDetail(employee: employee,),
                 ],
               ),
             ),

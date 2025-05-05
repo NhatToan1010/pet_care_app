@@ -29,7 +29,7 @@ class TitleTextWidget extends StatelessWidget {
         Text(title,
             style: largeTitle
                 ? textTheme.titleLarge?.apply(color: fontColor)
-                : textTheme.titleSmall?.apply(color: fontColor)),
+                : textTheme.bodyLarge?.apply(color: fontColor)),
         SizedBox(height: AppSize.extraSmall),
         Text(
           subtitle,

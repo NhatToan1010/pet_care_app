@@ -1,53 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:pet_care_app/feature/customer/model/review_model.dart';
+import 'package:pet_care_app/utils/constants/sizes.dart';
 
-import '../../../../../../utils/helpers/cloud_helper_functions.dart';
-import '../../../../controller/review_controller.dart';
-import '../../../../model/services/service_model.dart';
+import '../../../../../../common/widgets/product_cart/ratings/custom_rating_bar_indicator.dart';
 
-class ServiceReviewSection extends StatelessWidget {
-  const ServiceReviewSection({
+class ReviewSection extends StatelessWidget {
+  const ReviewSection({
     super.key,
-    required this.service,
+    required this.review,
   });
 
-  final ServiceModel service;
+  final ReviewModel review;
 
   @override
   Widget build(BuildContext context) {
-    final reviewController = ReviewController.instance;
-
-    return FutureBuilder(
-      future: reviewController.getReviewsByService(service.id),
-      builder: (context, snapshot) {
-        final respone = CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot);
-        if (respone != null) return respone;
-
-        final listReview = snapshot.data!;
-
-        return ListView.separated(
-          shrinkWrap: true,
-          itemCount: listReview.length,
-          separatorBuilder: (context, index) => Divider(),
-          itemBuilder: (context, index) {
-            final review = listReview[index];
-            return ListTile(
-              leading: CircleAvatar(
-                backgroundImage: AssetImage(
-                  review.avatar ?? 'assets/images/customers/default_avatar.jpg',
-                ),
-              ),
-              title: Text(review.userName),
-              subtitle: Text(review.comment),
-              trailing: Row(
-                children: [
-                  Icon(Icons.star_rounded, color: Colors.amber, size: 24),
-                  Text(' ${review.ratingScore.toString()}'),
-                ],
-              ),
-            );
-          },
-        );
-      },
+    return Row(
+      children: [
+        CircleAvatar(
+          backgroundImage: AssetImage(
+            review.avatar ??
+                'assets/images/customers/default_avatar.jpg',
+          ),
+        ),
+        SizedBox(width: AppSize.spaceBtwItems),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomRatingBarIndicator(
+              itemSize: 15.0,
+              rating: review.ratingScore.toDouble(),
+            ),
+            SizedBox(height: AppSize.small),
+            Text(
+              review.userName,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            SizedBox(height: AppSize.small),
+            Text(
+              review.comment,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

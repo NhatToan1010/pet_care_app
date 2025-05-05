@@ -17,46 +17,48 @@ class EmployeeChatScreen extends StatelessWidget {
     final messageController = Get.put(MessageController());
     final userController = Get.put(UserController());
 
-    return Scaffold(
-      appBar: CustomAppbar(title: Text('Danh sách tin nhắn')),
-      body: SingleChildScrollView(
-        child: FutureBuilder(
-          future: messageController.getConversation(),
-          builder: (context, snapshot) {
-            final response = CloudHelperFunctions.checkSingleStateRecord(
-                snapshot: snapshot,
-                shimmerEffect: Center(child: BrandShimmerEffect()));
-            if (response != null) return response;
-
-            // --- Fetch list conversation
-            final listConversations = snapshot.data!;
-
-            return ListView.builder(
-              itemCount: listConversations.length,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                final conversation = listConversations[index];
-                final contactUserId = conversation.participants.firstWhere((id) => id != AuthenticationRepository.instance.authUser!.uid);
-
-                return FutureBuilder(
-                    future: userController.getSpecificUser(contactUserId),
-                    builder: (context, snapshot) {
-                      final response =
-                          CloudHelperFunctions.checkSingleStateRecord(
-                              snapshot: snapshot,
-                              shimmerEffect: Center(child: BrandShimmerEffect()),
-                          );
-                      if (response != null) return response;
-
-                      // --- Fetch contactUser
-                      final contactUser = snapshot.data!;
-
-                      return UserChatCard(contactUser: contactUser, conversation: conversation);
-                    });
-              },
-            );
-          },
+    return SafeArea(
+      child: Scaffold(
+        appBar: CustomAppbar(title: Text('Danh sách tin nhắn')),
+        body: SingleChildScrollView(
+          child: FutureBuilder(
+            future: messageController.getConversation(),
+            builder: (context, snapshot) {
+              final response = CloudHelperFunctions.checkSingleStateRecord(
+                  snapshot: snapshot,
+                  shimmerEffect: Center(child: BrandShimmerEffect()));
+              if (response != null) return response;
+      
+              // --- Fetch list conversation
+              final listConversations = snapshot.data!;
+      
+              return ListView.builder(
+                itemCount: listConversations.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final conversation = listConversations[index];
+                  final contactUserId = conversation.participants.firstWhere((id) => id != AuthenticationRepository.instance.authUser!.uid);
+      
+                  return FutureBuilder(
+                      future: userController.getSpecificUser(contactUserId),
+                      builder: (context, snapshot) {
+                        final response =
+                            CloudHelperFunctions.checkSingleStateRecord(
+                                snapshot: snapshot,
+                                shimmerEffect: Center(child: BrandShimmerEffect()),
+                            );
+                        if (response != null) return response;
+      
+                        // --- Fetch contactUser
+                        final contactUser = snapshot.data!;
+      
+                        return UserChatCard(contactUser: contactUser, conversation: conversation);
+                      });
+                },
+              );
+            },
+          ),
         ),
       ),
     );

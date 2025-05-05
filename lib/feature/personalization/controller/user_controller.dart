@@ -25,7 +25,6 @@ class UserController extends GetxController {
 
   final currentUser = UserModel.empty().obs;
 
-
   @override
   void onReady() {
     super.onReady();

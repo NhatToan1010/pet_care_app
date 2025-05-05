@@ -60,31 +60,6 @@ class CustomerHomeScreen extends StatelessWidget {
             ),
             SizedBox(height: AppSize.spaceBtwSections),
 
-            // --- Categories
-            // HomeCategory(
-            //   onPressed: () => Get.to(() => CategoryScreen()),
-            // ),
-            // SizedBox(height: AppSize.spaceBtwSections),
-
-            // --- Employee Cards
-            // SizedBox(
-            //   height: 220,
-            //   width: double.infinity,
-            //   child: ListView.separated(
-            //     shrinkWrap: true,
-            //     scrollDirection: Axis.horizontal,
-            //     separatorBuilder: (context, index) =>
-            //         SizedBox(width: AppSize.medium),
-            //     itemCount: 4,
-            //     itemBuilder: (context, index) {
-            //       return EmployeeCardVertical(
-            //         onTap: () => Get.to(() => EmployeeInfoScreen()),
-            //       );
-            //     },
-            //   ),
-            // ),
-            // SizedBox(height: AppSize.spaceBtwSections),
-
             // --- Service List
             SectionHeading(title: 'Dịch Vụ Nổi Bật'),
             SizedBox(height: AppSize.spaceBtwItems),
@@ -93,9 +68,9 @@ class CustomerHomeScreen extends StatelessWidget {
             FutureBuilder(
               future: serviceController.fetchServices(),
               builder: (context, snapshot) {
-                final respone = CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot);
+                final response = CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot);
 
-                if (respone != null) return respone;
+                if (response != null) return response;
 
                 final data = snapshot.data!;
 

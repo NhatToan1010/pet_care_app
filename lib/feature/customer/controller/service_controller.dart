@@ -18,12 +18,6 @@ class ServiceController extends GetxController {
 
   final serviceRepo = Get.put(ServiceRepository());
 
-  @override
-  void onInit() {
-    super.onInit();
-    fetchServices();
-  }
-
   Future<List<ServiceModel>> fetchServices() async {
     try {
       final serviceData = await serviceRepo.fetchServices();

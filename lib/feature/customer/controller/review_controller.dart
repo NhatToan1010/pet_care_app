@@ -17,14 +17,14 @@ class ReviewController extends GetxController {
 
   final comment = TextEditingController();
   final RxDouble rating = 0.0.obs;
+  final listReview = <ReviewModel>[].obs;
 
-  Future<List<ReviewModel>> getReviewsByService(String serviceId) async {
+  Future<void> getReviewsByService(String serviceId) async {
     try {
       final reviews = await reviewRepository.getReviewsByServiceId(serviceId);
-      return reviews;
+      listReview.assignAll(reviews);
     } catch (e) {
       CustomLoader.errorSnackBar(title: 'Lỗi', message: e.toString());
-      return [];
     }
   }
 
@@ -36,6 +36,10 @@ class ReviewController extends GetxController {
       CustomLoader.errorSnackBar(title: 'Lỗi', message: e.toString());
       return [];
     }
+  }
+
+  Future<void> refreshData(String serviceId) async {
+    getReviewsByService(serviceId);
   }
 
   double calculateAverageRating(List<ReviewModel> reviews) {
@@ -75,7 +79,7 @@ class ReviewController extends GetxController {
 
       await reviewRepository.createReview(review);
 
-      final reviews = await getReviewsByService(serviceId);
+      final reviews = listReview;
 
       Map<String, dynamic> dataField = {
         "AverageRating": calculateAverageRating(reviews),
@@ -83,6 +87,8 @@ class ReviewController extends GetxController {
       };
       await serviceRepository.updateServiceField(serviceId, dataField);
       _clear();
+
+      getReviewsByService(serviceId);
 
       Navigator.of(Get.overlayContext!).pop();
     } catch (e) {
@@ -95,42 +101,40 @@ class ReviewController extends GetxController {
     rating.value = 0.0;
   }
 
-  void reviewDialog(String serviceId) {
-    Get.dialog(
+  void reviewDialog(String serviceId) =>
+    showDialog(
+      barrierDismissible: false,
+      context: Get.overlayContext!,
+      builder: (context) =>
       AlertDialog(
+
         alignment: Alignment.center,
         backgroundColor: AppPallete.whiteColor,
         title: Text('Gửi Đánh Giá'),
-        content: Padding(
-          padding: const EdgeInsets.all(AppSize.extraSmall),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              RatingBar.builder(
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: false,
-                  unratedColor: AppPallete.greyColor,
-                  itemCount: 5,
-                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber),
-                  onRatingUpdate: (score) => rating.value = score,
-              ),
-              SizedBox(height: AppSize.spaceBtwItems),
+        titleTextStyle: TextStyle(fontSize: 20, color: AppPallete.textPrimary),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            RatingBar.builder(
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: false,
+                unratedColor: AppPallete.greyColor,
+                itemCount: 5,
+                itemBuilder: (context, _) => Icon(Icons.star, color: Colors.amber, size: 12,),
+                onRatingUpdate: (score) => rating.value = score,
+            ),
+            SizedBox(height: AppSize.spaceBtwItems),
 
-              SizedBox(
-                height: 200,
-                child: TextFormField(
-                  controller: comment,
-                  decoration: InputDecoration(
-                    hintText: 'Nhập bình luận',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
+            TextFormField(
+              controller: comment,
+              decoration: InputDecoration(
+                hintText: 'Nhập bình luận',
+                border: OutlineInputBorder(),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
 
         actions: [
@@ -140,11 +144,10 @@ class ReviewController extends GetxController {
           ),
           SizedBox(width: AppSize.small),
           TextButton(
-            onPressed: () => creatReview(serviceId),
+            onPressed: () {creatReview(serviceId);},
             child: Text('Gửi'),
           ),
         ],
       ),
     );
-  }
 }

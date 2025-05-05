@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:pet_care_app/feature/personalization/model/user_model.dart';
 
 import '../../../../../common/widgets/appbar/custom_appbar.dart';
 import '../../../../../common/widgets/custom_shapes/curved_edges/curved_edges.dart';
@@ -10,8 +11,10 @@ import '../../../../../utils/constants/sizes.dart';
 
 class EIAppBar extends StatelessWidget {
   const EIAppBar({
-    super.key,
+    super.key, required this.employee,
   });
+
+  final UserModel employee;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +46,7 @@ class EIAppBar extends StatelessWidget {
 
             // --- Employee Avatar
             CircleImage(
-              imageUrl: 'assets/images/employees/employee_3.jpg',
-              backgroundColor: AppPallete.whiteColor,
-              padding: EdgeInsets.all(AppSize.small),
+              imageUrl: employee.avatarURL.toString(),
               height: 100,
               width: 100,
               fit: BoxFit.cover,

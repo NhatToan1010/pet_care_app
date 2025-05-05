@@ -27,8 +27,6 @@ class MessageRepository extends GetxController {
           .where('Participants', arrayContains: userId)
           .get();
 
-      print('------------------------------------Get ${snapshot.docs}');
-
       return snapshot.docs
           .map((item) => ConversationModel.fromSnapshot(item))
           .toList();

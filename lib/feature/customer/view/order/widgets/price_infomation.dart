@@ -16,7 +16,7 @@ class PriceInfomation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final totalAmount = PricingCalculator.calculateTotalPrice(order.totalPrice);
+    final totalAmount = PricingCalculator.calculateTotalPrice(order.totalPrice.toDouble());
 
     return InfomationCard(
       hideButton: true,
@@ -43,7 +43,7 @@ class PriceInfomation extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               ProductPriceText(
-                  price: PricingCalculator.calculateFee(order.totalPrice).toString(),
+                  price: PricingCalculator.calculateFee(order.totalPrice.toDouble()).toString(),
                   isLarge: false,
               ),
             ],

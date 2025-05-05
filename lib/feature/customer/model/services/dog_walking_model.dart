@@ -3,7 +3,7 @@ import 'package:pet_care_app/feature/customer/model/services/service_model.dart'
 import 'package:pet_care_app/utils/constants/enums.dart';
 
 class DogWalkingModel extends ServiceModel {
-  final int durationMinutes;
+  final num durationMinutes;
   final List<String> walkingLocation;
 
   DogWalkingModel({
@@ -24,7 +24,7 @@ class DogWalkingModel extends ServiceModel {
       id: '',
       name: '',
       description: '',
-      price: 0.0,
+      price: 0,
       walkingLocation: [],
       durationMinutes: 0,
       imageUrl: '',
@@ -58,8 +58,8 @@ class DogWalkingModel extends ServiceModel {
     };
   }
 
-  factory DogWalkingModel.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> doc) {
+  factory DogWalkingModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
+
     if (doc.data() != null) {
       final data = doc.data()!;
 
@@ -89,6 +89,7 @@ class DogWalkingModel extends ServiceModel {
         ratingCount: data["RatingCount"] ?? 0,
       );
     } else {
+
       return empty();
     }
   }

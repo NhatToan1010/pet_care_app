@@ -12,9 +12,9 @@ class ServiceModel {
   final String description;
   String imageUrl;
   List<String> petSizes;
-  final double price;
-  double? averageRating;
-  int? ratingCount;
+  num price;
+  num? averageRating;
+  num? ratingCount;
 
   ServiceModel({
     required this.id,
@@ -62,20 +62,18 @@ class ServiceModel {
     }
   }
 
-  factory ServiceModel.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> doc) {
+  factory ServiceModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
     if (doc.data() != null) {
-      final data = doc.data()!;
-      final serviceType = data["Name"];
+      final serviceType = doc.id;
 
       switch (serviceType) {
-        case "Dắt Chó Đi Dạo":
+        case "SV001":
           return DogWalkingModel.fromSnapshot(doc);
-        case "Chăm Sóc Thú Cưng Tại Nhà":
+        case "SV002":
           return PetSittingModel.fromSnapshot(doc);
-        case "Đưa Đón Thú Cưng":
+        case "SV003":
           return PetTaxiModel.fromSnapshot(doc);
-        case "Chăm Sóc Chó Tại Trung Tâm":
+        case "SV004":
           return DogDayCare.fromSnapshot(doc);
         default:
           return DogWalkingModel.empty();

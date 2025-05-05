@@ -3,7 +3,7 @@ import 'package:pet_care_app/feature/customer/model/services/service_model.dart'
 import 'package:pet_care_app/utils/constants/enums.dart';
 
 class PetSittingModel extends ServiceModel {
-  final int durationHours;
+  final num durationHours;
   final List<String> activities;
 
   PetSittingModel({
@@ -24,7 +24,7 @@ class PetSittingModel extends ServiceModel {
       id: '',
       name: '',
       description: '',
-      price: 0.0,
+      price: 0,
       durationHours: 0,
       imageUrl: '',
       petSizes: [],
@@ -47,7 +47,6 @@ class PetSittingModel extends ServiceModel {
   @override
   Map<String, dynamic> toJSON() {
     return {
-      "Id": id,
       "Name": name,
       "Description": description,
       "Price": price,
@@ -60,8 +59,7 @@ class PetSittingModel extends ServiceModel {
     };
   }
 
-  factory PetSittingModel.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> doc) {
+  factory PetSittingModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
     if (doc.data() != null) {
       final data = doc.data()!;
 

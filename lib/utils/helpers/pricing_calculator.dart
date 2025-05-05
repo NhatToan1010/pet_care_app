@@ -40,7 +40,7 @@ class PricingCalculator {
 
   static double petTaxiPrice(ServiceModel service, String petSizes) {
     final petTaxi = service as PetTaxiModel;
-    return petTaxi.price * (petTaxi.distanceKm * petTaxi.pricePerKm);
+    return petTaxi.price * (petTaxi.distanceKm * petTaxi.pricePerKm).toDouble();
   }
 
   static double petSittingPrice(ServiceModel service, String petSizes, int numberOfActivity) {

@@ -32,7 +32,7 @@ class ServiceCardVertical extends StatelessWidget {
               imageUrl: service.imageUrl,
               fit: BoxFit.cover,
               radius: 10,
-              height: 250,
+              height: 300,
             ),
             Opacity(
               opacity: 0.5,
@@ -78,7 +78,7 @@ class ServiceCardVertical extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       RatingIconText(
-                        ratingScore: service.averageRating,
+                        ratingScore: service.averageRating?.roundToDouble(),
                         iconSize: 16,
                         fontColor: AppPallete.textWhite,
                       ),
@@ -86,6 +86,7 @@ class ServiceCardVertical extends StatelessWidget {
                         children: [
                           ProductPriceText(
                             price: service.price.toString(),
+                            isLarge: false,
                             currencySign: 'đ',
                             textColor: AppPallete.textWhite,
                           ),
