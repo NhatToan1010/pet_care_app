@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pet_care_app/common/widgets/appbar/custom_appbar.dart';
 import 'package:get/get.dart';
-import 'package:pet_care_app/feature/customer/model/review_model.dart';
 import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_review_section.dart';
 
-import '../../../../common/widgets/product_cart/ratings/custom_rating_bar_indicator.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/helpers/cloud_helper_functions.dart';
 import '../../controller/review_controller.dart';
 import '../../model/services/service_model.dart';
 

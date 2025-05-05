@@ -57,7 +57,7 @@ class DogDayCare extends ServiceModel {
 
   factory DogDayCare.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
     if (doc.data() != null) {
-      final data = doc.data()!;;
+      final data = doc.data()!;
 
       List<String> petSizes = [];
       List<String> activities = [];

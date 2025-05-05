@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../feature/customer/model/services/service_model.dart';
 import '../../utils/exceptions/firebase_auth_exceptions.dart';
-import '../../utils/exceptions/format_exceptions.dart';
-import '../../utils/exceptions/platform_exceptions.dart';
 import '../../utils/services/local_firebase_storage_service.dart';
 
 class ServiceRepository extends GetxController {

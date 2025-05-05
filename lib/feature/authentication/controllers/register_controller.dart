@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:pet_care_app/data/repository/authentication.dart';
 import 'package:pet_care_app/data/repository/user.dart';
 import 'package:pet_care_app/feature/personalization/model/user_model.dart';
-import 'package:pet_care_app/feature/authentication/views/login/login_screen.dart';
 import 'package:pet_care_app/feature/customer/customer_navigation_menu.dart';
 import 'package:pet_care_app/utils/constants/enums.dart';
 import 'package:pet_care_app/utils/constants/image_strings.dart';

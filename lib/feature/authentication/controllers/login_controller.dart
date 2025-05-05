@@ -5,7 +5,6 @@ import 'package:pet_care_app/feature/personalization/controller/user_controller.
 import 'package:pet_care_app/utils/popups/full_screen_loader.dart';
 import 'package:pet_care_app/utils/popups/loader.dart';
 
-import '../../../data/repository/user.dart';
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/network/network_manager.dart';
 

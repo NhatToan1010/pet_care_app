@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../common/widgets/employee/employee_card_horizontal.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/device/device_utility.dart';
 import '../../../../utils/helpers/cloud_helper_functions.dart';
 import '../../../personalization/controller/user_controller.dart';
 

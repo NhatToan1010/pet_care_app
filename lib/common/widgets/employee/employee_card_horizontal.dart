@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 
 import '../../../feature/personalization/model/user_model.dart';
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/device/device_utility.dart';
 import '../custom_shapes/containers/rounded_container.dart';
-import '../icons/circular_icon.dart';
 import '../images/rounded_rect_image.dart';
 import '../product_cart/ratings/custom_rating_bar_indicator.dart';
 import '../texts/title_text.dart';
