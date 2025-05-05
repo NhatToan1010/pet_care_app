@@ -25,7 +25,6 @@ class ServiceController extends GetxController {
       return serviceData;
     } catch (e) {
       throw e.toString();
-      return [];
     }
   }
 
