@@ -5,8 +5,8 @@ import '../feature/customer/view/home/home_screen.dart';
 
 class AppRoutes {
   static final pages = [
-    GetPage(name: '/', page: () => const HomeScreen()),
-    GetPage(name: '/home', page: () => const HomeScreen()),
+    GetPage(name: '/', page: () => const CustomerHomeScreen()),
+    GetPage(name: '/home', page: () => const CustomerHomeScreen()),
     GetPage(name: '/setting', page: () => const SettingScreen()),
   ];
 }

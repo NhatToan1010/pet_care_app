@@ -9,7 +9,7 @@ class SectionHeading extends StatelessWidget {
     required this.title,
     this.buttonTitle = 'Xem thêm',
     this.onPressed,
-    this.maxLines = 1,
+    this.maxLines = 2,
     this.largeTitle = false,
   });
 

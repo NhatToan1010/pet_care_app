@@ -1,0 +1,2 @@
+E:/Progam Files (E Disk)/git/pet_care_app/android/app/.cxx/Debug/1g3f6c4f/x86_64/CMakeFiles/edit_cache.dir
+E:/Progam Files (E Disk)/git/pet_care_app/android/app/.cxx/Debug/1g3f6c4f/x86_64/CMakeFiles/rebuild_cache.dir

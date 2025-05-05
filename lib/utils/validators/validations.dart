@@ -24,20 +24,20 @@ class Validator {
       return 'Mật khẩu phải dài hơn 6 ký tự.';
     }
 
-    // Check for uppercase letter
-    if (!value.contains(RegExp(r'[A-Z]'))) {
-      return 'Mật khẩu phải chứa ít nhất một chữ in hoa.';
-    }
-
-    // Check for numbers
-    if (!value.contains(RegExp(r'[0-9]'))) {
-      return 'Mật khẩu phải chứa ít nhất một số.';
-    }
-
-    // Check for special characters
-    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return 'Mật khẩu phải chứa ít nhất một ký tự đặc biệt.';
-    }
+    // // Check for uppercase letter
+    // if (!value.contains(RegExp(r'[A-Z]'))) {
+    //   return 'Mật khẩu phải chứa ít nhất một chữ in hoa.';
+    // }
+    //
+    // // Check for numbers
+    // if (!value.contains(RegExp(r'[0-9]'))) {
+    //   return 'Mật khẩu phải chứa ít nhất một số.';
+    // }
+    //
+    // // Check for special characters
+    // if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+    //   return 'Mật khẩu phải chứa ít nhất một ký tự đặc biệt.';
+    // }
 
     return null;
   }

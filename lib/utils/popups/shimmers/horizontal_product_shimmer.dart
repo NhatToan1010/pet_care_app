@@ -24,7 +24,7 @@ class HorizontalProductShimmerEffect extends StatelessWidget {
               height: 60,
               radius: AppSize.cardRadiusLarge,
             ),
-            SizedBox(width: AppSize.spaceBtwItems),
+            SizedBox(width: AppSize.small),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

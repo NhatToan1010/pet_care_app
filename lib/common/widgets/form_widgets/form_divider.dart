@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants/colors.dart';
-import '../../../utils/constants/texts.dart';
 import '../../../utils/helpers/helper_functions.dart';
 
 class FormDivider extends StatelessWidget {
@@ -27,7 +26,7 @@ class FormDivider extends StatelessWidget {
           ),
         ),
         Text(
-          '${LocalTexts.or}$method',
+          'Hoặc đăng ký vơi $method',
           style: Theme.of(context).textTheme.labelMedium,
         ),
         Flexible(

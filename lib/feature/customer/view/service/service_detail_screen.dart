@@ -1,144 +1,103 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:pet_care_app/common/widgets/appbar/custom_appbar.dart';
 import 'package:pet_care_app/common/widgets/custom_shapes/curved_edges/curved_edges.dart';
-import 'package:pet_care_app/common/widgets/employee/employee_card_horizontal.dart';
-import 'package:pet_care_app/common/widgets/images/rounded_rect_image.dart';
-import 'package:pet_care_app/common/widgets/product_cart/ratings/rating_icon_text.dart';
-import 'package:pet_care_app/common/widgets/texts/custom_read_more_text.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
-import 'package:pet_care_app/feature/customer/view/order/purchase_screen.dart';
-import 'package:pet_care_app/feature/customer/view/service/widgets/dog_walking_service.dart';
+import 'package:pet_care_app/feature/customer/controller/service_controller.dart';
+import 'package:pet_care_app/feature/customer/model/services/service_model.dart';
+import 'package:pet_care_app/feature/customer/view/service/service_review_screen.dart';
+import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_booking_button.dart';
+import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_date_time_selection.dart';
+import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_description.dart';
+import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_employee_selection.dart';
+import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_image_display.dart';
+import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_pet_size_selection.dart';
+import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_rating_and_price.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
-import 'package:pet_care_app/utils/constants/texts.dart';
 
-import '../../../../common/widgets/icons/circular_icon.dart';
-import '../../../../utils/constants/colors.dart';
+import '../../controller/review_controller.dart';
+
 
 class ServiceDetailScreen extends StatelessWidget {
-  const ServiceDetailScreen({super.key});
+  const ServiceDetailScreen({super.key, required this.service});
+
+  final ServiceModel service;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ClipPath(
-              clipper: CustomCurvedEdges(),
-              child: Stack(
-                children: [
-                  RoundedRectImage(
-                    defaultRadius: false,
-                    borderRadius: BorderRadius.all(Radius.zero),
-                    imageUrl: 'assets/images/services/dog_walking.jpg',
-                    height: 300,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                  Positioned(
-                    top: 5,
-                    left: 0,
-                    right: 0,
-                    child: CustomAppbar(
-                      leadingColor: AppPallete.blackColor,
-                      showBackArrow: true,
-                      iconBackgroundColor: AppPallete.whiteColor,
-                      actions: [
-                        CircularIcon(
-                          icon: Iconsax.heart,
-                          iconColor: AppPallete.blackColor,
-                          backgroundColor: AppPallete.whiteColor,
-                        )
-                      ],
+    final reviewController = Get.put(ReviewController());
+    final serviceController = ServiceController.instance;
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // --- Service Image Display
+              ClipPath(
+                  clipper: CustomCurvedEdges(),
+                  child: ServiceImageDisplay(service: service)),
+      
+              // --- Service Info Detail
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppSize.defaultSpace, vertical: AppSize.small),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // --- Title
+                    SectionHeading(
+                        title: service.name,
+                        showActionButton: false,
+                        largeTitle: false),
+                    SizedBox(height: AppSize.spaceBtwItems),
+      
+                    // --- Rating and Price
+                    ServiceRatingAndPrice(service: service),
+      
+                    SizedBox(height: AppSize.small),
+                    Divider(),
+                    SizedBox(height: AppSize.small),
+      
+                    // --- Desciption
+                    ServiceDescription(service: service),
+                    SizedBox(height: AppSize.small),
+                    Divider(),
+                    SizedBox(height: AppSize.small),
+      
+                    // --- Service Selection
+                    serviceController.routeService(service),
+                    SizedBox(height: AppSize.spaceBtwItems),
+      
+                    // --- Date Time Selection
+                    ServiceDateTimeSelection(),
+                    SizedBox(height: AppSize.spaceBtwSections),
+      
+                    // --- Pet Size
+                    ServicePetSizeSelection(service: service),
+                    SizedBox(height: AppSize.spaceBtwSections),
+      
+                    // --- Employee Selection
+                    ServiceEmployeeSelection(),
+                    SizedBox(height: AppSize.small),
+                    Divider(),
+                    SizedBox(height: AppSize.small),
+      
+                    // --- Review
+                    SectionHeading(
+                      title: 'Lượt Đánh Giá (${service.ratingCount})',
+                      showActionButton: true,
+                      onPressed: () {
+                        reviewController.getReviewsByService(service.id);
+                        Get.to(() => ServiceReviewScreen(service: service));
+                      },
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
-            ),
-
-            // --- Service Info Detail
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppSize.defaultSpace,
-                vertical: AppSize.small,
-              ),
-              child: Column(
-                children: [
-                  // --- Title
-                  SectionHeading(
-                    title: 'Dắt chó đi dạo',
-                    showActionButton: false,
-                    largeTitle: true,
-                  ),
-                  SizedBox(height: AppSize.spaceBtwItems),
-
-                  // --- Rating and Price
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RatingIconText(iconSize: 24),
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '50.000đ',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            TextSpan(
-                              text: '/Thú',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(height: AppSize.small),
-                  Divider(),
-                  SizedBox(height: AppSize.small),
-
-                  // --- Desciption
-                  SectionHeading(title: 'Mô tả dịch vụ', showActionButton: false),
-                  SizedBox(height: AppSize.spaceBtwItems),
-                  
-                  CustomReadMoreText(content: LocalTexts.onboardingSubtitle, trimLines: 3),
-                  SizedBox(height: AppSize.spaceBtwSections),
-
-                  // --- Service Info Selection
-                  SectionHeading(
-                    title: 'Lựa Chọn Cho Dịch Vụ',
-                    showActionButton: false,
-                  ),
-                  SizedBox(height: AppSize.spaceBtwItems),
-
-                  // --- Service Selection
-                  DogWalkingService(),
-                  SizedBox(height: AppSize.spaceBtwSections),
-                  
-                  // --- Employee Selection
-                  SectionHeading(
-                    title: 'Nhân Viên Thực Hiện',
-                    showActionButton: false,
-                  ),
-                  SizedBox(height: AppSize.spaceBtwItems),
-                  EmployeeCardHorizontal(onTap: () {}, hideButton: true,)
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: AppSize.defaultSpace, vertical: AppSize.small),
-        child: SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(onPressed: () => Get.to(() => PurchaseScreen()), child: Text('Đặt Lịch Ngay')),
-        ),
+        bottomNavigationBar: ServiceBookingButton(service: service),
       ),
     );
   }

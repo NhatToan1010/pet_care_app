@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:pet_care_app/common/widgets/appbar/custom_appbar.dart';
 import 'package:pet_care_app/common/widgets/appbar/custom_tabbar.dart';
-import 'package:pet_care_app/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:pet_care_app/feature/customer/view/history/widgets/order_infomation_card.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
-import 'package:pet_care_app/utils/constants/texts.dart';
 
-import '../../../../common/widgets/texts/product_text/product_price_text.dart';
-import '../../../../utils/constants/colors.dart';
+import '../../controller/order_controller.dart';
 
 class HistoryBookingScreen extends StatelessWidget {
   const HistoryBookingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final orderController = OrderController.instance;
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -25,7 +22,7 @@ class HistoryBookingScreen extends StatelessWidget {
             tabs: [
               Tab(text: 'Đang xử lý'),
               Tab(text: 'Đã hoàn thành'),
-              Tab(text: 'Bị từ chối'),
+              Tab(text: 'Đã hủy'),
             ],
           ),
         ),
@@ -33,15 +30,21 @@ class HistoryBookingScreen extends StatelessWidget {
           children: [
             SingleChildScrollView(
               padding: EdgeInsets.all(AppSize.small),
-              child: OrderInfomationCard(),
+              child: OrderInfomationCard(
+                listOrder: orderController.pendingOrderList,
+              ),
             ),
             SingleChildScrollView(
               padding: EdgeInsets.all(AppSize.small),
-              child: OrderInfomationCard(),
+              child: OrderInfomationCard(
+                listOrder: orderController.successfulOrderList,
+              ),
             ),
             SingleChildScrollView(
               padding: EdgeInsets.all(AppSize.small),
-              child: OrderInfomationCard(),
+              child: OrderInfomationCard(
+                listOrder: orderController.canceledOrderList,
+              ),
             ),
           ],
         ),

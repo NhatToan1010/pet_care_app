@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../utils/constants/sizes.dart';
-import '../../../utils/constants/texts.dart';
 import '../../styles/spacing_styles.dart';
 
 class SuccessScreen extends StatelessWidget {
@@ -50,7 +49,7 @@ class SuccessScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: onPressed,
-                  child: const Text(LocalTexts.done),
+                  child: const Text('Hoàn Tất'),
                 ),
               )
             ],

@@ -3,7 +3,6 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../../utils/constants/texts.dart';
 import '../../../../utils/device/device_utility.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 
@@ -52,7 +51,7 @@ class SearchbarContainer extends StatelessWidget {
 
               // ----- Search Text
               const SizedBox(width: AppSize.spaceBtwItems),
-              Text(LocalTexts.search, style: Theme.of(context).textTheme.bodySmall)
+              Text('Tìm kiếm', style: Theme.of(context).textTheme.bodySmall)
             ],
           ),
         ),

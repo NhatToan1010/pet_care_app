@@ -1,10 +1,23 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Formatter {
   // Customize the date format
   static String formatDate(DateTime? date) {
     date ??= DateTime.now();
-    return DateFormat('dd-MMM-yyyy').format(date);
+    return DateFormat('dd-MM-yyyy').format(date);
+  }
+
+  static String formatDateAndTime(DateTime? date) {
+    date ??= DateTime.now();
+    return DateFormat('hh:mm dd-MM-yyyy').format(date);
+  }
+
+  // Customize the time format
+  static String formatTime(TimeOfDay timeOfDay) {
+    final hour = timeOfDay.hour.toString().padLeft(2, '0');
+    final minute = timeOfDay.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
   }
 
   static String formatCurrency(double amount) {

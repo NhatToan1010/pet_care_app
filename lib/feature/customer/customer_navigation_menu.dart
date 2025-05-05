@@ -15,40 +15,42 @@ class CustomerNavigationMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
 
-    return Scaffold(
-      bottomNavigationBar: Obx(
-        () => NavigationBar(
-          backgroundColor: AppPallete.whiteColor,
-          indicatorColor: AppPallete.greyColor,
-          height: 60,
-          elevation: 0,
-          selectedIndex: controller.selectedIndex.value,
-          onDestinationSelected: (index) => controller.selectedIndex.value = index,
-          destinations: [
-            NavigationDestination(
-              icon: Icon(Iconsax.home),
-              label: 'Trang Chủ',
-            ),
-
-            NavigationDestination(
-              icon: Icon(Iconsax.message),
-              label: 'Tin Nhắn',
-            ),
-
-            NavigationDestination(
-              icon: Icon(Iconsax.clock),
-              label: 'Lịch Sử',
-            ),
-
-            NavigationDestination(
-              icon: Icon(Iconsax.setting),
-              label: 'Cài Đặt',
-            ),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        bottomNavigationBar: Obx(
+          () => NavigationBar(
+            backgroundColor: AppPallete.whiteColor,
+            indicatorColor: AppPallete.greyColor,
+            height: 60,
+            elevation: 0,
+            selectedIndex: controller.selectedIndex.value,
+            onDestinationSelected: (index) => controller.selectedIndex.value = index,
+            destinations: [
+              NavigationDestination(
+                icon: Icon(Iconsax.home),
+                label: 'Trang Chủ',
+              ),
+      
+              NavigationDestination(
+                icon: Icon(Iconsax.message),
+                label: 'Tin Nhắn',
+              ),
+      
+              NavigationDestination(
+                icon: Icon(Iconsax.clock),
+                label: 'Lịch Sử',
+              ),
+      
+              NavigationDestination(
+                icon: Icon(Iconsax.setting),
+                label: 'Cài Đặt',
+              ),
+            ],
+          ),
         ),
+      
+        body: Obx(() => controller.screens[controller.selectedIndex.value]),
       ),
-
-      body: Obx(() => controller.screens[controller.selectedIndex.value]),
     );
   }
 }
@@ -57,8 +59,8 @@ class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
   List<Widget> screens = [
-    HomeScreen(),
-    ChatScreen(),
+    CustomerHomeScreen(),
+    CustomerChatScreen(),
     HistoryBookingScreen(),
     SettingScreen(),
   ];

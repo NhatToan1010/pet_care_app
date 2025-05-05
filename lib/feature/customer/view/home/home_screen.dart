@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -9,25 +7,24 @@ import 'package:pet_care_app/common/widgets/layouts/grid_layout.dart';
 import 'package:pet_care_app/common/widgets/service/service_card_vertical.dart';
 import 'package:pet_care_app/common/widgets/texts/section_heading.dart';
 import 'package:pet_care_app/common/widgets/texts/title_text.dart';
-import 'package:pet_care_app/common/widgets/employee/employee_card_vertical.dart';
-import 'package:pet_care_app/feature/customer/view/home/widgets/home_category.dart';
-import 'package:pet_care_app/feature/personalization/user_controller.dart';
+import 'package:pet_care_app/feature/personalization/controller/user_controller.dart';
 
 import 'package:pet_care_app/utils/constants/colors.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
+import 'package:pet_care_app/utils/helpers/cloud_helper_functions.dart';
 
 import '../../../../common/widgets/search_bar/search_bar.dart';
-import '../category/category_screen.dart';
-import '../employee_info/employee_info_screen.dart';
+import '../../controller/service_controller.dart';
 import '../service/service_detail_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class CustomerHomeScreen extends StatelessWidget {
+  const CustomerHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final userController = Get.put(UserController());
     final user = userController.user.value;
+    final serviceController = Get.put(ServiceController());
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -55,31 +52,11 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: AppSize.spaceBtwSections),
 
             // --- Banner
-            RoundedRectImage(imageUrl: 'assets/images/pet/pet_banner.jpg'),
-            SizedBox(height: AppSize.spaceBtwSections),
-
-            // --- Categories
-            HomeCategory(
-              onPressed: () => Get.to(() => CategoryScreen()),
-            ),
-            SizedBox(height: AppSize.spaceBtwSections),
-
-            // --- Employee Cards
-            SizedBox(
-              height: 220,
+            RoundedRectImage(
+              imageUrl: 'assets/images/pet/pet_banner_2.jpg',
+              height: 200,
               width: double.infinity,
-              child: ListView.separated(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                separatorBuilder: (context, index) =>
-                    SizedBox(width: AppSize.medium),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return EmployeeCardVertical(
-                    onTap: () => Get.to(() => EmployeeInfoScreen()),
-                  );
-                },
-              ),
+              fit: BoxFit.cover,
             ),
             SizedBox(height: AppSize.spaceBtwSections),
 
@@ -88,11 +65,27 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: AppSize.spaceBtwItems),
 
             // --- Service Cards
-            GridLayout(
-              itemCount: 4,
-              itemBuilder: (context, index) => ServiceCardVertical(
-                onPressed: () => Get.to(() => ServiceDetailScreen()),
-              ),
+            FutureBuilder(
+              future: serviceController.fetchServices(),
+              builder: (context, snapshot) {
+                final response = CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot);
+
+                if (response != null) return response;
+
+                final data = snapshot.data!;
+
+                return GridLayout(
+                  itemCount: data.length,
+                  itemBuilder: (context, index) => ServiceCardVertical(
+                    service: data[index],
+                    onPressed: () => Get.to(
+                      () => ServiceDetailScreen(
+                        service: data[index],
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
