@@ -37,7 +37,6 @@ class AuthenticationRepository extends GetxController {
     if (user != null) {
       await LocalStorage.init(user.uid);
       final userData = await UserRepository.instance.getUser();
-      print('-----------------------------------------------------${userData.userType}');
 
       if (userData.userType == UserType.customer.toString()) {
         Get.offAll(() => CustomerNavigationMenu());

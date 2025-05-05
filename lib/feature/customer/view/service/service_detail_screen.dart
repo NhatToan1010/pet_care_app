@@ -14,6 +14,8 @@ import 'package:pet_care_app/feature/customer/view/service/widgets/sections/serv
 import 'package:pet_care_app/feature/customer/view/service/widgets/sections/service_rating_and_price.dart';
 import 'package:pet_care_app/utils/constants/sizes.dart';
 
+import '../../controller/review_controller.dart';
+
 
 class ServiceDetailScreen extends StatelessWidget {
   const ServiceDetailScreen({super.key, required this.service});
@@ -22,75 +24,81 @@ class ServiceDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final reviewController = Get.put(ReviewController());
     final serviceController = ServiceController.instance;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // --- Service Image Display
-            ClipPath(
-                clipper: CustomCurvedEdges(),
-                child: ServiceImageDisplay(service: service)),
-
-            // --- Service Info Detail
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: AppSize.defaultSpace, vertical: AppSize.small),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // --- Title
-                  SectionHeading(
-                      title: service.name,
-                      showActionButton: false,
-                      largeTitle: true),
-                  SizedBox(height: AppSize.spaceBtwItems),
-
-                  // --- Rating and Price
-                  ServiceRatingAndPrice(service: service),
-
-                  SizedBox(height: AppSize.small),
-                  Divider(),
-                  SizedBox(height: AppSize.small),
-
-                  // --- Desciption
-                  ServiceDescription(service: service),
-                  SizedBox(height: AppSize.small),
-                  Divider(),
-                  SizedBox(height: AppSize.small),
-
-                  // --- Service Selection
-                  serviceController.routeService(service),
-                  SizedBox(height: AppSize.spaceBtwItems),
-
-                  // --- Date Time Selection
-                  ServiceDateTimeSelection(),
-                  SizedBox(height: AppSize.spaceBtwSections),
-
-                  // --- Pet Size
-                  ServicePetSizeSelection(service: service),
-                  SizedBox(height: AppSize.spaceBtwSections),
-
-                  // --- Employee Selection
-                  ServiceEmployeeSelection(),
-                  SizedBox(height: AppSize.small),
-                  Divider(),
-                  SizedBox(height: AppSize.small),
-
-                  // --- Review
-                  SectionHeading(
-                    title: 'Lượt Đánh Giá (${service.ratingCount})',
-                    showActionButton: true,
-                    onPressed: () => Get.to(() => ServiceReviewScreen(service: service)),
-                  ),
-                ],
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // --- Service Image Display
+              ClipPath(
+                  clipper: CustomCurvedEdges(),
+                  child: ServiceImageDisplay(service: service)),
+      
+              // --- Service Info Detail
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppSize.defaultSpace, vertical: AppSize.small),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // --- Title
+                    SectionHeading(
+                        title: service.name,
+                        showActionButton: false,
+                        largeTitle: false),
+                    SizedBox(height: AppSize.spaceBtwItems),
+      
+                    // --- Rating and Price
+                    ServiceRatingAndPrice(service: service),
+      
+                    SizedBox(height: AppSize.small),
+                    Divider(),
+                    SizedBox(height: AppSize.small),
+      
+                    // --- Desciption
+                    ServiceDescription(service: service),
+                    SizedBox(height: AppSize.small),
+                    Divider(),
+                    SizedBox(height: AppSize.small),
+      
+                    // --- Service Selection
+                    serviceController.routeService(service),
+                    SizedBox(height: AppSize.spaceBtwItems),
+      
+                    // --- Date Time Selection
+                    ServiceDateTimeSelection(),
+                    SizedBox(height: AppSize.spaceBtwSections),
+      
+                    // --- Pet Size
+                    ServicePetSizeSelection(service: service),
+                    SizedBox(height: AppSize.spaceBtwSections),
+      
+                    // --- Employee Selection
+                    ServiceEmployeeSelection(),
+                    SizedBox(height: AppSize.small),
+                    Divider(),
+                    SizedBox(height: AppSize.small),
+      
+                    // --- Review
+                    SectionHeading(
+                      title: 'Lượt Đánh Giá (${service.ratingCount})',
+                      showActionButton: true,
+                      onPressed: () {
+                        reviewController.getReviewsByService(service.id);
+                        Get.to(() => ServiceReviewScreen(service: service));
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+        bottomNavigationBar: ServiceBookingButton(service: service),
       ),
-      bottomNavigationBar: ServiceBookingButton(service: service),
     );
   }
 }

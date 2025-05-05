@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:http/http.dart' as http;
 
 import '../secrets/stripe/stripe_api_key.dart';
 
@@ -11,9 +14,12 @@ class StripeService {
   Future<void> makePayment(double amount, String currency) async {
     try {
       final paymentIntent = await createPaymentIntent(amount, currency);
+      if (paymentIntent == null) return;
+
 
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
+          allowsDelayedPaymentMethods: true,
           paymentIntentClientSecret: paymentIntent['client_secret'],
           merchantDisplayName: 'Pet Care App',
         ),
@@ -25,34 +31,33 @@ class StripeService {
     }
   }
 
-  Future<Map<String, dynamic>> createPaymentIntent(double amount, String currency) async {
+  createPaymentIntent(double amount, String currency) async {
     try {
-      final dio = Dio();
+      // final dio = Dio();
 
       Map<String, dynamic> body = {
         'amount': calculateAmount(amount),
         'currency': currency,
       };
 
-      final response = await dio.post(
-        "https://api.stripe.com/v1/payment_intents",
-        data: body,
-        options: Options(
-          contentType: Headers.formUrlEncodedContentType,
-          headers: {
-            'Authorization': 'Bearer $stripeSecretKey',
-          },
-        ),
+      final response = await http.post(
+        Uri.parse("https://api.stripe.com/v1/payment_intents"),
+        body: body,
+        headers: {
+          'Authorization': 'Bearer $stripeSecretKey',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
       );
+      print(response.body);
 
-      return response.data;
+      return jsonDecode(response.body);
     } on DioException catch (err) {
       throw Exception(err.message);
     }
   }
 
   String calculateAmount(double amount) {
-    return (amount * 100).toString();
+    return (amount.toInt() * 100).toString();
   }
 
   Future<void> displayPaymentSheet() async {

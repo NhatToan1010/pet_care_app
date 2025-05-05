@@ -46,17 +46,16 @@ class CustomerChatScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final employee = employees[index];
 
-                  EmployeeCardHorizontal(
+                  return EmployeeCardHorizontal(
                     onChatButtonTap: () {
                       messageController.createConversation(employee.id);
                       messageController.getMessages(employee.id);
                       Get.to(() => MessageScreen(contactUser: employee));
                     },
-                    onTap: () => Get.to(() => EmployeeInfoScreen()),
+                    onTap: () => Get.to(() => EmployeeInfoScreen(employee: employee,)),
                     employee: employee,
                     hideButton: true,
                   );
-                  return null;
                 },
               );
             },

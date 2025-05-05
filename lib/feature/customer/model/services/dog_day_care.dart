@@ -22,7 +22,7 @@ class DogDayCare extends ServiceModel {
       id: '',
       name: '',
       description: '',
-      price: 0.0,
+      price: 0,
       imageUrl: '',
       petSizes: [],
       activities: [],
@@ -44,7 +44,6 @@ class DogDayCare extends ServiceModel {
   @override
   Map<String, dynamic> toJSON() {
     return {
-      "Id": id,
       "Name": name,
       "Description": description,
       "Price": price,
@@ -58,7 +57,7 @@ class DogDayCare extends ServiceModel {
 
   factory DogDayCare.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
     if (doc.data() != null) {
-      final data = doc.data()!;
+      final data = doc.data()!;;
 
       List<String> petSizes = [];
       List<String> activities = [];

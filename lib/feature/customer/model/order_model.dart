@@ -20,7 +20,7 @@ class OrderModel {
   String? dropOffLocation;
   List<String>? listActivity;
   OrderStatus status;
-  double totalPrice;
+  num totalPrice;
 
   OrderModel({
     this.id,
@@ -63,7 +63,7 @@ class OrderModel {
       'TimeStart': timeStart,
       'OrderStatus': status.name,
       'PetSize': petSize,
-      'SeviceName': serviceName,
+      'ServiceName': serviceName,
       'WalkLocation': walkLocation,
       'PickUpLocation': pickUpLocation,
       'DropOffLocation': dropOffLocation,
@@ -103,21 +103,21 @@ class OrderModel {
 
       return OrderModel(
         id: doc.id,
-        customerId: data['CustomerId'],
-        employeeId: data['EmployeeId'],
-        orderDate: data['OrderDate'],
-        dateStart: data['DateStart'],
-        timeStart: data['TimeStart'],
+        customerId: data['CustomerId'] as String,
+        employeeId: data['EmployeeId'] as String,
+        orderDate: data['OrderDate'] as String,
+        dateStart: data['DateStart'] as String,
+        timeStart: data['TimeStart'] as String,
         status: OrderStatus.values.firstWhere(
           (status) => status.name == data['OrderStatus'],
           orElse: () => OrderStatus.pending,
         ),
-        petSize: data['PetSize'],
-        walkLocation: data['WalkLocation'],
-        pickUpLocation: data['PickUpLocation'],
-        dropOffLocation: data['DropOffLocation'],
+        petSize: data['PetSize'] as String,
+        walkLocation: data['WalkLocation'] as String?,
+        pickUpLocation: data['PickUpLocation'] as String?,
+        dropOffLocation: data['DropOffLocation'] as String?,
         totalPrice: data['TotalPrice'],
-        serviceName: data['SeviceName'],
+        serviceName: data['ServiceName'] as String,
         listActivity: listActivity,
       );
     } else {

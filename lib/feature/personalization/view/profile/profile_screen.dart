@@ -57,10 +57,10 @@ class ProfileScreen extends StatelessWidget {
                             ?.apply(color: AppPallete.whiteColor),
                       ),
                     ),
-                    SizedBox(height: AppSize.spaceBtwItems),
+                    SizedBox(height: AppSize.small),
 
                     TextButton(
-                      onPressed: () => Get.offAll(() => UpdateUserProfileScreen()),
+                      onPressed: () => Get.to(() => UpdateUserProfileScreen()),
                       child: Text(
                         'Cập Nhật Thông Tin Cá Nhân',
                         style: textTheme.labelLarge

@@ -6,7 +6,7 @@ class ReviewModel {
   String userName;
   String? avatar;
   String comment;
-  double ratingScore;
+  num ratingScore;
   DateTime dateReview;
 
   ReviewModel({

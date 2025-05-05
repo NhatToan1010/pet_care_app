@@ -22,66 +22,68 @@ class PurchaseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final userController = UserController.instance;
     final purchaseController = Get.put(PurchaseController());
-    final totalAmount = PricingCalculator.calculateTotalPrice(order.totalPrice);
+    final totalAmount = PricingCalculator.calculateTotalPrice(order.totalPrice.toDouble());
 
-    return Scaffold(
-      appBar: CustomAppbar(
-        title: Text('Thanh Toán'),
-        showBackArrow: true,
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(AppSize.small),
-        child: Column(
-          children: [
-            // --- Order Info
-            FutureBuilder(
-              future: userController.getSpecificUser(order.customerId),
-              builder: (context, snapshot) {
-                final response = CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot, shimmerEffect: HorizontalProductShimmerEffect());
-
-                if (response != null) return response;
-
-                final customer = snapshot.data!;
-
-                return InfomationCard(
-                  hideButton: true,
-                  title: 'Thông tin đơn hàng',
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${customer.fullName} | ${customer.phoneNumber}',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: AppSize.small),
-                      Text(
-                        '49 Nguyễn Văn Trỗi, Xuân Khánh, Ninh Kiều, Cần Thơ',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      SizedBox(height: AppSize.small),
-                    ],
-                  ),
-                );
-              },
-            ),
-            SizedBox(height: AppSize.spaceBtwItems),
-
-            // --- Service Infomation
-            ServiceInfomation(order: order),
-            SizedBox(height: AppSize.spaceBtwItems),
-
-            // --- Price Detail
-            PriceInfomation(order: order),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: CustomAppbar(
+          title: Text('Thanh Toán'),
+          showBackArrow: true,
         ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(AppSize.medium),
-        child: SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () => purchaseController.makePayment(totalAmount, "USD"),
-            child: Text('ĐẶT HÀNG'),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(AppSize.small),
+          child: Column(
+            children: [
+              // --- Order Info
+              FutureBuilder(
+                future: userController.getSpecificUser(order.customerId),
+                builder: (context, snapshot) {
+                  final response = CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot, shimmerEffect: HorizontalProductShimmerEffect());
+      
+                  if (response != null) return response;
+      
+                  final customer = snapshot.data!;
+      
+                  return InfomationCard(
+                    hideButton: true,
+                    title: 'Thông tin đơn hàng',
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${customer.fullName} | ${customer.phoneNumber}',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        SizedBox(height: AppSize.small),
+                        Text(
+                          '49 Nguyễn Văn Trỗi, Xuân Khánh, Ninh Kiều, Cần Thơ',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        SizedBox(height: AppSize.small),
+                      ],
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: AppSize.spaceBtwItems),
+      
+              // --- Service Infomation
+              ServiceInfomation(order: order),
+              SizedBox(height: AppSize.spaceBtwItems),
+      
+              // --- Price Detail
+              PriceInfomation(order: order),
+            ],
+          ),
+        ),
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.all(AppSize.medium),
+          child: SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () => purchaseController.makePayment(totalAmount, "USD"),
+              child: Text('ĐẶT HÀNG'),
+            ),
           ),
         ),
       ),

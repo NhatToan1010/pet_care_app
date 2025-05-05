@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_app/data/repository/authentication.dart';
 import 'package:pet_care_app/data/repository/user.dart';
+import 'package:pet_care_app/feature/customer/customer_navigation_menu.dart';
 import 'package:pet_care_app/feature/personalization/model/user_model.dart';
 import 'package:pet_care_app/feature/customer/model/services/service_model.dart';
 import 'package:pet_care_app/utils/constants/colors.dart';
@@ -157,6 +158,8 @@ class OrderController extends GetxController {
       FullScreenLoader.stopLoading();
 
       _resetAttribute();
+
+      Get.offAll(() => CustomerNavigationMenu());
     } catch (e) {
       FullScreenLoader.stopLoading();
       CustomLoader.errorSnackBar(title: 'Lỗi', message: e.toString());
@@ -216,57 +219,49 @@ class OrderController extends GetxController {
   void orderStatusSelectionDialog({required OrderModel order}) {
     Get.dialog(
       AlertDialog(
+        title: Text(
+          'Chọn Trạng Thái Đơn Hàng',
+          style: Theme.of(Get.overlayContext!).textTheme.titleMedium,
+        ),
         alignment: Alignment.center,
         backgroundColor: AppPallete.whiteColor,
-        content: Padding(
-          padding: const EdgeInsets.all(AppSize.medium),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // =---= Dialog Title
-              Text(
-                'Chọn Trạng Thái Đơn Hàng',
-                style: Theme.of(Get.overlayContext!).textTheme.titleMedium,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // =---= Pending Status
+            Obx(
+              () => RadioListTile<OrderStatus>(
+                value: OrderStatus.pending,
+                groupValue: currentStatus.value,
+                onChanged: (selectedStatus) =>
+                    currentStatus.value = selectedStatus!,
+                title: Text('Chờ xác nhận'),
               ),
-              SizedBox(height: AppSize.spaceBtwItems),
+            ),
 
-              // =---= Pending Status
-              Obx(
-                () => RadioListTile<OrderStatus>(
-                  value: OrderStatus.pending,
-                  groupValue: currentStatus.value,
-                  onChanged: (selectedStatus) =>
-                      currentStatus.value = selectedStatus!,
-                  title: Text('Chờ xác nhận'),
-                ),
+            // =---= Successful Status
+            Obx(
+              () => RadioListTile<OrderStatus>(
+                value: OrderStatus.successful,
+                groupValue: currentStatus.value,
+                onChanged: (selectedStatus) =>
+                    currentStatus.value = selectedStatus!,
+                title: Text('Đã xác nhận'),
               ),
-              SizedBox(height: AppSize.spaceBtwItems),
+            ),
 
-              // =---= Successful Status
-              Obx(
-                () => RadioListTile<OrderStatus>(
-                  value: OrderStatus.successful,
-                  groupValue: currentStatus.value,
-                  onChanged: (selectedStatus) =>
-                      currentStatus.value = selectedStatus!,
-                  title: Text('Đã xác nhận'),
-                ),
+            // =---= Canceled Status
+            Obx(
+              () => RadioListTile<OrderStatus>(
+                value: OrderStatus.canceled,
+                groupValue: currentStatus.value,
+                onChanged: (selectedStatus) =>
+                    currentStatus.value = selectedStatus!,
+                title: Text('Hủy đơn hàng'),
               ),
-              SizedBox(height: AppSize.spaceBtwItems),
-
-              // =---= Canceled Status
-              Obx(
-                () => RadioListTile<OrderStatus>(
-                  value: OrderStatus.canceled,
-                  groupValue: currentStatus.value,
-                  onChanged: (selectedStatus) =>
-                      currentStatus.value = selectedStatus!,
-                  title: Text('Hủy đơn hàng'),
-                ),
-              ),
-              SizedBox(height: AppSize.spaceBtwItems),
-            ],
-          ),
+            ),
+          ],
         ),
         actions: [
           TextButton(

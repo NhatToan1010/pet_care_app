@@ -25,9 +25,10 @@ class SingleMessageBubble extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(8.0),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          // --- Person name
+          // --- Sender
           Text(
             isCurrentUser ? 'Bạn' : contactUser.fullName,
             style: Theme.of(context).textTheme.bodyMedium,

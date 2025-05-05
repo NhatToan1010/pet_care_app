@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_care_app/feature/personalization/model/user_model.dart';
 
 import '../../../../../common/widgets/texts/section_heading.dart';
 import '../../../../../utils/constants/sizes.dart';
@@ -6,8 +7,10 @@ import '../../../../../utils/constants/texts.dart';
 
 class EIDetail extends StatelessWidget {
   const EIDetail({
-    super.key,
+    super.key, required this.employee,
   });
+
+  final UserModel employee;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class EIDetail extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Năm Kinh Nghiệm', style: Theme.of(context).textTheme.bodyMedium,),
-            Text('4 Năm', style: Theme.of(context).textTheme.bodyMedium?.apply(fontWeightDelta: 500),),
+            Text('${employee.yearExperience} Năm', style: Theme.of(context).textTheme.bodyMedium?.apply(fontWeightDelta: 500),),
           ],
         ),
         SizedBox(height: AppSize.spaceBtwItems),
@@ -38,10 +41,10 @@ class EIDetail extends StatelessWidget {
         SizedBox(height: AppSize.spaceBtwSections),
 
         // --- Description
-        SectionHeading(title: 'Tiểu Sử', showActionButton: false),
-        SizedBox(height: AppSize.spaceBtwItems),
-
-        Text(LocalTexts.onboardingSubtitle, style: Theme.of(context).textTheme.bodyMedium,),
+        // SectionHeading(title: 'Tiểu Sử', showActionButton: false),
+        // SizedBox(height: AppSize.spaceBtwItems),
+        //
+        // Text(LocalTexts.onboardingSubtitle, style: Theme.of(context).textTheme.bodyMedium,),
       ],
     );
   }

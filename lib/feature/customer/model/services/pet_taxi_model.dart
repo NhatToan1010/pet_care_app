@@ -5,8 +5,8 @@ import 'package:pet_care_app/feature/customer/model/services/service_model.dart'
 class PetTaxiModel extends ServiceModel {
   final String pickupLocation;
   final String dropoffLocation;
-  final int distanceKm;
-  final double pricePerKm;
+  final num distanceKm;
+  final num pricePerKm;
 
   PetTaxiModel({
     required super.id,
@@ -28,7 +28,7 @@ class PetTaxiModel extends ServiceModel {
       id: '',
       name: '',
       description: '',
-      price: 0.0,
+      price: 0,
       pickupLocation: '',
       dropoffLocation: '',
       distanceKm: 0,
@@ -40,13 +40,12 @@ class PetTaxiModel extends ServiceModel {
 
   @override
   double calculateTotalPrice(petSizes) {
-    return price * (distanceKm * pricePerKm);
+    return price * (distanceKm * pricePerKm).toDouble();
   }
 
   @override
   Map<String, dynamic> toJSON() {
     return {
-      "Id": id,
       "Name": name,
       "Description": description,
       "Price": price,
@@ -61,10 +60,10 @@ class PetTaxiModel extends ServiceModel {
     };
   }
 
-  factory PetTaxiModel.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> doc) {
+  factory PetTaxiModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc) {
     if (doc.data() != null) {
       final data = doc.data()!;
+
 
       List<String> petSizes = [];
       if (data["PetSizes"] != null) {
@@ -74,14 +73,14 @@ class PetTaxiModel extends ServiceModel {
 
       return PetTaxiModel(
         id: doc.id,
-        name: data["Name"] ?? '',
-        description: data["Description"] ?? '',
+        name: data["Name"] as String,
+        description: data["Description"] as String,
         price: data["Price"] ?? 0,
-        pickupLocation: data["PickupLocation"] ?? '',
-        dropoffLocation: data["DropoffLocation"] ?? '',
+        pickupLocation: data["PickupLocation"] as String,
+        dropoffLocation: data["DropoffLocation"] as String,
         distanceKm: data["Distance"] ?? 0,
-        pricePerKm: data["PricePerKm"] ?? 0,
-        imageUrl: data["ImageUrl"] ?? '',
+        pricePerKm: data["PricePerKm"].toDouble() ?? 0.0,
+        imageUrl: data["ImageUrl"] as String,
         petSizes: petSizes,
         averageRating: data["AverageRating"] ?? 0.0,
         ratingCount: data["RatingCount"] ?? 0,

@@ -41,8 +41,8 @@ class EmployeeCardHorizontal extends StatelessWidget {
                 // --- Employee Image
                 RoundedRectImage(
                   imageUrl: employee.avatarURL ?? '',
-                  width: 100,
-                  height: 100,
+                  width: 50,
+                  height: 50,
                   fit: BoxFit.cover,
                   radius: 10.0,
                 ),
@@ -52,23 +52,12 @@ class EmployeeCardHorizontal extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    // --- Employee Infomation Section
+                    // --- Employee Information Section
                     SizedBox(
-                      width: DeviceUtils.getScreenWidth() * 0.62,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TitleTextWidget(
-                            title: employee.fullName,
-                            subtitle: 'Nhân Viên Xuất Xắc',
-                          ),
-                          CircularIcon(
-                            icon: Iconsax.heart,
-                            size: 24,
-                            iconColor: AppPallete.primary,
-                            onPressed: () {},
-                          )
-                        ],
+                      width: DeviceUtils.getScreenWidth() * 0.5,
+                      child: TitleTextWidget(
+                        title: employee.fullName,
+                        subtitle: 'Nhân Viên Xuất Xắc',
                       ),
                     ),
                     SizedBox(height: AppSize.small),

@@ -26,6 +26,7 @@ class MessageScreen extends StatelessWidget {
         showBackArrow: true,
         title: Row(
           children: [
+            // --- Receiver Avatar
             CircleImage(
               width: 40,
               height: 40,
@@ -33,6 +34,7 @@ class MessageScreen extends StatelessWidget {
               imageUrl: contactUser.avatarURL!,
             ),
             SizedBox(width: AppSize.small),
+            // =---= Receiver Name
             SectionHeading(
               title: contactUser.fullName,
               textColor: AppPallete.textWhite,
@@ -46,6 +48,11 @@ class MessageScreen extends StatelessWidget {
         padding: EdgeInsets.all(AppSize.small),
         child: Obx(
           () {
+            if (messageController.messages.value.isEmpty) {
+              return Center(
+                child: Text('Không có tin nhắn nào'),
+              );
+            }
             return ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
@@ -61,7 +68,7 @@ class MessageScreen extends StatelessWidget {
           },
         ),
       ),
-      bottomNavigationBar: Padding(
+      bottomSheet: Padding(
         padding: const EdgeInsets.symmetric(vertical: AppSize.medium, horizontal: AppSize.small),
         child: MessageEnterTextField(contactUser: contactUser),
       ),

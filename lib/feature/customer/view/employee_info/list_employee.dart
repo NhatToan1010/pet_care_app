@@ -15,29 +15,25 @@ class ListEmployee extends StatelessWidget {
   Widget build(BuildContext context) {
     final userController = UserController.instance;
 
-    return SizedBox(
-      height: DeviceUtils.getScreenHeight(),
-      width: double.infinity,
-      child: FutureBuilder(
-        future: userController.getEmployee(),
-        builder: (context, snapshot) {
-          final response =
-              CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot);
-          if (response != null) return response;
+    return FutureBuilder(
+      future: userController.getEmployee(),
+      builder: (context, snapshot) {
+        final response =
+            CloudHelperFunctions.checkSingleStateRecord(snapshot: snapshot);
+        if (response != null) return response;
 
-          final employees = snapshot.data!;
+        final employees = snapshot.data!;
 
-          return ListView.separated(
-            shrinkWrap: true,
-            separatorBuilder: (context, index) => SizedBox(height: AppSize.spaceBtwItems),
-            itemCount: employees.length,
-            itemBuilder: (context, index) => EmployeeCardHorizontal(
-              onTap: () => userController.changeSelectedEmployee(employees[index]),
-              employee: employees[index],
-            ),
-          );
-        },
-      ),
+        return ListView.separated(
+          shrinkWrap: true,
+          separatorBuilder: (context, index) => SizedBox(height: AppSize.spaceBtwItems),
+          itemCount: employees.length,
+          itemBuilder: (context, index) => EmployeeCardHorizontal(
+            onTap: () => userController.changeSelectedEmployee(employees[index]),
+            employee: employees[index],
+          ),
+        );
+      },
     );
   }
 }

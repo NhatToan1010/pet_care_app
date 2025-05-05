@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pet_care_app/data/repository/authentication.dart';
+import 'package:pet_care_app/feature/personalization/controller/user_controller.dart';
 import 'package:pet_care_app/utils/popups/full_screen_loader.dart';
 import 'package:pet_care_app/utils/popups/loader.dart';
 
@@ -19,12 +20,10 @@ class LoginController extends GetxController {
   Rx<bool> isHidedPassword = true.obs;
 
   final _auth = AuthenticationRepository.instance;
-  final _userRepo = UserRepository.instance;
 
   Future<void> login() async {
     try {
-      FullScreenLoader.openLoadingDialog(
-          'Vui Lòng Đợi...', LocalImages.loadingAnim);
+      FullScreenLoader.openLoadingDialog('Vui Lòng Đợi...', LocalImages.loadingAnim);
 
       final isNetworkConnected = await NetworkManager.instance.isConnected();
       if (!isNetworkConnected) {
@@ -37,9 +36,8 @@ class LoginController extends GetxController {
         return;
       }
 
-      final userCredential = await _auth.signInWithEmailAndPassword(email.text.trim(), password.text.trim());
-      print('----------------------------------${userCredential.user!.uid}');
-
+      await _auth.signInWithEmailAndPassword(email.text.trim(), password.text.trim());
+      Get.put(UserController());
       FullScreenLoader.stopLoading();
 
       await _auth.screenRedirect();

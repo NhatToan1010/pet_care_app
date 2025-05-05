@@ -16,7 +16,7 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final userController = UserController.instance;
+    final userController = Get.put(UserController());
 
     return Scaffold(
       appBar: CustomAppbar(
@@ -72,7 +72,7 @@ class SettingScreen extends StatelessWidget {
               leadingIcon: Iconsax.lifebuoy,
               title: 'FAQ',
             ),
-            SizedBox(height: AppSize.spaceBtwSections),
+            SizedBox(height: AppSize.spaceBtwItems),
 
             SettingMenuItem(
               onPressed: () => Get.to(() => UploadDataScreen()),
